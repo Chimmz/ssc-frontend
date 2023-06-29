@@ -1,0 +1,10 @@
+.nav {
+  background-color: #faf6ff;
+
+  & > img {
+    width: 150px;
+    height: 50px;
+    object-fit: contain;
+    margin-left: -10px;
+  }
+}
