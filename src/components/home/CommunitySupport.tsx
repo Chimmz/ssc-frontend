@@ -5,7 +5,7 @@ import styles from './CommunitySupport.module.scss';
 const CommunitySupport = () => {
   return (
     <section className={styles.section}>
-      <div className="container d-flex flex-column text-center">
+      <div className="container homepage-container d-flex flex-column text-center">
         <SectionTitle title="Community Support" />
 
         <div className={cls(styles.features, 'list-style-none mt-5')}>

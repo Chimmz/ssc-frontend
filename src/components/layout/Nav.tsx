@@ -4,7 +4,7 @@ import * as imgUtils from '../../utils/url-utils';
 const Nav = function () {
   return (
     <nav className="nav p-0 d-block">
-      <div className="container d-flex align-items-center p-0 px-3">
+      <div className="container homepage-container d-flex align-items-center p-0 px-3">
         <img
           src={imgUtils.genPublicImgSrc('/img/ssc-logo.png')}
           className="d-block me-auto"

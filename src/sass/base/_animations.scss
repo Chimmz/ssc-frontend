@@ -8,16 +8,22 @@
     transform: translateY(0);
   }
 }
-
 .fade-up {
   animation: fade-up 1s 0.3s forwards;
 }
 
 @keyframes vertical-oscillate {
-  from {
-    transform: translateY(5rem);
+  0% {
+    transform: translateY(-1.8rem);
   }
-  to {
+  50% {
     transform: translateY(0);
   }
+  100% {
+    transform: translateY(-1.8rem);
+  }
+}
+
+.animation-vertical-oscillate {
+  animation: vertical-oscillate 0.5s infinite forwards;
 }

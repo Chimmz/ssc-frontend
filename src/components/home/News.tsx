@@ -6,7 +6,7 @@ import { genPublicImgSrc } from '../../utils/url-utils';
 const News = () => {
   return (
     <section className={styles.section}>
-      <div className="container d-flex flex-column text-center">
+      <div className="container homepage-container d-flex flex-column text-center">
         <SectionTitle title="News" />
         <div className={cls(styles.newsUpdates, 'mt-5')}>
           <article className="rounded overflow-hidden">
