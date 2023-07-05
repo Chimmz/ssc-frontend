@@ -1,0 +1,36 @@
+@import '../../../sass/abstracts/variables';
+
+.newsSubheading {
+  position: relative;
+  padding-left: 2.7rem;
+  display: flex;
+  align-items: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    inset-block: 0;
+    width: 1.2rem;
+    height: calc(100% + 3px);
+    background-color: $color-pry;
+  }
+}
+
+.newsSectionContent {
+  font-family: 'Raleway', sans-serif;
+
+  & > img {
+    width: max(55%, 25rem);
+    height: max(35vw, 27rem);
+    object-fit: cover;
+    float: left;
+    margin: 2.5rem;
+    margin-left: 0;
+  }
+
+  & > p {
+    font-size: 1.745rem;
+    // letter-spacing: 0.01em;
+  }
+}

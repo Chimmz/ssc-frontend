@@ -2,11 +2,17 @@ import { Icon } from '@iconify/react';
 import { genPublicImgSrc } from '../../utils/url-utils';
 
 import styles from './About.module.scss';
+import cls from 'classnames';
 
 const About = () => {
   return (
     <section className={styles.section}>
-      <div className="container homepage-container d-flex flex-column text-center">
+      <div
+        className={cls(
+          styles.container,
+          'container app-container d-flex flex-column text-center'
+        )}
+      >
         <figure className="mb-5 animation-vertical-oscillate">
           <img
             src={genPublicImgSrc('/img/rocket-colored.png')}
@@ -26,6 +32,9 @@ const About = () => {
           where like-minded Korean and non-Korean entrepreneurs exchange ideas, collaborate,
           innovate, and receive guidance needed to overcome challenges.
         </p>
+
+        <img src={genPublicImgSrc('/img/union.png')} width={22} className="absolute" />
+        <img src={genPublicImgSrc('/img/union.png')} width={22} className="absolute" />
       </div>
     </section>
   );

@@ -1,3 +1,118 @@
+.family-raleway {
+  font-family: 'Raleway', system-ui, BlinkMacSystemFont, 'Segoe UI';
+}
+
+.m {
+  &b {
+    &-6 {
+      margin-bottom: 4rem;
+    }
+    &-7 {
+      margin-bottom: 5rem;
+    }
+    &-8 {
+      margin-bottom: 6rem;
+    }
+  }
+  &-t {
+    &-6 {
+      margin-top: 4rem;
+    }
+    &-7 {
+      margin-top: 5rem;
+    }
+    &-8 {
+      margin-top: 6rem;
+    }
+  }
+  &-s {
+    &-6 {
+      margin-left: 4rem;
+    }
+    &-7 {
+      margin-left: 5rem;
+    }
+    &-8 {
+      margin-left: 6rem;
+    }
+  }
+  &-e {
+    &-6 {
+      margin-right: 4rem;
+    }
+    &-7 {
+      margin-right: 5rem;
+    }
+    &-8 {
+      margin-right: 6rem;
+    }
+  }
+}
+
+.p {
+  &b {
+    &-6 {
+      margin-bottom: 4rem;
+    }
+    &-7 {
+      margin-bottom: 5rem;
+    }
+    &-8 {
+      margin-bottom: 6rem;
+    }
+  }
+  &-t {
+    &-6 {
+      margin-top: 4rem;
+    }
+    &-7 {
+      margin-top: 5rem;
+    }
+    &-8 {
+      margin-top: 6rem;
+    }
+  }
+  &-s {
+    &-6 {
+      margin-left: 4rem;
+    }
+    &-7 {
+      margin-left: 5rem;
+    }
+    &-8 {
+      margin-left: 6rem;
+    }
+  }
+  &-e {
+    &-6 {
+      margin-right: 4rem;
+    }
+    &-7 {
+      margin-right: 5rem;
+    }
+    &-8 {
+      margin-right: 6rem;
+    }
+  }
+}
+
+.section-pad {
+  &-bottom {
+    padding-bottom: 7rem;
+
+    &-lg {
+      padding-bottom: 12rem;
+    }
+  }
+  &-top {
+    padding-top: 7rem;
+
+    &-lg {
+      padding-top: 12rem;
+    }
+  }
+}
+
 .xy-center {
   display: flex;
   justify-content: center;
@@ -6,12 +121,6 @@
 
 .bg-halfwhite {
   background-color: rgba(#fff, 0.5);
-}
-
-.flex-center {
-  justify-content: center;
-  align-items: center;
-  // @include flex-center;
 }
 
 .flex-gap-1 {
@@ -45,6 +154,13 @@
   font-weight: 500;
 }
 
+.color-pry {
+  color: $color-pry;
+}
+.color-pry-dark {
+  color: $color-pry-dark;
+}
+
 .bg-pry {
   background-color: $color-pry;
 }
@@ -56,6 +172,10 @@
 .bg-pry-lightest {
   background-color: $color-pry-lightest;
 }
+.bg-pry-dark {
+  background-color: $color-pry-dark !important;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }

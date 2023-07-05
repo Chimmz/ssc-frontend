@@ -1,0 +1,68 @@
+.auth {
+  min-height: 100vh;
+  max-height: 100vh;
+  display: grid;
+  grid-template-columns: 38% 1fr;
+
+  @media screen and (max-width: 56.25em) {
+    grid-template-columns: 1fr;
+  }
+
+  & > aside {
+    position: relative;
+
+    @media screen and (max-width: 56.25em) {
+      display: none;
+    }
+
+    & > .content {
+      max-width: 26ch;
+      margin-left: auto;
+      min-height: 100%;
+
+      & > *:first-child > * {
+        border: none !important;
+
+        &:first-child {
+          background-color: #3f0088 !important;
+        }
+      }
+    }
+    & > img {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+
+      @media screen and (min-width: 56.25em) and (max-width: 75em) {
+        transform: rotate(335deg);
+        transform-origin: bottom;
+      }
+    }
+  }
+
+  & > section {
+    display: grid;
+    place-items: center;
+
+    & > form {
+      width: max(50%, 300px);
+
+      & > [data-content='or'] {
+        height: 1px;
+        background-color: #adadad;
+        position: relative;
+
+        &::before {
+          content: 'Or';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: #fff;
+          padding-inline: 20px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}

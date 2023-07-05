@@ -2,54 +2,29 @@ import cls from 'classnames';
 import SectionTitle from '../section-title/SectionTitle';
 import styles from './News.module.scss';
 import { genPublicImgSrc } from '../../utils/url-utils';
+import { Link } from 'react-router-dom';
+import { Icon } from '@iconify/react';
+import NewsGroup from '../shared/news/NewsGroup';
 
 const News = () => {
   return (
     <section className={styles.section}>
-      <div className="container homepage-container d-flex flex-column text-center">
-        <SectionTitle title="News" />
-        <div className={cls(styles.newsUpdates, 'mt-5')}>
-          <article className="rounded overflow-hidden">
-            <figure>
-              <img src={genPublicImgSrc('/img/hero-img2.png')} alt="" />{' '}
-              <figcaption className="fs-3 text-start">
-                Lorem ipsum dolor sit amet consectetur adipisicing.
-                <br />
-                <small className="fs-5">May 23, 2023</small>
-              </figcaption>
-            </figure>
-          </article>
-          <article className="rounded overflow-hidden">
-            <figure>
-              <img src={genPublicImgSrc('/img/hero-img1.png')} alt="" />{' '}
-              <figcaption className="fs-3 text-start">
-                Lorem ipsum dolor sit amet consectetur adipisicing.
-                <br />
-                <small className="fs-5">May 23, 2023</small>
-              </figcaption>
-            </figure>
-          </article>
-          <article className="rounded overflow-hidden">
-            <figure>
-              <img src={genPublicImgSrc('/img/hero-img3.png')} alt="" />{' '}
-              <figcaption className="fs-3 text-start">
-                Lorem ipsum dolor sit amet consectetur adipisicing.
-                <br />
-                <small className="fs-5">May 23, 2023</small>
-              </figcaption>
-            </figure>
-          </article>
-          <article className="rounded overflow-hidden">
-            <figure>
-              <img src={genPublicImgSrc('/img/hero-img2.png')} alt="" />{' '}
-              <figcaption className="fs-3 text-start">
-                Lorem ipsum dolor sit amet consectetur adipisicing.
-                <br />
-                <small className="fs-5">May 23, 2023</small>
-              </figcaption>
-            </figure>
-          </article>
-        </div>
+      <div className="container app-container d-flex flex-column text-center">
+        <SectionTitle
+          title="News"
+          link={
+            <Link to="/news" className="d-flex align-items-center gap-2">
+              See all{' '}
+              <button
+                className="btn btn-circle border-pry"
+                style={{ width: '2rem', height: '2rem', borderColor: '#7600ff' }}
+              >
+                <Icon icon="grommet-icons:form-next" color="#7600ff" />
+              </button>
+            </Link>
+          }
+        />
+        <NewsGroup />
       </div>
     </section>
   );

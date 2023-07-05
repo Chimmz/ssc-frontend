@@ -1,17 +1,22 @@
+import cls from 'classnames';
 import { FC } from 'react';
 
 interface Props {
   title: string;
-  linkUrl?: string;
-  // className?: string
+  line?: boolean;
+  link?: React.ReactNode;
+  className?: string;
 }
 
-const SectionTitle: FC<Props> = props => {
+const SectionTitle: FC<Props> = ({ title, link, line = true, className }) => {
   return (
-    <>
-      <h2 className="h-2 mb-5">{props.title}</h2>
-      <hr className="text-pry" style={{ border: '1px solid #3f0088' }} />
-    </>
+    <div className={cls('d-flex flex-column text-center', className)}>
+      <h2 className="h-2 mb-5">{title}</h2>
+      <div className="ms-auto color-pry fw-bold" style={{ fontFamily: 'Raleway' }}>
+        {link}
+      </div>
+      {line ? <hr className="text-pry" style={{ border: '1.5px solid #3f0088' }} /> : null}
+    </div>
   );
 };
 export default SectionTitle;

@@ -1,3 +1,32 @@
 .section {
   padding-block: 9rem;
+  // border: 1px solid gray;
+}
+
+.container {
+  // border: 1px solid red;
+  position: relative;
+
+  & > [class*='absolute'] {
+    position: absolute;
+
+    &:first-of-type {
+      top: 13rem;
+      right: 22rem;
+    }
+    &:nth-of-type(2) {
+      top: 27rem;
+      left: 17rem;
+    }
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 23rem;
+    left: 14rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #7600ff;
+  }
 }

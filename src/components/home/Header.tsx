@@ -13,7 +13,7 @@ const Header = () => {
       <div
         className={cls(
           styles.container,
-          'container homepage-container d-flex flex-center gap-1 pt-5'
+          'container app-container d-flex flex-center gap-1 pt-5'
         )}
       >
         <div className="textbox ms-auto">
@@ -24,13 +24,13 @@ const Header = () => {
           </h1>
 
           <button
-            className={cls(styles.btnJoin, 'btn btn-pry btn-curved btn--lg p-4')}
+            className={cls(styles.btnJoin, 'btn btn-pry btn-curved btn--lg p-4 gap-3')}
             data-chatroom-password="Chat room password: 1234"
           >
             <span className={styles.talkIcon}>
               <Icon icon="ri:kakao-talk-fill" width={45} />
             </span>
-            <span>Join our community of active members</span>
+            <span className="fw-bold fs-5">Join our community of active members</span>
           </button>
         </div>
 
@@ -50,9 +50,9 @@ const Header = () => {
           <figure>
             <img src={genPublicImgSrc('/img/hero-img2.png')} alt="" />
           </figure>
-          <figure className="position-absolute">
+          {/* <figure className="position-absolute">
             <img src={genPublicImgSrc('/img/hero-flyingrocket.png')} alt="" />
-          </figure>
+          </figure> */}
         </div>
       </div>
     </header>

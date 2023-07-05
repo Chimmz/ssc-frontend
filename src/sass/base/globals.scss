@@ -12,18 +12,15 @@ html {
 
   // Small desktops
   @media screen and (min-width: 75em) {
-    // font-size: 70%;
-    font-size: 60%;
+    // font-size: 65%;
   }
   // Large Desktops
   @media screen and (min-width: 100em) {
-    // font-size: 75%;
-    font-size: 65%;
+    // font-size: 70%;
   }
   // Portrait
   @media screen and (max-width: 56.25em) {
-    // font-size: 65%;
-    font-size: 55%;
+    // font-size: 60%;
   }
 }
 
@@ -36,7 +33,7 @@ body {
   position: relative;
 }
 
-.homepage-container {
+.app-container {
   max-width: 960px;
 
   @media (min-width: 576px) {
@@ -50,10 +47,10 @@ body {
   }
 }
 
-.container {
-  @media screen and (min-width: 1200px) {
-    // max-width: 1240px !important; // EDITED
-  }
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 ul {
