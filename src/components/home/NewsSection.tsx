@@ -12,7 +12,7 @@ const NewsSection = () => {
       <div className="container app-container d-flex flex-column text-center">
         <SectionTitle
           title="News"
-          layout="justify-content-end"
+          layout="end"
           options={
             <Link
               to="/news"

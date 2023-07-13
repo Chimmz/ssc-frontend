@@ -13,13 +13,14 @@ interface TextFieldProps extends FormControlProps {
   inputStyle?: React.CSSProperties;
   readonly?: boolean;
   validationErrors?: ValidationFeedback[];
-  label?: React.ReactNode;
+  label?: string;
   autoFocus?: boolean;
   onFocusSelect?: boolean;
   onInput?: React.ChangeEventHandler<HTMLInputElement> | (() => void);
   onKeyUp?: React.KeyboardEventHandler<HTMLInputElement> | (() => void);
   className?: string;
   inputClassName?: string;
+  labelClassName?: string;
   [key: string]: any;
 }
 
@@ -38,7 +39,14 @@ function TextField(props: TextFieldProps) {
 
   return (
     <Form.Group className={props.className} style={props.style}>
-      {nativeProps.label ? <Form.Label>{nativeProps.label}</Form.Label> : null}
+      {nativeProps.label ? (
+        <Form.Label
+          className={cls(props.labelClassName, 'fw-bold fs-4 text-black')}
+          htmlFor={nativeProps.label}
+        >
+          {nativeProps.label}
+        </Form.Label>
+      ) : null}
       <Form.Control
         type={type}
         {...nativeProps}
@@ -50,6 +58,7 @@ function TextField(props: TextFieldProps) {
           props.onFocus?.(ev);
           onFocusSelect && ev.target.select();
         }}
+        id={typeof nativeProps.label === 'string' ? nativeProps.label : nativeProps.id}
         readOnly={props.readonly}
         className={cls('textfield', props.inputClassName)}
         style={props.inputStyle}

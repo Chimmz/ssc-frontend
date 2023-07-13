@@ -6,15 +6,11 @@ interface Props {
   options?: ReactNode;
   line?: boolean;
   className?: string;
-  layout?:
-    | 'justify-content-start'
-    | 'justify-content-between'
-    | 'justify-content-center'
-    | 'justify-content-end';
+  layout?: 'start' | 'between' | 'center' | 'end';
 }
 
 const SectionTitle: FC<Props> = props => {
-  const { line = true, className, layout = 'justify-content-between' } = props;
+  const { line = true, className, layout = 'between' } = props;
 
   return (
     <div className={cls('d-flex flex-column text-center', className)}>
@@ -22,7 +18,7 @@ const SectionTitle: FC<Props> = props => {
       <div
         className={cls(
           'd-flex align-items-center color-pry fs-5 fw-bold',
-          layout,
+          'justify-content-'.concat(layout),
           props.options && 'pb-3'
         )}
         style={{ borderBottom: line ? '2px solid #7600ff' : '' }}

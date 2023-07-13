@@ -84,7 +84,7 @@ const Signup = function () {
         value={fullname}
         onChange={handleChangeFullname}
         validationErrors={fullnameValidationErrors}
-        label={<label className="fw-bold fs-4">Full name</label>}
+        label="Full name"
         className="mt-3 mb-4"
         inputClassName="textfield-sm border"
       />
@@ -93,7 +93,7 @@ const Signup = function () {
         value={email}
         onChange={handleChangeEmail}
         validationErrors={emailValidationErrors}
-        label={<label className="fw-bold fs-4">Email</label>}
+        label="Email"
         className="mb-4"
         inputClassName="textfield-sm border"
       />
@@ -102,7 +102,7 @@ const Signup = function () {
         value={password}
         onChange={handleChangePassword}
         validationErrors={passwordValidationErrors}
-        label={<label className="fw-bold fs-4">Password</label>}
+        label="Password"
         className="mb-5"
         inputClassName="textfield-sm border"
       />

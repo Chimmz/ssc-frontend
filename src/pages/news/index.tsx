@@ -1,14 +1,14 @@
 import { FC } from 'react';
-import Layout from '../../components/layout';
-import SectionTitle from '../../components/section-title/SectionTitle';
-import { Container } from 'react-bootstrap';
 
 import useInput from '../../hooks/useInput';
-import ContactSection from '../../components/home/Contact';
+import useScrollToTop from '../../hooks/useScrollToTop';
+
+import Layout from '../../components/layout';
 import TextField from '../../components/ui/text-field/TextField';
 import NewsGroup from '../../components/shared/news/NewsGrid';
 import NewsList from '../../components/shared/news/NewsList';
-import useScrollToTop from '../../hooks/useScrollToTop';
+import SectionTitle from '../../components/section-title/SectionTitle';
+import ContactSection from '../../components/shared/contact/Contact';
 
 const NewsPage: FC = () => {
   const { inputValue: searchTerm, onChange: handleChangeSearchTerm } = useInput({ init: '' });

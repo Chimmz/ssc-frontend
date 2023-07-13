@@ -14,7 +14,7 @@ const OurStartups = () => {
         <div className="container app-container d-flex flex-column text-center p-5">
           <SectionTitle
             title="Our Startups"
-            layout="justify-content-end"
+            layout="end"
             options={
               <Link
                 to="/startups"

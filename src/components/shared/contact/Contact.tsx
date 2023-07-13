@@ -1,23 +1,22 @@
-import { useRef } from 'react';
-
-import useInput from '../../hooks/useInput';
-
+import { useRef, FormEventHandler } from 'react';
+// Hooks
+import useRequest from '../../../hooks/useRequest';
+import useInput from '../../../hooks/useInput';
+// Utils
 import cls from 'classnames';
-import styles from './Contact.module.scss';
-import { genPublicImgSrc } from '../../utils/url-utils';
-import { FormEventHandler } from 'react';
-import { isEmail, isRequired } from '../../utils/validators/inputValidators';
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
+import { isEmail, isRequired } from '../../../utils/validators/inputValidators';
+import { genPublicImgSrc } from '../../../utils/url-utils';
 
-import TextField from '../ui/text-field/TextField';
-import useRequest from '../../hooks/useRequest';
-import ThreeDotsSpinner from '../ui/loader/ThreeDotsSpinner';
+import ThreeDotsSpinner from '../../ui/loader/ThreeDotsSpinner';
+import TextField from '../../ui/text-field/TextField';
+import styles from './Contact.module.scss';
 
 interface Props {
   className?: string;
 }
 
-const Contact = (props: Props) => {
+const ContactSection = (props: Props) => {
   const contactFormRef = useRef<HTMLFormElement | null>(null);
 
   const {
@@ -111,9 +110,9 @@ const Contact = (props: Props) => {
   };
 
   return (
-    <section className={cls(styles.section, props.className, 'bg-pry-lightest')}>
+    <section className="section-pad-top section-pad-bottom-lg bg-pry-lightest">
       <div className={cls(styles.container, 'container app-container gap-5')}>
-        <div className="subscribe">
+        <div className={cls(styles.subscribe, 'd-flex flex-column')}>
           <h3 className="h-3 fs-2 fw-bold color-pry-dark mb-3">
             Subscribe to our Newsletter
           </h3>
@@ -128,6 +127,7 @@ const Contact = (props: Props) => {
               'd-flex gap-3 mb-5',
               `align-items-${emailSubscribeValidationErrors.length ? 'start' : 'center'}`
             )}
+            aria-label="subscribe"
             onSubmit={handleSubscribe}
           >
             <TextField
@@ -151,13 +151,14 @@ const Contact = (props: Props) => {
           className={cls(styles.getInTouch, 'ps-5')}
           ref={contactFormRef}
           onSubmit={handleSubmitContactForn}
+          aria-label="get-in-touch"
         >
           <h3 className="h-3 fs-2 fw-bold color-pry-dark mb-5">Get in touch</h3>
           <TextField
             name="from_name"
             value={fullname}
             onChange={handleChangeFullname}
-            label={<label className="fw-bold fs-4 text-black">Full name</label>}
+            label="Full name"
             validationErrors={fullnameValidationErrors}
             className="mb-4"
             inputClassName="bg-white textfield-sm"
@@ -166,7 +167,7 @@ const Contact = (props: Props) => {
             name="from_email"
             value={email}
             onChange={handleChangeEmail}
-            label={<label className="fw-bold fs-4 text-black">Email Address</label>}
+            label="Email Address"
             validationErrors={emailValidationErrors}
             className="mb-4"
             inputClassName="bg-white textfield-sm"
@@ -175,7 +176,7 @@ const Contact = (props: Props) => {
             name="from_subjectline"
             value={subject}
             onChange={handleChangeSubject}
-            label={<label className="fw-bold fs-4 text-black">Subject</label>}
+            label="Subject"
             validationErrors={subjectValidationErrors}
             className="mb-4"
             inputClassName="bg-white textfield-sm"
@@ -185,7 +186,7 @@ const Contact = (props: Props) => {
             name="from_message"
             value={message}
             onChange={handleChangeMessage}
-            label={<label className="fw-bold fs-4 text-black">Message</label>}
+            label="Message"
             validationErrors={messageValidationErrors}
             className="mb-4"
             inputClassName="bg-white textfield-sm"
@@ -218,4 +219,4 @@ const Contact = (props: Props) => {
   );
 };
 
-export default Contact;
+export default ContactSection;

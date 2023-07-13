@@ -1,19 +1,21 @@
 import { ReactNode, useEffect } from 'react';
 import { Icon } from '@iconify/react';
-import Contact from '../../components/home/Contact';
+
+import useInput from '../../hooks/useInput';
+import useScrollToTop from '../../hooks/useScrollToTop';
+import { useAccordionButton } from 'react-bootstrap/AccordionButton';
+
+import cls from 'classnames';
+import { dummyStartups } from '../../data/dummy-startups';
+
+import Accordion from 'react-bootstrap/Accordion';
+import Pagination from '../../components/shared/pagination/Pagination';
+import ContactSection from '../../components/shared/contact/Contact';
 import Layout from '../../components/layout';
 import SectionTitle from '../../components/section-title/SectionTitle';
 import TextField from '../../components/ui/text-field/TextField';
 import StartupsList from '../../components/shared/startups/StartupsList';
-import useInput from '../../hooks/useInput';
-import { useAccordionButton } from 'react-bootstrap/AccordionButton';
-
-import Accordion from 'react-bootstrap/Accordion';
 import styles from './styles.module.scss';
-import cls from 'classnames';
-import { dummyStartups } from '../../data/dummy-startups';
-import useScrollToTop from '../../hooks/useScrollToTop';
-import Pagination from '../../components/shared/pagination/Pagination';
 
 function CustomToggle(props: { children: ReactNode; eventKey: string; className?: string }) {
   const decoratedOnClick = useAccordionButton(props.eventKey, () =>
@@ -86,7 +88,7 @@ const StartupsPage = function () {
           </aside>
         </div>
       </section>
-      <Contact className="mt-5" />
+      <ContactSection className="mt-5" />
     </Layout>
   );
 };

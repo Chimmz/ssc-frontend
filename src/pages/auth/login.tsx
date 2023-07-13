@@ -71,7 +71,7 @@ const Login = function () {
         value={email}
         onChange={handleChangeEmail}
         validationErrors={emailValidationErrors}
-        label={<label className="fw-bold fs-4">Email</label>}
+        label="Email"
         className="mb-4"
         inputClassName="textfield-sm border"
       />
@@ -79,7 +79,7 @@ const Login = function () {
         value={password}
         onChange={handleChangePassword}
         validationErrors={passwordValidationErrors}
-        label={<label className="fw-bold fs-4">Password</label>}
+        label="Password"
         className="mb-5"
         inputClassName="textfield-sm border"
       />

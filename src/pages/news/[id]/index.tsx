@@ -1,11 +1,11 @@
 import cls from 'classnames';
+import { genPublicImgSrc } from '../../../utils/url-utils';
+
+import { Icon } from '@iconify/react';
 import Layout from '../../../components/layout';
 import SectionTitle from '../../../components/section-title/SectionTitle';
-import TextField from '../../../components/ui/text-field/TextField';
-import { genPublicImgSrc } from '../../../utils/url-utils';
+import ContactSection from '../../../components/shared/contact/Contact';
 import styles from './styles.module.scss';
-import ContactSection from '../../../components/home/Contact';
-import { Icon } from '@iconify/react';
 
 const SingleNewsPage: React.FC = () => {
   return (

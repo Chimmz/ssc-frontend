@@ -48,7 +48,7 @@ const Header = () => {
           </a>
         </div>
 
-        <div className={styles.imgBox}>
+        <div className={styles.imgBox} data-testid="img-box">
           <figure>
             <img src={genPublicImgSrc(`/img/header/seq${seq}_top.jpg`)} alt="" />
           </figure>
