@@ -1,21 +1,34 @@
 import cls from 'classnames';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 interface Props {
   title: string;
+  options?: ReactNode;
   line?: boolean;
-  link?: React.ReactNode;
   className?: string;
+  layout?:
+    | 'justify-content-start'
+    | 'justify-content-between'
+    | 'justify-content-center'
+    | 'justify-content-end';
 }
 
-const SectionTitle: FC<Props> = ({ title, link, line = true, className }) => {
+const SectionTitle: FC<Props> = props => {
+  const { line = true, className, layout = 'justify-content-between' } = props;
+
   return (
     <div className={cls('d-flex flex-column text-center', className)}>
-      <h2 className="h-2 mb-5">{title}</h2>
-      <div className="ms-auto color-pry fw-bold" style={{ fontFamily: 'Raleway' }}>
-        {link}
+      <h2 className="h-2 mb-5">{props.title}</h2>
+      <div
+        className={cls(
+          'd-flex align-items-center color-pry fs-5 fw-bold',
+          layout,
+          props.options && 'pb-3'
+        )}
+        style={{ borderBottom: line ? '2px solid #7600ff' : '' }}
+      >
+        {props.options}
       </div>
-      {line ? <hr className="text-pry" style={{ border: '1.5px solid #3f0088' }} /> : null}
     </div>
   );
 };

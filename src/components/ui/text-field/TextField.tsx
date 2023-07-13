@@ -30,8 +30,10 @@ function TextField(props: TextFieldProps) {
     autoFocus,
     readonly,
     onFocusSelect,
+    inputClassName,
     ...nativeProps
   } = props;
+
   const hasError = !!validationErrors?.length;
 
   return (
@@ -53,8 +55,8 @@ function TextField(props: TextFieldProps) {
         style={props.inputStyle}
       />
 
-      {validationErrors ? (
-        <Form.Control.Feedback type="invalid">
+      {validationErrors?.length ? (
+        <Form.Control.Feedback type="invalid" className="text-end">
           {validationErrors?.[0]?.msg}
         </Form.Control.Feedback>
       ) : null}

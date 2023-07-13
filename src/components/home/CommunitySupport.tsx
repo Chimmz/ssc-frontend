@@ -52,8 +52,10 @@ const CommunitySupport = () => {
             </figure>
             <h5 className="fs-3 text-white fw-bold">Co-founder & Resource Matching</h5>
             <small className="parag text-white fs-5">
-              Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis
-              molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla.
+              Unleash possibilities with experts who could become your team members. Discover
+              divers programs that fuel your startup’s growth and easily access
+              English-speaking businesses that provide the services you need on your startup
+              journey.
             </small>
           </article>
 
@@ -65,8 +67,9 @@ const CommunitySupport = () => {
               Start-up Immigration System (OASIS) Supplemental Support
             </h5>
             <small className="parag text-white fs-5">
-              Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis
-              molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla.
+              Leverage the experience of our OASIS visa program alumni, who have successfully
+              navigated the visa process, program steps, intellectual property matters, and
+              beyond.
             </small>
           </article>
 
@@ -76,9 +79,8 @@ const CommunitySupport = () => {
             </figure>
             <h5 className="fs-3 text-white fw-bold">Free office space hours</h5>
             <small className="parag text-white fs-5">
-              Leverage the experience of our OASIS visa program alumni, who have successfully
-              navigated the visa process, program steps, intellectual property matters, and
-              beyond.
+              Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis
+              molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla.
             </small>
           </article>
         </div>

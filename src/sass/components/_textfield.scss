@@ -28,7 +28,11 @@
     border-radius: 0;
   }
 
-  &.border {
+  &.is-invalid {
+    border-color: #dc3545 !important;
+  }
+
+  &.border:not(.is-invalid) {
     border: 1px solid #adadad;
   }
 

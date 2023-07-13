@@ -5,13 +5,27 @@ import TextField from '../../../components/ui/text-field/TextField';
 import { genPublicImgSrc } from '../../../utils/url-utils';
 import styles from './styles.module.scss';
 import ContactSection from '../../../components/home/Contact';
+import { Icon } from '@iconify/react';
 
 const SingleNewsPage: React.FC = () => {
   return (
     <Layout navStyles={{ backgroundColor: '#fff' }}>
       <section className="section-pad-top section-pad-bottom-lg">
         <div className="container app-container d-flex flex-column">
-          <SectionTitle title="News" className="mb-5" line />
+          <SectionTitle
+            title="News"
+            className="mb-5"
+            line
+            options={
+              <>
+                <span className="color-pry-dark">May 23, 2023</span>
+                <span className="d-flex align-items-center gap-2">
+                  <Icon icon="teenyicons:link-outline" width={16} /> Get link
+                  {/* <Icon icon="ri:link" width={22} /> Get link */}
+                </span>
+              </>
+            }
+          />
           <figure className="mb-7">
             <img
               src={genPublicImgSrc('/img/news-img1.png')}

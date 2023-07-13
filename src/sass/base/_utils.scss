@@ -14,7 +14,8 @@
       margin-bottom: 6rem;
     }
   }
-  &-t {
+
+  &t {
     &-6 {
       margin-top: 4rem;
     }
@@ -25,7 +26,8 @@
       margin-top: 6rem;
     }
   }
-  &-s {
+
+  &s {
     &-6 {
       margin-left: 4rem;
     }
@@ -36,7 +38,8 @@
       margin-left: 6rem;
     }
   }
-  &-e {
+
+  &e {
     &-6 {
       margin-right: 4rem;
     }
@@ -61,7 +64,7 @@
       margin-bottom: 6rem;
     }
   }
-  &-t {
+  &t {
     &-6 {
       margin-top: 4rem;
     }
@@ -72,7 +75,7 @@
       margin-top: 6rem;
     }
   }
-  &-s {
+  &s {
     &-6 {
       margin-left: 4rem;
     }
@@ -83,7 +86,7 @@
       margin-left: 6rem;
     }
   }
-  &-e {
+  &e {
     &-6 {
       margin-right: 4rem;
     }
@@ -158,19 +161,19 @@
   color: $color-pry;
 }
 .color-pry-dark {
-  color: $color-pry-dark;
+  color: $color-pry-dark !important;
 }
 
 .bg-pry {
-  background-color: $color-pry;
+  background-color: $color-pry !important;
 }
 
 .bg-pry-light {
-  background-color: $color-pry-light;
+  background-color: $color-pry-light !important;
 }
 
 .bg-pry-lightest {
-  background-color: $color-pry-lightest;
+  background-color: $color-pry-lightest !important;
 }
 .bg-pry-dark {
   background-color: $color-pry-dark !important;

@@ -1,16 +1,31 @@
-import cls from 'classnames';
+import { useRef } from 'react';
+
 import useInput from '../../hooks/useInput';
+
+import cls from 'classnames';
 import styles from './Contact.module.scss';
 import { genPublicImgSrc } from '../../utils/url-utils';
-import TextField from '../ui/text-field/TextField';
 import { FormEventHandler } from 'react';
 import { isEmail, isRequired } from '../../utils/validators/inputValidators';
+import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
+
+import TextField from '../ui/text-field/TextField';
+import useRequest from '../../hooks/useRequest';
+import ThreeDotsSpinner from '../ui/loader/ThreeDotsSpinner';
 
 interface Props {
   className?: string;
 }
 
 const Contact = (props: Props) => {
+  const contactFormRef = useRef<HTMLFormElement | null>(null);
+
+  const {
+    send: sendContactEmailReq,
+    loading: isSendingContactEmail,
+    response: emailResponse
+  } = useRequest<EmailJSResponseStatus | undefined>();
+
   const {
     inputValue: emailSubscribe,
     onChange: handleChangeEmailSubscribe,
@@ -28,14 +43,16 @@ const Contact = (props: Props) => {
     inputValue: fullname,
     onChange: handleChangeFullname,
     validationErrors: fullnameValidationErrors,
-    runValidators: runNameValidators
+    runValidators: runNameValidators,
+    clearInput: clearFullname
   } = useInput({ init: '', validators: [{ fn: isRequired, params: [] }] });
 
   const {
     inputValue: email,
     onChange: handleChangeEmail,
     validationErrors: emailValidationErrors,
-    runValidators: runEmailValidators
+    runValidators: runEmailValidators,
+    clearInput: clearEmail
   } = useInput({
     init: '',
     validators: [
@@ -48,14 +65,16 @@ const Contact = (props: Props) => {
     inputValue: subject,
     onChange: handleChangeSubject,
     validationErrors: subjectValidationErrors,
-    runValidators: runSubjectValidators
+    runValidators: runSubjectValidators,
+    clearInput: clearSubject
   } = useInput({ init: '', validators: [{ fn: isRequired, params: [] }] });
 
   const {
     inputValue: message,
     onChange: handleChangeMessage,
     validationErrors: messageValidationErrors,
-    runValidators: runMsgValidators
+    runValidators: runMsgValidators,
+    clearInput: clearMessage
   } = useInput({ init: '', validators: [{ fn: isRequired, params: [] }] });
 
   const handleSubscribe: FormEventHandler = ev => {
@@ -64,7 +83,7 @@ const Contact = (props: Props) => {
     console.log(emailSubscribe);
   };
 
-  const handleSubmitGetInTouchForn: FormEventHandler = ev => {
+  const handleSubmitContactForn: FormEventHandler = async ev => {
     ev.preventDefault();
 
     const validations = [
@@ -74,7 +93,21 @@ const Contact = (props: Props) => {
       runMsgValidators()
     ];
     if (validations.some(v => v.errorExists)) return;
-    console.log({ fullname, email, subject, message });
+
+    const req = emailjs.sendForm(
+      process.env.REACT_APP_EMAILJS_GMAIL_SERVICE_ID!,
+      process.env.REACT_APP_EMAILJS_CONTACT_FORM_TEMPLATE_ID!,
+      contactFormRef.current!,
+      process.env.REACT_APP_EMAILJS_PUBLIC_KEY!
+    );
+
+    sendContactEmailReq(req).then(() => {
+      clearFullname();
+      clearEmail();
+      clearSubject();
+      clearMessage();
+    });
+    // console.log({ result });
   };
 
   return (
@@ -114,9 +147,14 @@ const Contact = (props: Props) => {
           </figure>
         </div>
 
-        <form className={cls(styles.getInTouch, 'ps-5')}>
+        <form
+          className={cls(styles.getInTouch, 'ps-5')}
+          ref={contactFormRef}
+          onSubmit={handleSubmitContactForn}
+        >
           <h3 className="h-3 fs-2 fw-bold color-pry-dark mb-5">Get in touch</h3>
           <TextField
+            name="from_name"
             value={fullname}
             onChange={handleChangeFullname}
             label={<label className="fw-bold fs-4 text-black">Full name</label>}
@@ -125,6 +163,7 @@ const Contact = (props: Props) => {
             inputClassName="bg-white textfield-sm"
           />
           <TextField
+            name="from_email"
             value={email}
             onChange={handleChangeEmail}
             label={<label className="fw-bold fs-4 text-black">Email Address</label>}
@@ -133,6 +172,7 @@ const Contact = (props: Props) => {
             inputClassName="bg-white textfield-sm"
           />
           <TextField
+            name="from_subjectline"
             value={subject}
             onChange={handleChangeSubject}
             label={<label className="fw-bold fs-4 text-black">Subject</label>}
@@ -142,16 +182,17 @@ const Contact = (props: Props) => {
           />
           <TextField
             as="textarea"
+            name="from_message"
             value={message}
             onChange={handleChangeMessage}
             label={<label className="fw-bold fs-4 text-black">Message</label>}
             validationErrors={messageValidationErrors}
-            className="mb-5"
+            className="mb-4"
             inputClassName="bg-white textfield-sm"
           />
 
-          <div className="d-flex align-items-center justify-content-between fw-bold fs-3 text-black flex-wrap gap-4">
-            <small className="color-pry-dark family-raleway fs-4">
+          <div className="d-flex align-items-center justify-content-between fw-bold fs-3 text-black gap-4">
+            <small className="color-pry-dark family-raleway fs-5">
               or email{' '}
               <a
                 href="mailto:info@seoulstartupsclub.com"
@@ -160,13 +201,16 @@ const Contact = (props: Props) => {
                 info@seoulstartupsclub.com
               </a>
             </small>
-            <button
-              className="btn btn-pry"
-              type="button"
-              onClick={handleSubmitGetInTouchForn}
-            >
-              Send
-            </button>
+            <div className="d-flex align-items-center gap-3">
+              <button className="btn btn-pry" disabled={isSendingContactEmail}>
+                Send
+              </button>
+              {emailResponse?.status === 200 ? (
+                <small className="fw-normal color-pry">Success!</small>
+              ) : (
+                <ThreeDotsSpinner show={isSendingContactEmail} />
+              )}
+            </div>
           </div>
         </form>
       </div>

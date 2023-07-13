@@ -6,11 +6,13 @@ import { Container } from 'react-bootstrap';
 import useInput from '../../hooks/useInput';
 import ContactSection from '../../components/home/Contact';
 import TextField from '../../components/ui/text-field/TextField';
-import NewsGroup from '../../components/shared/news/NewsGroup';
+import NewsGroup from '../../components/shared/news/NewsGrid';
 import NewsList from '../../components/shared/news/NewsList';
+import useScrollToTop from '../../hooks/useScrollToTop';
 
 const NewsPage: FC = () => {
   const { inputValue: searchTerm, onChange: handleChangeSearchTerm } = useInput({ init: '' });
+  useScrollToTop();
 
   return (
     <Layout navStyles={{ backgroundColor: '#fff' }}>

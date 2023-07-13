@@ -37,10 +37,14 @@
   }
 
   &-text-pry {
-    background-color: none;
+    background-color: transparent;
     color: $color-pry;
     padding: 0 !important;
     border: none;
+
+    &:hover {
+      color: $color-pry-dark;
+    }
   }
 
   &-gray {

@@ -8,7 +8,7 @@ interface Params<ExpectedResponse> {
 }
 
 function useRequest<ExpectedResponse>(args?: Params<ExpectedResponse>) {
-  const [response, setResponse] = useState<{ [key: string]: string } | null>(null);
+  const [response, setResponse] = useState<ExpectedResponse | undefined>(undefined);
   const [loading, setLoading] = useState(args?.startLoadingInitially || false);
   const [loaded, setLoaded] = useState(false);
   const [isRetrying, setIsRetrying] = useState(false);
@@ -51,7 +51,7 @@ function useRequest<ExpectedResponse>(args?: Params<ExpectedResponse>) {
         stopLoading();
       }
     },
-    [startLoading, stopLoading, setIsRetrying],
+    [startLoading, stopLoading, setIsRetrying]
   );
 
   return { send, response, loading, startLoading, stopLoading, loaded, isRetrying };

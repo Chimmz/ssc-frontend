@@ -1,8 +1,3 @@
-export type Readonly = { readonly: true };
-export type Changable = { readonly: false };
-
-export type Size = 'sm' | 'md' | 'lg' | 'xlg';
-
 export interface UserPublicProfile {
   _id: string;
   firstName: string;
@@ -10,12 +5,13 @@ export interface UserPublicProfile {
   imgUrl: string;
 }
 
-// Text Message
-export interface PrivateMessage {
-  text: string;
-  from: Pick<UserPublicProfile, '_id' | 'firstName' | 'lastName'>;
-  to: string;
-  seen: boolean;
+export interface StartupProps {
+  _id: string;
+  name: string;
+  logoUrl: string;
+  website: string;
+  industry: string;
+  stage: string;
 }
 
 export interface StripePrice {

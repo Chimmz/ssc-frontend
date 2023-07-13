@@ -8,6 +8,10 @@
   grid-template-columns: repeat(auto-fit, minmax(35ch, 1fr));
   gap: 3rem;
 
+  @media screen and (max-width: 56.25em) {
+    gap: 1.5rem;
+  }
+
   & > article {
     display: grid;
     grid-template-columns: 12rem 1fr;
@@ -20,7 +24,6 @@
       background-color: rgba(#fff, 0.7);
       grid-column: 1 / 2;
       grid-row: 1 / -1;
-      // max-height: 15rem;
 
       & > img {
         width: 100%;

@@ -34,8 +34,7 @@
       bottom: 0;
 
       @media screen and (min-width: 56.25em) and (max-width: 75em) {
-        transform: rotate(335deg);
-        transform-origin: bottom;
+        transform: translate(-4rem, 4rem);
       }
     }
   }

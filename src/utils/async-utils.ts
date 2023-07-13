@@ -5,8 +5,8 @@ export const timeoutWithin = function (duration: number) {
     setTimeout.bind(
       null,
       Promise.reject.bind(null, new Error('The server is taking too long to respond')),
-      duration,
-    ),
+      duration
+    )
   );
 };
 
@@ -16,6 +16,6 @@ export async function fetchWithinTimeout(request: Promise<any>, durationSecs: nu
   return response;
 }
 
-export const simulateRequest = async (secs: number, fn: (req: Promise<any>) => any) => {
+export const simulateRequest = async (fn: (req: Promise<any>) => any, secs: number) => {
   return await fn(new Promise(resolve => setTimeout(resolve, secs * 1000)));
 };
