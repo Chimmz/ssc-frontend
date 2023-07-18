@@ -1,12 +1,17 @@
 import { Link } from 'react-router-dom';
 
-const EmailVerifyExpired = () => {
+interface Props {
+  summary: string;
+  msg: string;
+}
+
+const EmailVerifyFailure = (props: Props) => {
   return (
     <div className="text-center p-5" style={{ transform: 'translateY(-3rem)' }}>
-      <h1 className="family-raleway mb-5">Expired!</h1>
+      <h1 className="family-raleway mb-5">{props.summary}!</h1>
       <p className="parag" style={{ maxWidth: '50ch' }}>
-        The link you used has expired. If you think this was done by error, please contact
-        support or{' '}
+        {props.msg}
+        or{' '}
         <Link className="color-pry" to="/auth/login">
           log into your account
         </Link>
@@ -15,4 +20,4 @@ const EmailVerifyExpired = () => {
   );
 };
 
-export default EmailVerifyExpired;
+export default EmailVerifyFailure;

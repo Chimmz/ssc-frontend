@@ -1,23 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import cls from 'classnames';
 import { genPublicImgSrc } from '../../utils/url-utils';
 
 import { Icon } from '@iconify/react';
-
 import styles from './Header.module.scss';
 
-// https://www.instagram.com/seoulstartupsclub/
-// https://www.linkedin.com/groups/14133660/
+const maxImgSequence = {
+  top: 4,
+  mid: 6,
+  bottom: 6
+};
 
 const Header = () => {
-  const [seq, setSeq] = useState(1);
+  const [imgSeq, setImgSeq] = useState({ top: 1, mid: 1, bottom: 1 });
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setSeq(seq => seq + 1);
-    }, 5000);
-    return clearInterval(intervalId);
+      setImgSeq(seq => {
+        return {
+          top: seq.top === maxImgSequence.top ? 1 : seq.top + 1,
+          mid: seq.mid === maxImgSequence.mid ? 1 : seq.mid + 1,
+          bottom: seq.bottom === maxImgSequence.bottom ? 1 : seq.bottom + 1
+        };
+      });
+    }, 10000);
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -50,10 +58,10 @@ const Header = () => {
 
         <div className={styles.imgBox} data-testid="img-box">
           <figure>
-            <img src={genPublicImgSrc(`/img/header/seq${seq}_top.jpg`)} alt="" />
+            <img src={genPublicImgSrc(`/img/header/seq${imgSeq.top}_top.jpg`)} alt="" />
           </figure>
           <figure>
-            <img src={genPublicImgSrc(`/img/header/seq${seq}_mid.jpg`)} alt="" />
+            <img src={genPublicImgSrc(`/img/header/seq${imgSeq.mid}_mid.jpg`)} alt="" />
           </figure>
           <figure>
             <img src={genPublicImgSrc('/img/hero-bulb.png')} alt="" />
@@ -62,7 +70,7 @@ const Header = () => {
             <img src={genPublicImgSrc('/img/hero-magnif.png')} alt="" />
           </figure>
           <figure>
-            <img src={genPublicImgSrc(`/img/header/seq${seq}_bottom.jpg`)} alt="" />
+            <img src={genPublicImgSrc(`/img/header/seq${imgSeq.bottom}_bottom.jpg`)} alt="" />
           </figure>
         </div>
       </div>

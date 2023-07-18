@@ -111,6 +111,7 @@
     & > img {
       display: block;
       object-fit: cover;
+      object-position: top center;
     }
 
     &:not(:nth-child(3), :nth-child(4)) {

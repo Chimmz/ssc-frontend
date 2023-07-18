@@ -4,7 +4,7 @@ import useRequest from '../../../hooks/useRequest';
 import { simulateRequest } from '../../../utils/async-utils';
 import ThreeDotsSpinner from '../../../components/ui/loader/ThreeDotsSpinner';
 
-const SignupSuccess = (props: { email: string }) => {
+const SignupSuccess = () => {
   const { send: sendVerifReq, loading: isSendingReq } = useRequest();
 
   const sendVerificationLink = async () => {

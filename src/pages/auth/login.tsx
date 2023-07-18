@@ -1,33 +1,39 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useInput from '../../hooks/useInput';
 import { isEmail, isRequired } from '../../utils/validators/inputValidators';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import TextField from '../../components/ui/text-field/TextField';
 import { useGoogleLogin } from '@react-oauth/google';
 import cls from 'classnames';
 import useRequest from '../../hooks/useRequest';
+import api from '../../library/api';
+import LoadingButton from '../../components/ui/LoadingButton';
+import { UserPublicProfile } from '../../types';
+import { useAuthContext } from '../../contexts/AuthContext';
+import useSignedInUser from '../../hooks/useSignedInUser';
 
 const Login = function () {
-  const {
-    send: sendGoogleSignInRequest,
-    loading: googleSignInRequestLoading,
-    startLoading: startGoogleAuthLoader,
-    stopLoading: stopGoogleAuthLoader
-  } = useRequest();
+  const navigate = useNavigate();
 
   const {
-    inputValue: password,
-    onChange: handleChangePassword,
-    validationErrors: passwordValidationErrors,
-    runValidators: runPasswordValidators
-  } = useInput({ init: '', validators: [{ fn: isRequired, params: [] }] });
+    send: sendLoginReq,
+    loading: isLoggingIn,
+    response
+  } = useRequest<
+    | { status?: 'fail' | 'error'; msg: string; errors?: { field: string; msg: string }[] }
+    | { status: 'LOGIN_SUCCESS'; user: UserPublicProfile; accessToken: string }
+  >();
+
+  const { isSignedIn } = useSignedInUser();
+  const authContext = useAuthContext();
 
   const {
     inputValue: email,
     onChange: handleChangeEmail,
     validationErrors: emailValidationErrors,
-    runValidators: runEmailValidators
+    runValidators: runEmailValidators,
+    pushValidationError: pushEmailValidationError
   } = useInput({
     init: '',
     validators: [
@@ -36,11 +42,56 @@ const Login = function () {
     ]
   });
 
-  const handleSubmit: React.FormEventHandler = ev => {
-    ev.preventDefault();
+  const {
+    inputValue: password,
+    onChange: handleChangePassword,
+    validationErrors: passwordValidationErrors,
+    runValidators: runPasswordValidators,
+    pushValidationError: pushPasswordValidationError
+  } = useInput({ init: '', validators: [{ fn: isRequired, params: [] }] });
 
+  const {
+    send: sendGoogleSignInRequest,
+    loading: googleSignInRequestLoading,
+    startLoading: startGoogleAuthLoader,
+    stopLoading: stopGoogleAuthLoader
+  } = useRequest();
+
+  useEffect(() => {
+    switch (response?.status) {
+      case 'fail':
+        const errorPushers = {
+          email: pushEmailValidationError,
+          password: pushPasswordValidationError
+        };
+        response.errors?.forEach(e => {
+          errorPushers[e.field as keyof typeof errorPushers]?.(e.msg);
+        });
+        break;
+
+      case 'LOGIN_SUCCESS':
+        delete (response as { status?: string }).status;
+        localStorage.setItem('ssc_u', JSON.stringify(response));
+        authContext!.setCurrentUser!({
+          user: response.user,
+          accessToken: response.accessToken
+        });
+        navigate('/');
+    }
+  }, [response]);
+
+  useEffect(() => {
+    if (isSignedIn) navigate('/');
+  }, [isSignedIn]);
+
+  const handleSubmit: React.FormEventHandler = async ev => {
+    ev.preventDefault();
     const validations = [runEmailValidators(), runPasswordValidators()];
-    if (validations.some(v => v.errorExists)) return;
+    const existingErrors = [emailValidationErrors, passwordValidationErrors];
+
+    if (existingErrors.flat().length || validations.some(v => v.errorExists)) return;
+    const req = api.login({ email, password });
+    await sendLoginReq(req);
   };
 
   const googleSignIn = useGoogleLogin({
@@ -77,13 +128,22 @@ const Login = function () {
       />
       <TextField
         value={password}
+        type="password"
         onChange={handleChangePassword}
         validationErrors={passwordValidationErrors}
         label="Password"
         className="mb-5"
         inputClassName="textfield-sm border"
       />
-      <button className="btn btn-pry">Log in</button>
+      <LoadingButton
+        type="submit"
+        className="btn btn-pry"
+        loading={isLoggingIn}
+        withSpinner
+        loadingMsg="Loading..."
+      >
+        Log in
+      </LoadingButton>
 
       <small className={cls('d-flex justify-content-center fs-5 fw-bold text-center mt-3')}>
         Don't have an account?

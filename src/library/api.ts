@@ -7,10 +7,11 @@ interface RequestConfig {
 }
 
 class API {
-  _baseUrl =
-    process.env.NODE_ENV === 'development'
-      ? process.env.NEXT_PUBLIC_API_BASE_URL_REMOTE
-      : process.env.NEXT_PUBLIC_API_BASE_URL_RENDER;
+  _baseUrl = 'http://localhost:5000/api/v1';
+  // process.env.NODE_ENV === 'development'
+  // ? 'http://localhost:5000'
+  // ? process.env.NEXT_PUBLIC_API_BASE_URL_REMOTE
+  // process.env.NEXT_PUBLIC_API_BASE_URL_RENDER;
 
   async _makeRequest({ path, ...config }: RequestConfig) {
     const isApiCall = path.startsWith('/');
@@ -24,11 +25,28 @@ class API {
     }
   }
 
+  async signup(credentials: { fullname: string; email: string; password: string }) {
+    return this._makeRequest({
+      path: '/users/signup',
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
   async login(credentials: { email: string; password: string }) {
     return this._makeRequest({
       path: '/users/login',
       method: 'POST',
       body: JSON.stringify(credentials),
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  async verifyEmail(verifId: string) {
+    return this._makeRequest({
+      path: `/users/email-verify/${verifId}`,
+      method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });
   }

@@ -34,7 +34,9 @@ const LoadingButton = (props: ButtonProps) => {
               {loadingMsg}
             </span>
           ) : null}
-          {withSpinner ? <Spinner animation="border" style={{ borderWidth: '1px' }} /> : null}
+          {withSpinner ? (
+            <Spinner animation="border" size="sm" style={{ borderWidth: '1px' }} />
+          ) : null}
         </>
       ) : (
         children

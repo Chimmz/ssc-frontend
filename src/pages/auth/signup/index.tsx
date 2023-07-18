@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import useInput from '../../../hooks/useInput';
 import { isEmail, isRequired } from '../../../utils/validators/inputValidators';
 import { useGoogleLogin } from '@react-oauth/google';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import TextField from '../../../components/ui/text-field/TextField';
 import { simulateRequest } from '../../../utils/async-utils';
@@ -10,10 +10,23 @@ import useRequest from '../../../hooks/useRequest';
 import SignupSuccess from './success';
 import LoadingButton from '../../../components/ui/LoadingButton';
 import classNames from 'classnames';
+import api from '../../../library/api';
+import { UserPublicProfile } from '../../../types';
 
 const Signup = function () {
-  const { send: sendSignupReq, loading: isSigningUp } = useRequest();
   const [hasSignedUp, setHasSignedUp] = useState(false);
+  const {
+    send: sendSignupReq,
+    loading: isSigningUp,
+    response
+  } = useRequest<
+    | {
+        status?: 'fail';
+        msg: string;
+        errors?: { field: string; msg: string }[];
+      }
+    | { status: 'USER_CREATED'; user: UserPublicProfile }
+  >();
 
   const {
     inputValue: fullname,
@@ -26,7 +39,8 @@ const Signup = function () {
     inputValue: email,
     onChange: handleChangeEmail,
     validationErrors: emailValidationErrors,
-    runValidators: runEmailValidators
+    runValidators: runEmailValidators,
+    pushValidationError: pushEmailValidationError
   } = useInput({
     init: '',
     validators: [
@@ -39,7 +53,8 @@ const Signup = function () {
     inputValue: password,
     onChange: handleChangePassword,
     validationErrors: passwordValidationErrors,
-    runValidators: runPasswordValidators
+    runValidators: runPasswordValidators,
+    pushValidationError: pushPasswordValidationError
   } = useInput({ init: '', validators: [{ fn: isRequired, params: [] }] });
 
   const handleSubmit: React.FormEventHandler = async ev => {
@@ -51,9 +66,21 @@ const Signup = function () {
       runEmailValidators()
     ];
     if (validations.some(v => v.errorExists)) return;
-    const req = await simulateRequest(sendSignupReq, 5);
-    setHasSignedUp(true);
+
+    const req = api.signup({ fullname, email, password });
+    sendSignupReq(req);
   };
+
+  useEffect(() => {
+    if (response?.status !== 'fail') return;
+    const errorPushers = {
+      email: pushEmailValidationError,
+      password: pushPasswordValidationError
+    };
+    response.errors?.forEach(e => {
+      errorPushers[e.field as keyof typeof errorPushers]?.(e.msg);
+    });
+  }, [response]);
 
   const googleSignIn = useGoogleLogin({
     onSuccess: async response => {
@@ -63,7 +90,7 @@ const Signup = function () {
     onError: errorResponse => console.log('Google response: ', errorResponse)
   });
 
-  if (hasSignedUp) return <SignupSuccess email={'the email field of the signup response'} />;
+  if (response?.status === 'USER_CREATED') return <SignupSuccess />;
 
   return (
     <form className="d-flex flex-column" onSubmit={handleSubmit}>
@@ -101,12 +128,14 @@ const Signup = function () {
       <TextField
         value={password}
         onChange={handleChangePassword}
+        type="password"
         validationErrors={passwordValidationErrors}
         label="Password"
         className="mb-5"
         inputClassName="textfield-sm border"
       />
       <LoadingButton
+        type="submit"
         className="btn btn-pry"
         loading={isSigningUp}
         withSpinner

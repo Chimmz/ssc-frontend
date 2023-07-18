@@ -10,7 +10,7 @@ import Signup from './signup';
 import { Icon } from '@iconify/react';
 import SignupSuccess from './signup/success';
 import EmailVerify from './email-verify';
-import EmailVerifyExpired from './email-verify/expired';
+import EmailVerifyFail from './email-verify/fail';
 
 const Auth = () => {
   return (
@@ -56,9 +56,7 @@ const Auth = () => {
             }
           />
 
-          {/* <Route path="signup/success" element={<SignupSuccess />} /> */}
-          <Route path="email-verify" element={<EmailVerify />} />
-          <Route path="email-verify/expired" element={<EmailVerifyExpired />} />
+          <Route path="email-verify/:vid" element={<EmailVerify />} />
         </Routes>
       </section>
     </div>

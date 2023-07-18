@@ -1,8 +1,10 @@
 export interface UserPublicProfile {
   _id: string;
   firstName: string;
-  lastName: string;
-  imgUrl: string;
+  lastName?: string;
+  email: string;
+  isEmailVerified: boolean;
+  createdAt: string;
 }
 
 export interface StartupProps {
