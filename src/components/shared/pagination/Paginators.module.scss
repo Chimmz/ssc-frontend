@@ -31,14 +31,14 @@ ul.paginators {
       }
 
       &:hover {
-        color: $color-pry;
+        color: #7600ff;
 
         &::before {
           opacity: 1;
           transform: scale(1);
-          // background-color: $color-pry-lightest;
+          // background-color:  #7600ff-lightest;
           background-color: #fff;
-          color: $color-pry !important;
+          color: #7600ff !important;
         }
       }
 
@@ -49,9 +49,9 @@ ul.paginators {
           border: none;
           opacity: 1;
           transform: scale(1);
-          // background-color: $color-pry !important;
+          // background-color:  #7600ff !important;
 
-          background-color: $color-pry;
+          background-color: #7600ff;
           opacity: 1;
         }
       }

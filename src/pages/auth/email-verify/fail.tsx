@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 interface Props {
   summary: string;
   msg: string;
+  promptLogin?: boolean;
 }
 
 const EmailVerifyFailure = (props: Props) => {
@@ -11,10 +12,17 @@ const EmailVerifyFailure = (props: Props) => {
       <h1 className="family-raleway mb-5">{props.summary}!</h1>
       <p className="parag" style={{ maxWidth: '50ch' }}>
         {props.msg}
-        or{' '}
-        <Link className="color-pry" to="/auth/login">
-          log into your account
-        </Link>
+        {props.promptLogin ? (
+          <>
+            {' '}
+            Or{' '}
+            <Link className="color-pry" to="/auth/login">
+              log into your account
+            </Link>
+          </>
+        ) : (
+          ''
+        )}
       </p>
     </div>
   );

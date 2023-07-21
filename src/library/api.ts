@@ -27,7 +27,7 @@ class API {
 
   async signup(credentials: { fullname: string; email: string; password: string }) {
     return this._makeRequest({
-      path: '/users/signup',
+      path: '/users/auth/signup',
       method: 'POST',
       body: JSON.stringify(credentials),
       headers: { 'Content-Type': 'application/json' }
@@ -36,20 +36,63 @@ class API {
 
   async login(credentials: { email: string; password: string }) {
     return this._makeRequest({
-      path: '/users/login',
+      path: '/users/auth/login',
       method: 'POST',
       body: JSON.stringify(credentials),
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
+  async googleSignIn(token: string) {
+    return this._makeRequest({
+      path: `/users/auth/google-signin?token=${token}`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
   async verifyEmail(verifId: string) {
     return this._makeRequest({
-      path: `/users/email-verify/${verifId}`,
+      path: `/users/auth/email-verify/${verifId}`,
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });
   }
+
+  async resendVerificationEmail(email: string) {
+    return this._makeRequest({
+      path: `/users/auth/send-email-verification?email=${email}`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  async newsLetterSubscribe(email: string) {
+    return this._makeRequest({
+      path: `/users/newsletter?email=${email}`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  async getAllNews(opts?: { query?: string; page: number; limit: number }) {
+    const searchQuery = opts?.query ? `q=${opts.query}` : '';
+    const queryStr = opts ? `?${searchQuery}&page=${opts.page}&limit=${opts.limit}` : '';
+
+    return this._makeRequest({
+      path: `/news`.concat(queryStr),
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  // async searchNews(query?: string, opts?: { page: number; limit: number }) {
+  //   return this._makeRequest({
+  //     path: `/news/search`,
+  //     method: 'GET',
+  //     headers: { 'Content-Type': 'application/json' }
+  //   });
+  // }
 }
 
 export default new API();

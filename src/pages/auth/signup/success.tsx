@@ -3,22 +3,50 @@ import { genPublicImgSrc } from '../../../utils/url-utils';
 import useRequest from '../../../hooks/useRequest';
 import { simulateRequest } from '../../../utils/async-utils';
 import ThreeDotsSpinner from '../../../components/ui/loader/ThreeDotsSpinner';
+import api from '../../../library/api';
 
-const SignupSuccess = () => {
-  const { send: sendVerifReq, loading: isSendingReq } = useRequest();
+interface Props {
+  signedUpEmail: string;
+}
 
-  const sendVerificationLink = async () => {
-    const req = await simulateRequest(sendVerifReq, 5);
+const SignupSuccess: React.FC<Props> = props => {
+  const {
+    send: sendResendEmailReq,
+    loading: isResending,
+    response
+  } = useRequest<{
+    status: 'EMAIL_SENT' | 'NOT_SENT';
+  }>();
+
+  const resendVerificationLink = async () => {
+    const req = api.resendVerificationEmail(props.signedUpEmail);
+    sendResendEmailReq(req);
   };
 
-  if (isSendingReq) return <ThreeDotsSpinner text="Please wait..." />;
+  if (isResending) return <ThreeDotsSpinner text="Sending email..." />;
+
+  if (response?.status === 'NOT_SENT') {
+    return (
+      <div className="text-center p-5" style={{ transform: 'translateY(-3rem)' }}>
+        <h1 className="family-raleway mb-5">Couldn't Send!</h1>
+        <p className="parag" style={{ maxWidth: '50ch' }}>
+          Sorry, something wrong has happened. Please try again.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="text-center p-5" style={{ transform: 'translateY(-3rem)' }}>
       <h1 className="family-raleway mb-5">Welcome aboard!</h1>
       <p className="parag" style={{ maxWidth: '50ch' }}>
-        We're excited to have you as part of our community. Keep an eye on your inbox for a
-        verification email from us!” Haven’t received the email?
-        <button className="bg-none btn-text-pry ms-2" onClick={sendVerificationLink}>
+        We're excited to have you as part of our community.
+        <br />
+        Keep an eye on your inbox for a verification email from us!
+        <br />
+        <br />
+        Haven’t received the email?
+        <button className="bg-none btn-text-pry ms-2" onClick={resendVerificationLink}>
           Resend
         </button>
       </p>

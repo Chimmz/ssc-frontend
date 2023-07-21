@@ -18,13 +18,9 @@ const Signup = function () {
   const {
     send: sendSignupReq,
     loading: isSigningUp,
-    response
+    response: signupResponse
   } = useRequest<
-    | {
-        status?: 'fail';
-        msg: string;
-        errors?: { field: string; msg: string }[];
-      }
+    | { status?: 'fail'; msg: string; errors?: { field: string; msg: string }[] }
     | { status: 'USER_CREATED'; user: UserPublicProfile }
   >();
 
@@ -59,38 +55,38 @@ const Signup = function () {
 
   const handleSubmit: React.FormEventHandler = async ev => {
     ev.preventDefault();
-
     const validations = [
       runFullnameValidators(),
       runPasswordValidators(),
       runEmailValidators()
     ];
     if (validations.some(v => v.errorExists)) return;
-
     const req = api.signup({ fullname, email, password });
     sendSignupReq(req);
   };
 
   useEffect(() => {
-    if (response?.status !== 'fail') return;
+    if (signupResponse?.status !== 'fail') return;
     const errorPushers = {
       email: pushEmailValidationError,
       password: pushPasswordValidationError
     };
-    response.errors?.forEach(e => {
+    signupResponse.errors?.forEach(e => {
       errorPushers[e.field as keyof typeof errorPushers]?.(e.msg);
     });
-  }, [response]);
+  }, [signupResponse]);
 
   const googleSignIn = useGoogleLogin({
     onSuccess: async response => {
       console.log('Google response: ', response);
       const { access_token } = response;
+      await sendSignupReq(api.googleSignIn(access_token));
     },
     onError: errorResponse => console.log('Google response: ', errorResponse)
   });
 
-  if (response?.status === 'USER_CREATED') return <SignupSuccess />;
+  if (signupResponse?.status === 'USER_CREATED')
+    return <SignupSuccess signedUpEmail={signupResponse.user.email} />;
 
   return (
     <form className="d-flex flex-column" onSubmit={handleSubmit}>

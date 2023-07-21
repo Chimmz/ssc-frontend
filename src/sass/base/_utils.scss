@@ -163,6 +163,19 @@
 .color-pry-dark {
   color: $color-pry-dark !important;
 }
+.color-white {
+  color: #fff !important;
+}
+
+.border {
+  &-pry {
+    border: 1px solid $color-pry;
+
+    &-dark {
+      border: 1px solid $color-pry-dark;
+    }
+  }
+}
 
 .bg-pry {
   background-color: $color-pry !important;
@@ -184,11 +197,6 @@
 }
 .border-transparent {
   border-color: transparent !important;
-}
-.xy-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .text-pry {
@@ -245,6 +253,27 @@
 .text-hover-underline:hover {
   text-decoration: underline;
 }
+
 .border-transparent {
   border-color: transparent !important;
+}
+
+.circle {
+  width: 27px;
+  aspect-ratio: 1;
+  @include grid-center;
+  border-radius: 50%;
+
+  &--1 {
+    width: 30px;
+  }
+  &--2 {
+    width: 33px;
+  }
+  &--3 {
+    width: 33px;
+  }
+  &--4 {
+    width: 35px;
+  }
 }

@@ -29,7 +29,13 @@ const EmailVerify = () => {
         : response.msg.toLowerCase().includes('invalid')
         ? 'Invalid'
         : 'Error';
-      return <EmailVerifyFailure msg={response.msg} summary={title} />;
+      return (
+        <EmailVerifyFailure
+          msg={response.msg}
+          summary={title}
+          promptLogin={response.msg.toLowerCase().includes('expired')}
+        />
+      );
 
     case 'EMAIL_VERIFIED':
       return (
@@ -39,8 +45,8 @@ const EmailVerify = () => {
           <p className="parag family-raleway" style={{ maxWidth: '50ch' }}>
             Your email has been verified.
           </p>
-          <Link to="/auth/login" className="btn btn-outline-pry mt-8">
-            Log in
+          <Link to="/auth/login" className="color-pry family-raleway fw-bold mt-2">
+            Click here to log in
           </Link>
         </div>
       );

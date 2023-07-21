@@ -1,4 +1,4 @@
-import { useRef, FormEventHandler } from 'react';
+import { useRef, FormEventHandler, useState, useEffect } from 'react';
 // Hooks
 import useRequest from '../../../hooks/useRequest';
 import useInput from '../../../hooks/useInput';
@@ -11,6 +11,7 @@ import { genPublicImgSrc } from '../../../utils/url-utils';
 import ThreeDotsSpinner from '../../ui/loader/ThreeDotsSpinner';
 import TextField from '../../ui/text-field/TextField';
 import styles from './Contact.module.scss';
+import api from '../../../library/api';
 
 interface Props {
   className?: string;
@@ -18,12 +19,20 @@ interface Props {
 
 const ContactSection = (props: Props) => {
   const contactFormRef = useRef<HTMLFormElement | null>(null);
+  const [showEmailSuccess, setShowEmailSuccess] = useState(false);
+  const [showSubscribeSuccess, setShowSubscribeSuccess] = useState(false);
 
   const {
     send: sendContactEmailReq,
     loading: isSendingContactEmail,
     response: emailResponse
   } = useRequest<EmailJSResponseStatus | undefined>();
+
+  const {
+    send: sendSubscribeReq,
+    loading: isSendingSubscribeReq,
+    response: subscribeResponse
+  } = useRequest<{ status: 'SUBSCRIBED' | 'fail' }>();
 
   const {
     inputValue: emailSubscribe,
@@ -76,15 +85,14 @@ const ContactSection = (props: Props) => {
     clearInput: clearMessage
   } = useInput({ init: '', validators: [{ fn: isRequired, params: [] }] });
 
-  const handleSubscribe: FormEventHandler = ev => {
+  const handleSubscribe: FormEventHandler = async ev => {
     ev.preventDefault();
     if (runEmailSubscribeValidators().errorExists) return;
-    console.log(emailSubscribe);
+    await sendSubscribeReq(api.newsLetterSubscribe(emailSubscribe));
   };
 
   const handleSubmitContactForn: FormEventHandler = async ev => {
     ev.preventDefault();
-
     const validations = [
       runNameValidators(),
       runEmailValidators(),
@@ -99,15 +107,27 @@ const ContactSection = (props: Props) => {
       contactFormRef.current!,
       process.env.REACT_APP_EMAILJS_PUBLIC_KEY!
     );
-
     sendContactEmailReq(req).then(() => {
       clearFullname();
       clearEmail();
       clearSubject();
       clearMessage();
     });
-    // console.log({ result });
   };
+
+  useEffect(() => {
+    if (emailResponse?.status === 200) {
+      setShowEmailSuccess(true);
+      setTimeout(setShowEmailSuccess.bind(null, false), 3000);
+    }
+  }, [emailResponse]);
+
+  useEffect(() => {
+    if (subscribeResponse?.status === 'SUBSCRIBED') {
+      setShowSubscribeSuccess(true);
+      setTimeout(setShowSubscribeSuccess.bind(null, false), 3000);
+    }
+  }, [subscribeResponse]);
 
   return (
     <section className="section-pad-top section-pad-bottom-lg bg-pry-lightest">
@@ -123,14 +143,13 @@ const ContactSection = (props: Props) => {
           </p>
 
           <form
-            className={cls(
-              'd-flex gap-3 mb-5',
-              `align-items-${emailSubscribeValidationErrors.length ? 'start' : 'center'}`
-            )}
+            className="d-flex align-items-start gap-3 mb-5"
             aria-label="subscribe"
             onSubmit={handleSubscribe}
+            noValidate
           >
             <TextField
+              type="email"
               value={emailSubscribe}
               onChange={handleChangeEmailSubscribe}
               validationErrors={emailSubscribeValidationErrors}
@@ -138,9 +157,16 @@ const ContactSection = (props: Props) => {
               className="flex-grow-1"
               inputClassName="bg-white textfield-sm"
             />
-            <button className="btn btn-pry" type="submit">
-              Subscribe
-            </button>
+            <div className="d-flex flex-column align-items-center gap-3">
+              <button className="btn btn-pry" type="submit">
+                Subscribe
+              </button>
+              {subscribeResponse?.status === 'SUBSCRIBED' && showSubscribeSuccess ? (
+                <small className="fs-5 fw-normal color-pry">Success!</small>
+              ) : (
+                <ThreeDotsSpinner show={isSendingSubscribeReq} size="sm" />
+              )}
+            </div>
           </form>
           <figure className="mx-auto">
             <img src={genPublicImgSrc('/img/contact-img.png')} width={280} />
@@ -151,6 +177,7 @@ const ContactSection = (props: Props) => {
           className={cls(styles.getInTouch, 'ps-5')}
           ref={contactFormRef}
           onSubmit={handleSubmitContactForn}
+          noValidate
           aria-label="get-in-touch"
         >
           <h3 className="h-3 fs-2 fw-bold color-pry-dark mb-5">Get in touch</h3>
@@ -164,6 +191,7 @@ const ContactSection = (props: Props) => {
             inputClassName="bg-white textfield-sm"
           />
           <TextField
+            type="email"
             name="from_email"
             value={email}
             onChange={handleChangeEmail}
@@ -202,14 +230,14 @@ const ContactSection = (props: Props) => {
                 info@seoulstartupsclub.com
               </a>
             </small>
-            <div className="d-flex align-items-center gap-3">
+            <div className="d-flex flex-column align-items-center gap-3">
               <button className="btn btn-pry" disabled={isSendingContactEmail}>
                 Send
               </button>
-              {emailResponse?.status === 200 ? (
-                <small className="fw-normal color-pry">Success!</small>
+              {emailResponse?.status === 200 && showEmailSuccess ? (
+                <small className="fs-5 fw-normal color-pry">Success!</small>
               ) : (
-                <ThreeDotsSpinner show={isSendingContactEmail} />
+                <ThreeDotsSpinner show={isSendingContactEmail} size="sm" />
               )}
             </div>
           </div>

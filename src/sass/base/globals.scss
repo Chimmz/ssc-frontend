@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bs-tooltip-font-size: 10px !important;
+}
+
 html {
   font-size: 62.5%;
   // scroll-padding-top: 5rem;
@@ -86,18 +90,15 @@ a {
 }
 
 .dropdown-menu {
-  max-height: 40vh;
-  overflow-y: scroll;
-  padding: 1.2rem 0;
+  // padding: 1.2rem 0;
   margin-top: 1rem;
   border: none;
   box-shadow: 0 1px 5px rgba(#000, 0.15), 0 5px 22px rgba(#000, 0.17);
   // position: relative;
-  z-index: 2;
+  z-index: 4;
   @include thin-scrollbar;
 
   &::after {
-    // content: '';
     position: absolute;
     right: 15px;
     bottom: 100%;
@@ -110,12 +111,13 @@ a {
   }
 
   & > .dropdown-item {
-    padding: 0.6em 1.4em;
+    padding: 0.7em 1.5em;
     padding-right: 1.7em !important;
     font-size: 1.1em !important;
+    color: #000 !important;
 
     &:not(:last-child) {
-      margin-bottom: 5px;
+      // margin-bottom: 5px;
     }
 
     &:hover {
@@ -130,7 +132,16 @@ a {
 }
 
 textarea {
-  height: 120px;
+  height: 100px;
+}
+
+.tooltip {
+  --bs-tooltip-bg: $color-pry-dark;
+  --bs-tooltip-max-width: 500px !important;
+  --bs-tooltip-font-size: 10px !important;
+  --bs-tooltip-padding-x: 1.2rem;
+  --bs-tooltip-padding-y: 0.4rem;
+  border-radius: 3px;
 }
 
 .tooltip-inner {

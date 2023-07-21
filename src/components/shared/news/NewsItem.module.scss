@@ -3,6 +3,11 @@
   align-items: center;
   gap: 2rem;
 
+  &:hover h4 {
+    text-decoration: underline;
+    // color: #7600ff;
+  }
+
   & > figure {
     flex: 1;
     height: 23rem;
@@ -15,6 +20,7 @@
       object-fit: cover;
     }
   }
+
   & > article {
     font-size: 1.9rem;
     flex: 1;

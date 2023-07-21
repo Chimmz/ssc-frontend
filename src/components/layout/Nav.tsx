@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Button } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
 import * as imgUtils from '../../utils/url-utils';
 import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
@@ -8,10 +8,19 @@ import useSignedInUser from '../../hooks/useSignedInUser';
 import { useAuthContext } from '../../contexts/AuthContext';
 import useRequest from '../../hooks/useRequest';
 import LoadingButton from '../ui/LoadingButton';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 interface Props {
   style?: React.CSSProperties;
 }
+
+// 한국어
+// info@seoulstartupsclub.com
+// http://localhost:5000/api/v1/auth/callback/google
+// https://developers.google.com/gmail/api/guides/sending
+// Check what Google API service is appropriate
+// Google API key: AIzaSyDcrQ4ECxg8sInYJUmTRpMmF2w2sBPjQZ8
+// A fixed scroll-to-top button
 
 const Nav = function (props: Props) {
   const { isSignedIn, firstName, lastName } = useSignedInUser();
@@ -40,18 +49,38 @@ const Nav = function (props: Props) {
         </Link>
         {isSignedIn ? (
           <>
-            <button className="btn btn--KR">{userInitials}</button>
-            <span className="family-raleway me-4">{firstName}</span>
-            <LoadingButton
-              loading={isLoggingOut}
-              className="btn btn-danger-outline"
-              style={{ color: '#dd0808' }}
-              onClick={() => sendLogoutReq(logoOut())}
-              loadingMsg="Logging out..."
-              withSpinner
+            <span className="circle circle--3 fs-5 bg-pry-dark color-white family-raleway">
+              {userInitials}
+            </span>
+
+            <NavDropdown
+              className=""
+              color="white"
+              align="end"
+              title={
+                <div className="d-flex align-items-center gap-5">
+                  <span className="family-raleway fw-bold text-black me-2">
+                    Hi {firstName}!
+                  </span>
+                  <div className="nine-dots ">
+                    <span className="three-dots "></span>
+                    <span className="three-dots "></span>
+                    <span className="three-dots "></span>
+                  </div>
+                </div>
+              }
             >
-              Log out <Icon icon="charm:sign-out" />
-            </LoadingButton>
+              <NavDropdown.Item>Text</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item>Text</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item>한국어</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item onClick={() => sendLogoutReq(logoOut())}>
+                {isLoggingOut && <Spinner animation="border" size="sm" />}
+                {isLoggingOut ? 'Logging out...' : 'Log out'}
+              </NavDropdown.Item>
+            </NavDropdown>
           </>
         ) : (
           <div className="nav-auth d-flex gap-4">

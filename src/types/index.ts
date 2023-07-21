@@ -43,3 +43,13 @@ export interface StripePrice {
   unit_amount: number;
   unit_amount_decimal: string;
 }
+
+export interface NewsObj {
+  _id: string;
+  headline: string;
+  story: string;
+  // postedBy: UserPublicProfile;
+  isApprovedByAdmin: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
