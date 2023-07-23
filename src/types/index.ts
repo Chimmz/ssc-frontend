@@ -1,3 +1,5 @@
+import { StartupIndustries, StartupStages } from '../data/constants';
+
 export interface UserPublicProfile {
   _id: string;
   firstName: string;
@@ -5,15 +7,6 @@ export interface UserPublicProfile {
   email: string;
   isEmailVerified: boolean;
   createdAt: string;
-}
-
-export interface StartupProps {
-  _id: string;
-  name: string;
-  logoUrl: string;
-  website: string;
-  industry: string;
-  stage: string;
 }
 
 export interface StripePrice {
@@ -44,10 +37,34 @@ export interface StripePrice {
   unit_amount_decimal: string;
 }
 
+export type StartupIndustry =
+  | StartupIndustries.HEALTHCARE
+  | StartupIndustries.BLOCK_CHAIN
+  | StartupIndustries.E_COMMERCE
+  | StartupIndustries.FINANCIAL
+  | StartupIndustries.GAMING;
+
+export type StartupStage =
+  | StartupStages.SEED_STAGE
+  | StartupStages.GROWTH_STAGE
+  | StartupStages.IDEA_AND_CONCEPTUALIZATION
+  | StartupStages.EARLY_TRACTION
+  | StartupStages.PROOF_OF_CONCEPT
+  | StartupStages.EXPANSION_AND_MATURITY;
+
+export interface StartupProps {
+  _id: string;
+  name: string;
+  industry: StartupIndustry | string;
+  stage: StartupStage | string;
+  logoUrl: string;
+  website: string;
+}
+
 export interface NewsObj {
   _id: string;
-  headline: string;
-  story: string;
+  headline: string | (string | JSX.Element)[];
+  story: string | (string | JSX.Element)[];
   // postedBy: UserPublicProfile;
   isApprovedByAdmin: boolean;
   createdAt: string;

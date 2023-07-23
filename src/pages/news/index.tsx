@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, useMemo } from 'react';
 
 import useInput from '../../hooks/useInput';
 import useScrollToTop from '../../hooks/useScrollToTop';
@@ -17,21 +17,28 @@ import { Icon } from '@iconify/react';
 import usePagination from '../../hooks/usePagination';
 import Pagination from '../../components/shared/pagination/Pagination';
 import Paginators from '../../components/shared/pagination/Paginators';
+import ThreeDotsSpinner from '../../components/ui/loader/ThreeDotsSpinner';
+import { boldenPatternsInText, scrollToElement } from '../../utils/dom-utils';
 
 const NEWS_PER_PAGE = 4;
 
 const NewsPage: FC = () => {
   const [news, setNews] = useState<NewsObj[] | undefined>();
-  const { inputValue: searchTerm, onChange: handleChangeSearchTerm } = useInput({ init: '' });
-  const handleInputKeyUp = useDelayedActionOnTextInput(() => search());
 
-  const { page, setPage, setPageData } = usePagination<NewsObj>();
+  const { inputValue: searchTerm, onChange: handleChangeSearchTerm } = useInput({ init: '' });
+  const { page, goPrevPage, goNextPage, setPage, setPageData } = usePagination<NewsObj>();
+  const handleInputKeyUp = useDelayedActionOnTextInput(() => search());
 
   const {
     send: sendNewsReq,
-    loading: isGettingNews,
+    loading: loadingNews,
     response
-  } = useRequest<{ status: 'SUCCESS' | 'fail'; results?: number; news?: NewsObj[] }>();
+  } = useRequest<{
+    status: 'SUCCESS' | 'fail';
+    results?: number;
+    total?: number;
+    news?: NewsObj[];
+  }>();
 
   const search = () => {
     const req = api.getAllNews({ query: searchTerm, page, limit: NEWS_PER_PAGE });
@@ -39,14 +46,33 @@ const NewsPage: FC = () => {
   };
 
   useEffect(() => {
-    if (!news?.length) search();
-  }, []);
-
-  useEffect(() => {
-    if (response?.status === 'SUCCESS') setNews(response.news);
+    if (response?.news) {
+      setNews(response.news);
+      scrollToElement('#news');
+    }
   }, [response]);
 
-  const handlePageChange = (pg: number) => {};
+  useEffect(() => {
+    search();
+  }, [page]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [searchTerm]);
+
+  const newsBoldened = useMemo(() => {
+    if (response?.news && searchTerm)
+      return response?.news?.map(item => ({
+        ...item,
+        headline: boldenPatternsInText(item.headline as string, searchTerm),
+        story: boldenPatternsInText(item.story as string, searchTerm)
+      }));
+  }, [response]);
+
+  const handlePageChange = (pg: number) => {
+    // console.log(pg);
+    setPage(pg);
+  };
 
   return (
     <Layout navStyles={{ backgroundColor: '#fff' }}>
@@ -70,15 +96,23 @@ const NewsPage: FC = () => {
             </span>
           </div>
           {!searchTerm ? <NewsGroup /> : null}
-          <NewsList items={news} />
 
-          {/* <Pagination currentPage={page} totalPages={10} className="mt-6" /> */}
-          <Paginators
-            currentPage={page}
-            onPageChange={handlePageChange}
-            pageCount={10}
-            className="mt-6"
-          />
+          {/* <ThreeDotsSpinner show={loadingNews} size="lg" text="Loading..." className="my-8" /> */}
+
+          <NewsList items={newsBoldened || news} searchTerm={searchTerm} />
+
+          {!response?.news?.length ? (
+            <div className="bg-light rounded-2 border text-center p-3">No results</div>
+          ) : null}
+
+          {response?.news?.length ? (
+            <Pagination
+              currentPage={page}
+              onChangePage={handlePageChange}
+              totalPages={Math.ceil(response.total! / NEWS_PER_PAGE)}
+              className="mt-6"
+            />
+          ) : null}
         </div>
       </section>
       <ContactSection className="mt-5" />

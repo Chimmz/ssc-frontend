@@ -5,13 +5,17 @@ interface Props {
   show?: boolean;
   size?: 'sm' | 'md' | 'lg';
   text?: string;
+  className?: string;
 }
 
-const ThreeDotsSpinner: React.FC<Props> = ({ show = true, text, size = 'lg' }) => {
+const ThreeDotsSpinner: React.FC<Props> = props => {
+  const { show = true, text, size = 'lg', className } = props;
+  if (!show) return null;
   return (
     <div
       className={cls(
         'd-flex flex-column align-items-center gap-4 family-raleway',
+        className,
         styles[size]
       )}
     >

@@ -13,7 +13,7 @@ import useCopyToClipboard from '../../../hooks/useCopyToClipboard';
 import { useState } from 'react';
 import { NewsObj } from '../../../types';
 import { useLocation } from 'react-router-dom';
-import formatDate from '../../../utils/date-utils';
+import { formatDate } from '../../../utils/date-utils';
 
 const SingleNewsPage: React.FC = () => {
   const location = useLocation();
@@ -24,10 +24,6 @@ const SingleNewsPage: React.FC = () => {
   const { clipboardText, copied, onCopy, setCopiedFalse } = useCopyToClipboard({
     usePageUrlAsText: true
   });
-
-  useEffect(() => {
-    // if ()
-  }, []);
 
   return (
     <Layout navStyles={{ backgroundColor: '#fff' }}>
@@ -78,14 +74,7 @@ const SingleNewsPage: React.FC = () => {
             {/* <p>{newsItem?.story}</p> */}
             <img src={genPublicImgSrc('/img/news-img1.png')} className="float-left" alt="" />
             <p>
-              {newsItem?.story
-                .concat(newsItem?.story)
-                .concat(newsItem?.story)
-                .concat(newsItem?.story)
-                .concat(newsItem?.story)
-                .concat(newsItem?.story)
-                .concat(newsItem?.story)
-                .concat(newsItem?.story)}
+              {newsItem?.story}
               {/* Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime, autem
               mollitia! Iusto eos cupiditate perspiciatis possimus. Aperiam distinctio ut, ea
               nam qui sunt impedit sequi alias deleniti molestias modi voluptas nobis placeat

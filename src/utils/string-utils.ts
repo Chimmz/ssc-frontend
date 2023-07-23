@@ -25,7 +25,6 @@ export const toLowerSnakeCase = (str: string) => {
 };
 
 export const addSuffixToNumber = (number: string | number) => {
-  console.log('ARG: ', number);
   let s = ['th', 'st', 'nd', 'rd'];
   let v = +number % 100;
   return number + (s[(v - 20) % 10] || s[v] || s[0]);

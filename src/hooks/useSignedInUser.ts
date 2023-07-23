@@ -3,7 +3,6 @@ import { useAuthContext } from '../contexts/AuthContext';
 
 const useSignedInUser = () => {
   const context = useAuthContext();
-  console.log({ context });
 
   return {
     isSignedIn: !!context?.data?.accessToken?.length,

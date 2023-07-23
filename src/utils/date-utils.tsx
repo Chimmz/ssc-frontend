@@ -8,15 +8,13 @@ const DEFAULT_DATE_FORMAT: DateFormatOptions = {
   year: 'numeric'
 };
 
-const formatDate = (
+export const formatDate = (
   rawDate: string | undefined,
   options: DateFormatOptions = DEFAULT_DATE_FORMAT
 ) => {
   if (rawDate) return new Intl.DateTimeFormat('en-US', options).format(new Date(rawDate));
   return '';
 };
-
-export default formatDate;
 
 export const getPast12MonthsWithYear = (): string[] => {
   const pastMonths = [];

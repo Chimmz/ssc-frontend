@@ -2,14 +2,16 @@ import { Icon } from '@iconify/react';
 import cls from 'classnames';
 
 interface Props {
-  currentPage?: number;
+  currentPage: number;
   totalPages: number;
   onChangePage?: (pg: number) => any;
   className?: string;
+  // goNext(): any;
+  // goPrev(): any;
 }
 
 const Pagination = (props: Props) => {
-  const { currentPage = 1, totalPages, className } = props;
+  const { currentPage, totalPages, className } = props;
 
   return (
     <div

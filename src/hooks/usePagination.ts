@@ -2,10 +2,6 @@ import { useEffect, useState } from 'react';
 
 type PageData<T> = { [page: number]: T | undefined };
 
-// interface Params<T> {
-//   init?: T;
-// }
-
 const FIRST_PAGE = 1;
 
 const usePagination = <T>(init?: T) => {
@@ -15,6 +11,9 @@ const usePagination = <T>(init?: T) => {
     if (init) return { [FIRST_PAGE]: init };
     return {};
   });
+
+  const goNextPage = () => setPage(pg => pg + 1);
+  const goPrevPage = () => setPage(pg => pg - 1);
 
   const setPageData = (pg: number, data: T) => {
     setAllData(obj => ({ ...obj, [pg]: data }));
@@ -30,6 +29,8 @@ const usePagination = <T>(init?: T) => {
   return {
     page,
     pageData: allData[page],
+    goPrevPage,
+    goNextPage,
     setPage,
     getPageData,
     setPageData,

@@ -1,11 +1,26 @@
+import { useMemo } from 'react';
 import cls from 'classnames';
 import { genPublicImgSrc } from '../../../utils/url-utils';
 import styles from './NewsItem.module.scss';
 import { NewsObj } from '../../../types';
 import { Link } from 'react-router-dom';
-import formatDate from '../../../utils/date-utils';
+import { formatDate } from '../../../utils/date-utils';
+import { boldenPatternsInText } from '../../../utils/dom-utils';
 
-const NewsItem: React.FC<NewsObj> = item => {
+interface NewsItemProps {
+  item: NewsObj;
+  searchTerm?: string;
+}
+
+const NewsItem: React.FC<NewsItemProps> = ({ item, searchTerm }) => {
+  // const boldenedHeadline = useMemo(() => {
+  //   if (searchTerm) return boldenPatternsInText(item.headline, searchTerm);
+  // }, [item, searchTerm]);
+
+  // const boldenedStory = useMemo(() => {
+  //   if (searchTerm) return boldenPatternsInText(item.story, searchTerm);
+  // }, [item, searchTerm]);
+
   return (
     <Link to={`${item._id}`} state={{ newsItem: item }}>
       <li className={styles.newsItem}>
@@ -13,8 +28,8 @@ const NewsItem: React.FC<NewsObj> = item => {
           <img src={genPublicImgSrc('/img/news-img2.png')} alt="" />
         </figure>
         <article className="d-flex flex-column gap-3">
-          <h4 className="fw-bold">{item.headline}</h4>
-          <p className="parag">{item.story}</p>
+          <h4 className={cls(!searchTerm && 'fw-bold')}>{item.headline}</h4>
+          <p className={cls('parag')}>{item.story}</p>
           <small className={cls(styles.date, 'text-light')}>
             {formatDate(item.createdAt)}
           </small>

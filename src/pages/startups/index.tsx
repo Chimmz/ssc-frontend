@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 
 import useInput from '../../hooks/useInput';
@@ -16,6 +16,7 @@ import SectionTitle from '../../components/section-title/SectionTitle';
 import TextField from '../../components/ui/text-field/TextField';
 import StartupsList from '../../components/shared/startups/StartupsList';
 import styles from './styles.module.scss';
+import { StartupProps } from '../../types';
 
 function CustomToggle(props: { children: ReactNode; eventKey: string; className?: string }) {
   const decoratedOnClick = useAccordionButton(props.eventKey, () =>
@@ -34,8 +35,17 @@ function CustomToggle(props: { children: ReactNode; eventKey: string; className?
 }
 
 const StartupsPage = function () {
+  const [startups, setStartups] = useState<StartupProps[]>(dummyStartups);
+
   const { inputValue: searchTerm, onChange: handleChangeSearchTerm } = useInput({ init: '' });
-  useScrollToTop();
+  // useScrollToTop();
+
+  useEffect(() => {
+    if (!searchTerm) return setStartups(dummyStartups);
+    setStartups(items => {
+      return items.filter(st => st.name.toLowerCase().includes(searchTerm));
+    });
+  }, [searchTerm]);
 
   return (
     <Layout navStyles={{ backgroundColor: '#fff' }}>
@@ -82,8 +92,8 @@ const StartupsPage = function () {
               </Accordion>
             </div>
             <div className="container app-container">
-              <StartupsList items={dummyStartups} />
-              <Pagination currentPage={2} totalPages={10} />
+              <StartupsList items={startups} />
+              {/* <Pagination currentPage={2} totalPages={10} /> */}
             </div>
           </aside>
         </div>
