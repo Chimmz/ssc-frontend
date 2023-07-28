@@ -1,41 +1,44 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import ThreeDotsSpinner from '../../../components/ui/loader/ThreeDotsSpinner';
 import SuccessFeedback from '../../../components/ui/success/SuccessFeedback';
 import useRequest from '../../../hooks/useRequest';
-import { simulateRequest } from '../../../utils/async-utils';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useSearchParams, useParams } from 'react-router-dom';
 import api from '../../../library/api';
 import EmailVerifyFailure from './fail';
+import SignupSuccess from '../signup/success';
 
 const EmailVerify = () => {
+  const verifId = useParams().vid;
+  const [searchParams] = useSearchParams();
+
   const {
     send: sendVerifyReq,
     loading: isVerifying,
     response
-  } = useRequest<{ status: 'EMAIL_VERIFIED' } | { status: 'fail'; msg: string }>();
-  const verifId = useParams().vid;
+  } = useRequest<
+    | { status: 'EMAIL_VERIFIED' | 'EMAIL_PREVIOUSLY_VERIFIED' }
+    | { status: 'fail'; msg: string }
+  >();
 
   useEffect(() => {
-    sendVerifyReq(api.verifyEmail(verifId!));
-  }, []);
+    if (response || isVerifying) return;
+    sendVerifyReq(api.verifyEmail(verifId!, searchParams.get('email')));
+  }, [response]);
 
   if (isVerifying)
     return <ThreeDotsSpinner text="Please wait while we verify your email..." />;
 
   switch (response?.status) {
     case 'fail':
-      const title = response.msg.toLowerCase().includes('expired')
-        ? 'Expired'
-        : response.msg.toLowerCase().includes('invalid')
-        ? 'Invalid'
-        : 'Error';
-      return (
-        <EmailVerifyFailure
-          msg={response.msg}
-          summary={title}
-          promptLogin={response.msg.toLowerCase().includes('expired')}
-        />
-      );
+      if (response.msg.toLowerCase().includes('expired'))
+        return <SignupSuccess signedUpEmail={searchParams.get('email')!} />;
+
+      const title = response.msg.toLowerCase().includes('invalid') ? 'Invalid' : 'Error';
+
+      return <EmailVerifyFailure summary={title} msg={response.msg} />;
+
+    case 'EMAIL_PREVIOUSLY_VERIFIED':
+      return <Navigate to="/auth/login" />;
 
     case 'EMAIL_VERIFIED':
       return (
@@ -54,4 +57,4 @@ const EmailVerify = () => {
   return <></>;
 };
 
-export default EmailVerify;
+export default memo(EmailVerify);

@@ -6,7 +6,6 @@ import useScrollToTop from '../../hooks/useScrollToTop';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 
 import cls from 'classnames';
-import { dummyStartups } from '../../data/dummy-startups';
 
 import Accordion from 'react-bootstrap/Accordion';
 import Pagination from '../../components/shared/pagination/Pagination';
@@ -17,6 +16,30 @@ import TextField from '../../components/ui/text-field/TextField';
 import StartupsList from '../../components/shared/startups/StartupsList';
 import styles from './styles.module.scss';
 import { StartupProps } from '../../types';
+import { StartupIndustries, StartupStages } from '../../data/constants';
+import api from '../../library/api';
+import useRequest from '../../hooks/useRequest';
+import { Form } from 'react-bootstrap';
+import { v4 as uuidv4 } from 'uuid';
+import useList from '../../hooks/useList';
+
+const INDUSTRIES = [
+  StartupIndustries.TECHNOLOGY,
+  StartupIndustries.HEALTHCARE,
+  StartupIndustries.BLOCK_CHAIN,
+  StartupIndustries.E_COMMERCE,
+  StartupIndustries.FINANCIAL,
+  StartupIndustries.GAMING
+];
+
+const STAGES = [
+  StartupStages.SEED_STAGE,
+  StartupStages.GROWTH_STAGE,
+  StartupStages.IDEA_AND_CONCEPTUALIZATION,
+  StartupStages.EARLY_TRACTION,
+  StartupStages.PROOF_OF_CONCEPT,
+  StartupStages.EXPANSION_AND_MATURITY
+];
 
 function CustomToggle(props: { children: ReactNode; eventKey: string; className?: string }) {
   const decoratedOnClick = useAccordionButton(props.eventKey, () =>
@@ -35,17 +58,51 @@ function CustomToggle(props: { children: ReactNode; eventKey: string; className?
 }
 
 const StartupsPage = function () {
-  const [startups, setStartups] = useState<StartupProps[]>(dummyStartups);
+  const [startups, setStartups] = useState<StartupProps[]>([]);
+  useScrollToTop();
+
+  const { send: sendSearchReq, response } = useRequest<{
+    status: string;
+    startups?: StartupProps[];
+  }>();
 
   const { inputValue: searchTerm, onChange: handleChangeSearchTerm } = useInput({ init: '' });
-  // useScrollToTop();
+
+  const {
+    items: industryFilters,
+    addItem: addIndustryFilter,
+    removeItem: removeIndustryFilter,
+    removeAll: removeAllIndustryFilters
+  } = useList();
+
+  const {
+    items: stageFilters,
+    addItem: addStageFilter,
+    removeItem: removeStageFilter,
+    removeAll: removeAllStageFilters
+  } = useList();
+
+  const search = () => {
+    const queryStr = `?q=${searchTerm}&industry=${industryFilters.join()}&stage=${stageFilters.join()}`;
+    sendSearchReq(api.searchStartups(queryStr));
+  };
 
   useEffect(() => {
-    if (!searchTerm) return setStartups(dummyStartups);
-    setStartups(items => {
-      return items.filter(st => st.name.toLowerCase().includes(searchTerm));
-    });
-  }, [searchTerm]);
+    if (response?.status === 'SUCCESS') setStartups(response!.startups!);
+  }, [response]);
+
+  useEffect(() => {
+    search();
+  }, [searchTerm, industryFilters, stageFilters]);
+
+  useEffect(() => {
+    api.getStartups().then(res => res.status === 'SUCCESS' && setStartups(res.startups));
+  }, []);
+
+  const clearAllFilters = () => {
+    removeAllIndustryFilters();
+    removeAllStageFilters();
+  };
 
   return (
     <Layout navStyles={{ backgroundColor: '#fff' }}>
@@ -66,34 +123,87 @@ const StartupsPage = function () {
 
           <aside className="d-flex justify-content-center align-items-start gap-5">
             <div className="mt-3">
-              <h5 className="color-pry-dark fw-bold mb-3 ms-1">Filter By</h5>
+              <h5 className="d-flex align-items-center justify-content-between color-pry-dark fw-bold mb-2 ms-1">
+                Filter by
+                <button
+                  className={cls('btn btn--sm color-pry')}
+                  disabled={!industryFilters.length && !stageFilters.length}
+                  onClick={clearAllFilters}
+                >
+                  Clear all
+                </button>
+              </h5>
+
+              {/* FILTER SECTION */}
               <Accordion defaultActiveKey="0" className={styles.filter}>
                 <CustomToggle
                   eventKey="0"
-                  className="d-flex justify-content-between border-bottom w-100 p-3"
+                  className="d-flex justify-content-between border-bottom w-100 p-4 pb-3"
                 >
-                  <span className="color-pry">Industry</span>
+                  <span className="color-pry fw-bold fs-5">Industry</span>
                   <Icon icon="ic:round-plus" color="#7600ff" />
                 </CustomToggle>
                 <Accordion.Collapse eventKey="0">
-                  <div className="py-1 px-3 pb-3">Hello! I'm in industry</div>
+                  <ul
+                    className={cls(
+                      styles.filterList,
+                      'd-flex flex-column fs-5 fw-bold list-style-none p-4 py-3'
+                    )}
+                  >
+                    {INDUSTRIES.map(ind => (
+                      <li className="" key={uuidv4()}>
+                        <Form.Check
+                          label={ind}
+                          className=""
+                          checked={industryFilters.includes(ind)}
+                          onChange={ev => {
+                            !industryFilters.includes(ind)
+                              ? addIndustryFilter(ind)
+                              : removeIndustryFilter(ind);
+                          }}
+                        />
+                      </li>
+                    ))}
+                  </ul>
                 </Accordion.Collapse>
 
                 <CustomToggle
                   eventKey="1"
-                  className="d-flex justify-content-between w-100 p-3"
+                  className="d-flex justify-content-between border-bottom w-100 p-4 pb-3"
                 >
-                  <span className="color-pry">Stage</span>
+                  <span className="color-pry fw-bold fs-5">Startup Stage</span>
                   <Icon icon="ic:round-plus" color="#7600ff" />
                 </CustomToggle>
                 <Accordion.Collapse eventKey="1">
-                  <div className="py-1 px-3 pb-3">Hello! I'm in stage</div>
+                  <ul
+                    className={cls(
+                      styles.filterList,
+                      'd-flex flex-column fs-5 fw-bold list-style-none p-4 py-3'
+                    )}
+                  >
+                    {STAGES.map(stage => (
+                      <li className="cursor-pointer" key={uuidv4()}>
+                        <Form.Check
+                          label={stage}
+                          className=""
+                          checked={stageFilters.includes(stage)}
+                          onChange={ev => {
+                            !stageFilters.includes(stage)
+                              ? addStageFilter(stage)
+                              : removeStageFilter(stage);
+                          }}
+                        />
+                      </li>
+                    ))}
+                  </ul>
                 </Accordion.Collapse>
               </Accordion>
             </div>
+
+            {/* STARTUP CARDS */}
             <div className="container app-container">
               <StartupsList items={startups} />
-              {/* <Pagination currentPage={2} totalPages={10} /> */}
+              <Pagination currentPage={1} totalPages={1} />
             </div>
           </aside>
         </div>

@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { knuthMorrisPatternMatch } from '../library/algos';
 
 export const scrollToElement = (query: string | HTMLElement) => {
   (typeof query === 'string' ? document.querySelector(query) : query)?.scrollIntoView({
@@ -18,31 +19,39 @@ export const renderMultiLineText = (text: string[]) => {
 };
 
 export const boldenPatternsInText = (text: string, pattern: string) => {
-  const words = text.split(' ');
+  const occurrences = knuthMorrisPatternMatch(text, pattern);
+  console.log({ occurrences });
+  if (!occurrences.length) return text;
 
-  const transformedWords = words.map((w, i) => {
-    const indexFound = w.toLowerCase().indexOf(pattern.toLowerCase());
-    const isLastWord = i === words.length - 1;
-    console.log(`Finding ${pattern.toLowerCase()} in ${w.toLowerCase()}: `, indexFound);
+  const html = occurrences.map((occur, i) => {
+    let substrBeforeOccurence;
+    const isFirstOccurence = i === 0;
 
-    if (indexFound === -1) {
-      if (isLastWord) return w;
-      return w + ' ';
+    const jsx = [];
+
+    if (isFirstOccurence) {
+      substrBeforeOccurence = text.slice(0, occur);
+    } else {
+      const prevOccurence = occurrences[i - 1];
+      substrBeforeOccurence = text.slice(prevOccurence + pattern.length, occur);
+    }
+    jsx.push(substrBeforeOccurence);
+
+    const matchingSubstring = text.slice(occur, occur + pattern.length);
+    console.log(
+      `occur: ${occur}, strBeforeOccurence="${substrBeforeOccurence}", matchingSubstring="${matchingSubstring}"`
+    );
+
+    jsx.push(<span className="fw-bold text-black">{matchingSubstring}</span>);
+
+    const isLastOccurrence = i === occurrences.length - 1;
+
+    if (isLastOccurrence) {
+      console.log(`Remaining string: `, text.slice(occur + pattern.length));
+      jsx.push(text.slice(occur + pattern.length));
     }
 
-    const nonMatchingPrefix = w.slice(0, indexFound);
-    const matchingPart = w.slice(indexFound, w.length);
-    const nonMatchingSuffix = w.slice(indexFound + w.length);
-
-    console.log({ nonMatchingPrefix, matchingPart, nonMatchingSuffix });
-    return (
-      <>
-        {nonMatchingPrefix}
-        <span className="fw-bold">{matchingPart}</span>
-        {nonMatchingSuffix}
-        {isLastWord ? '' : ' '}
-      </>
-    );
+    return jsx;
   });
-  return transformedWords;
+  return html.flat();
 };

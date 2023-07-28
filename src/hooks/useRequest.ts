@@ -54,7 +54,16 @@ function useRequest<ExpectedResponse>(args?: Params<ExpectedResponse>) {
     [startLoading, stopLoading, setIsRetrying]
   );
 
-  return { send, response, loading, startLoading, stopLoading, loaded, isRetrying };
+  return {
+    send,
+    response,
+    setResponse,
+    loading,
+    startLoading,
+    stopLoading,
+    loaded,
+    isRetrying
+  };
 }
 
 export default useRequest;

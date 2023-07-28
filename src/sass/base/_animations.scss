@@ -27,3 +27,28 @@
 .animation-vertical-oscillate {
   animation: vertical-oscillate 0.5s infinite forwards;
 }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 0.4s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.fadeOut {
+  animation: fadeOut 0.4s 0.4s forwards;
+}

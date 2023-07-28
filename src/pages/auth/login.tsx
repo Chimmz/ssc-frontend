@@ -98,6 +98,7 @@ const Login = function () {
     onSuccess: async response => {
       console.log('Google response: ', response);
       const { access_token } = response;
+      await sendLoginReq(api.googleSignIn(access_token));
     },
     onError: errorResponse => console.log('Google response: ', errorResponse)
   });

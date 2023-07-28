@@ -1,3 +1,4 @@
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import cls from 'classnames';
 import SectionTitle from '../section-title/SectionTitle';
 import styles from './OurStartups.module.scss';
@@ -5,9 +6,30 @@ import { genPublicImgSrc } from '../../utils/url-utils';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import StartupsList from '../shared/startups/StartupsList';
-import { dummyStartups } from '../../data/dummy-startups';
+import api from '../../library/api';
+import { StartupProps } from '../../types';
+import useRequest from '../../hooks/useRequest';
+
+const TOTAL_STARTUPS_TO_SHOW = 4;
 
 const OurStartups = () => {
+  const [startups, setStartups] = useState<StartupProps[]>();
+
+  const genRandomStartups = () => {
+    const req = api.getRandomStartups(TOTAL_STARTUPS_TO_SHOW);
+
+    req.then((res: { status: string; startups?: StartupProps[] }) => {
+      if (res.status !== 'SUCCESS') return;
+      setStartups(res.startups);
+    });
+  };
+
+  useEffect(() => {
+    genRandomStartups();
+    const intervalId = setInterval(genRandomStartups, 10000);
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <>
       <section className="section-pad-top section-pad-bottom-lg">
@@ -31,7 +53,9 @@ const OurStartups = () => {
             }
           />
 
-          <StartupsList items={dummyStartups} className={styles.startups} />
+          {startups ? (
+            <StartupsList items={startups as StartupProps[]} className={styles.startups} />
+          ) : null}
         </div>
       </section>
     </>

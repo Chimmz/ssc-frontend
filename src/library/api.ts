@@ -43,17 +43,17 @@ class API {
     });
   }
 
-  async googleSignIn(token: string) {
+  async googleSignIn(outhToken: string) {
     return this._makeRequest({
-      path: `/users/auth/google-signin?token=${token}`,
+      path: `/users/auth/google-signin?token=${outhToken}`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
-  async verifyEmail(verifId: string) {
+  async verifyEmail(verifId: string, email: string | null) {
     return this._makeRequest({
-      path: `/users/auth/email-verify/${verifId}`,
+      path: `/users/auth/email-verify/${verifId}?email=${email}`,
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });
@@ -85,6 +85,41 @@ class API {
       headers: { 'Content-Type': 'application/json' }
     });
   }
+
+  async getStartups(limit?: number) {
+    return this._makeRequest({
+      path: `/startups`.concat(`?limit=${limit}`),
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  async getRandomStartups(limit?: number) {
+    return this._makeRequest({
+      path: `/startups/random?limit=${limit}`,
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  async searchStartups(queryStr: string) {
+    return this._makeRequest({
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      path: `/startups/search` + queryStr
+    });
+  }
+
+  // async searchStartups(q: string, industryFilters?: string, stageFilters?: string) {
+  //   return this._makeRequest({
+  //     method: 'GET',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     path: `/startups/search`
+  //       .concat(q.length ? `?q=${q}` : '')
+  //       .concat(industryFilters?.length ? `&industry=${industryFilters}` : '')
+  //       .concat(stageFilters?.length ? `&stage=${stageFilters}` : '')
+  //   });
+  // }
 
   // async searchNews(query?: string, opts?: { page: number; limit: number }) {
   //   return this._makeRequest({

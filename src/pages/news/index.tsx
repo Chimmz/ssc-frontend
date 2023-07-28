@@ -29,6 +29,8 @@ const NewsPage: FC = () => {
   const { page, goPrevPage, goNextPage, setPage, setPageData } = usePagination<NewsObj>();
   const handleInputKeyUp = useDelayedActionOnTextInput(() => search());
 
+  useScrollToTop();
+
   const {
     send: sendNewsReq,
     loading: loadingNews,
@@ -48,7 +50,7 @@ const NewsPage: FC = () => {
   useEffect(() => {
     if (response?.news) {
       setNews(response.news);
-      scrollToElement('#news');
+      if (page !== 1) scrollToElement('#news');
     }
   }, [response]);
 
@@ -64,15 +66,12 @@ const NewsPage: FC = () => {
     if (response?.news && searchTerm)
       return response?.news?.map(item => ({
         ...item,
-        headline: boldenPatternsInText(item.headline as string, searchTerm),
-        story: boldenPatternsInText(item.story as string, searchTerm)
+        headline: boldenPatternsInText(item.headline as string, searchTerm.trim()),
+        story: boldenPatternsInText(item.story as string, searchTerm.trim())
       }));
   }, [response]);
 
-  const handlePageChange = (pg: number) => {
-    // console.log(pg);
-    setPage(pg);
-  };
+  const handlePageChange = (pg: number) => pg !== 0 && setPage(pg);
 
   return (
     <Layout navStyles={{ backgroundColor: '#fff' }}>

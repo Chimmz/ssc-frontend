@@ -7,7 +7,7 @@ import cls from 'classnames';
 import styles from './StartupsList.module.scss';
 
 interface Props {
-  items: StartupProps[];
+  items: StartupProps[] | undefined;
   className?: string;
 }
 
@@ -17,7 +17,7 @@ const StartupsList = ({ items, className }: Props) => {
   return (
     <>
       <ul className={cls(styles.startups, className, 'list-style-none mt-5')}>
-        {items.map(st => (
+        {items?.map(st => (
           <StartupCard startup={st} key={st._id} onClick={setActiveStartup} />
         ))}
       </ul>
@@ -30,29 +30,22 @@ const StartupsList = ({ items, className }: Props) => {
       >
         <Modal.Body className="p-4 rounded-5" style={{ backgroundColor: '#f5f5f5' }}>
           <img
-            src={activeStartup?.logoUrl}
+            src={genPublicImgSrc(`/logos/${activeStartup?.logo}`)}
             className="w-100 bg-white object-fit-contain"
             height={200}
             alt=""
           />
-          <h5 className="fs-3 fw-bold color-pry mt-5 mb-3">{activeStartup?.name}</h5>
-          <span
-            className="d-block w-max-content family-raleway border-pry-dark color-pry-dark rounded-5 mb-4 p-2 py-1"
-            style={{ fontSize: '10px', fontWeight: '600' }}
-          >
+          <h5 className="fs-3 fw-bold mt-5 mb-3">{activeStartup?.name}</h5>
+          <h6 className="text-light family-raleway text-uppercase fs-5 mb-3">
             {activeStartup?.industry}
+          </h6>
+          <span
+            className="d-block w-max-content border rounded mb-4 p-1 px-2 fs-5 bg-pry-lightest font-italic"
+            style={{ fontStyle: 'italic' }}
+          >
+            {activeStartup?.stage}
           </span>
-          <small className="d-block text-black fs-5 mb-7">
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-            facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac,
-            vestibulum at eros. Cras mattis consectetur purus sit amet fermentum. Cras justo
-            odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet
-            fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-            risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus
-            sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-            Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </small>
+          <small className="d-block text-black fs-5 mb-4">{activeStartup?.description}</small>
           <a
             href={activeStartup?.website}
             target="_blank"
@@ -67,3 +60,10 @@ const StartupsList = ({ items, className }: Props) => {
 };
 
 export default StartupsList;
+
+// Startups showing randomly
+// Bolden searched term in search results of news page
+// Should bolden multiple words of search term in search results
+// Search in startups page should search in startup name and text description
+// Filter in startup page
+// Put checkboxes in startups page. Add the clear-all button

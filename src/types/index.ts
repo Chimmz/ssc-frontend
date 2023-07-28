@@ -57,8 +57,9 @@ export interface StartupProps {
   name: string;
   industry: StartupIndustry | string;
   stage: StartupStage | string;
-  logoUrl: string;
+  logo: string;
   website: string;
+  description: String;
 }
 
 export interface NewsObj {

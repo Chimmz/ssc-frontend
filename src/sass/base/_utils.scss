@@ -1,6 +1,9 @@
 .family-raleway {
   font-family: 'Raleway', system-ui, BlinkMacSystemFont, 'Segoe UI';
 }
+.list-style-none {
+  list-style: none;
+}
 
 .m {
   &b {
@@ -204,7 +207,7 @@
 }
 
 .cursor-pointer {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 .border-transparent {
   border-color: transparent !important;

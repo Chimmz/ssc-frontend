@@ -3,7 +3,65 @@
 }
 
 .filter {
-  width: 20rem;
+  width: 25rem;
+  min-width: max-content;
   box-shadow: 0 0 7px rgba(#000, 0.2);
-  border-radius: 5px;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+ul.filterList {
+  gap: 1.5rem;
+
+  & > * {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+    & * {
+      cursor: pointer !important;
+    }
+
+    & [type='checkbox'] {
+      margin-bottom: 4px;
+
+      &:checked {
+        background-color: #7600ff;
+      }
+    }
+
+    // &::before {
+    //   order: -1;
+    //   content: '';
+    //   left: 0;
+    //   display: grid;
+    //   place-items: center;
+    //   margin-right: 4px;
+    //   margin-bottom: 3px;
+    //   width: 10px;
+    //   height: 10px;
+    //   border-radius: 50%;
+    //   background-color: #7600ff;
+    //   outline: 3px solid #d8d8d8;
+    //   color: rgba(#fff, 0.5);
+    // }
+
+    // &::after {
+    //   order: 2;
+    //   content: '000';
+    //   display: grid;
+    //   place-items: center;
+    //   right: 0;
+    //   width: 20px;
+    //   height: 20px;
+    //   border-radius: 50%;
+    //   background-color: #3f0088;
+    //   font-weight: 300;
+    //   font-size: 8px;
+    //   color: rgba(#fff, 0.5);
+    // }
+  }
+
+  & > .filterItemAdded {
+  }
 }

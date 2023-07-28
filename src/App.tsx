@@ -4,7 +4,6 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
 import './sass/main.scss';
 import Auth from './pages/auth';
-import Nav from './components/layout/Nav';
 import NewsPage from './pages/news';
 import SingleNewsPage from './pages/news/[id]';
 import StartupsPage from './pages/startups';

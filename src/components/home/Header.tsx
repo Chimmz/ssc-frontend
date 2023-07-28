@@ -1,32 +1,69 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 import cls from 'classnames';
 import { genPublicImgSrc } from '../../utils/url-utils';
 
 import { Icon } from '@iconify/react';
 import styles from './Header.module.scss';
+import useFadingImages from '../../hooks/useFadingImages';
+import { shuffle } from '../../utils/array-utils';
 
-const maxImgSequence = {
-  top: 4,
-  mid: 6,
-  bottom: 6
-};
+const TOP_PHOTOS = [
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690143254/SSC/Top/Seq1._Top_xq5dag.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690143174/SSC/Top/seq2_top_xmjcxs.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690143258/SSC/Top/seq3_top_ylu3yh.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690143208/SSC/Top/seq4_top_pxnwue.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690143170/SSC/Top/seq5_top_q5loqe.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690143237/SSC/Top/seq6_top_x8onza.jpg'
+];
+
+const TOP_PHOTOS_LOCAL = [
+  genPublicImgSrc(`/img/header/seq1_top.jpg`),
+  genPublicImgSrc(`/img/header/seq2_top.jpg`),
+  genPublicImgSrc(`/img/header/seq3_top.jpg`),
+  genPublicImgSrc(`/img/header/seq4_top.jpg`)
+];
+
+const MIDDLE_PHOTOS = [
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690142859/SSC/Middle/seq1_mid_vklbfn.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690142813/SSC/Middle/seq2_mid_js7avt.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690142826/SSC/Middle/seq3_mid_pqp0xm.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690142826/SSC/Middle/seq4_mid_jheqha.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690142848/SSC/Middle/seq5_mid_o1xsbc.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690142847/SSC/Middle/seq6_mid_pltbt2.jpg'
+];
+
+const MIDDLE_PHOTOS_LOCAL = [
+  genPublicImgSrc(`/img/header/seq1_mid.jpg`),
+  genPublicImgSrc(`/img/header/seq2_mid.jpg`),
+  genPublicImgSrc(`/img/header/seq3_mid.jpg`),
+  genPublicImgSrc(`/img/header/seq4_mid.jpg`),
+  genPublicImgSrc(`/img/header/seq5_mid.jpg`),
+  genPublicImgSrc(`/img/header/seq6_mid.jpg`)
+];
+
+const BOTTOM_PHOTOS = [
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690142467/SSC/seq1_bot_fwh5l3.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690142440/SSC/seq2_bot_bntphz.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690142444/SSC/seq3_bot_bm8bs7.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690142449/SSC/seq4_bot_g7ixcq.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690142450/SSC/seq5_bot_jtusov.jpg',
+  'https://res.cloudinary.com/devletwwd/image/upload/v1690142437/SSC/seq6_bot_beb5pu.jpg'
+];
+
+const BOTTOM_PHOTOS_LOCAL = [
+  genPublicImgSrc(`/img/header/seq1_bottom.jpg`),
+  genPublicImgSrc(`/img/header/seq2_bottom.jpg`),
+  genPublicImgSrc(`/img/header/seq3_bottom.jpg`),
+  genPublicImgSrc(`/img/header/seq4_bottom.jpg`),
+  genPublicImgSrc(`/img/header/seq5_bottom.jpg`),
+  genPublicImgSrc(`/img/header/seq6_bottom.jpg`)
+];
 
 const Header = () => {
-  const [imgSeq, setImgSeq] = useState({ top: 1, mid: 1, bottom: 1 });
-
-  useEffect(() => {
-    // const intervalId = setInterval(() => {
-    //   setImgSeq(seq => {
-    //     return {
-    //       top: seq.top === maxImgSequence.top ? 1 : seq.top + 1,
-    //       mid: seq.mid === maxImgSequence.mid ? 1 : seq.mid + 1,
-    //       bottom: seq.bottom === maxImgSequence.bottom ? 1 : seq.bottom + 1
-    //     };
-    //   });
-    // }, 10000);
-    // return () => clearInterval(intervalId);
-  }, []);
+  const photosAtTop = useFadingImages(TOP_PHOTOS_LOCAL.length, 12000);
+  const photosAtMiddle = useFadingImages(MIDDLE_PHOTOS_LOCAL.length, 7000);
+  const photosAtBottom = useFadingImages(BOTTOM_PHOTOS_LOCAL.length, 10000);
 
   return (
     <header className={cls(styles.header, 'bg-pry-lightest py-3')}>
@@ -59,10 +96,28 @@ const Header = () => {
         <div className={styles.headerRight}>
           <div className={styles.imgBox} data-testid="img-box">
             <figure>
-              <img src={genPublicImgSrc(`/img/header/seq${imgSeq.top}_top.jpg`)} alt="" />
+              {TOP_PHOTOS_LOCAL.map((imgUrl, i) => {
+                const show = photosAtTop[i].isVisible;
+                return (
+                  <img
+                    src={imgUrl}
+                    className={cls(show ? styles.fadeIn : styles.fadeOut)}
+                    alt=""
+                  />
+                );
+              })}
             </figure>
             <figure>
-              <img src={genPublicImgSrc(`/img/header/seq${imgSeq.mid}_mid.jpg`)} alt="" />
+              {MIDDLE_PHOTOS_LOCAL.map((imgUrl, i) => {
+                const show = photosAtMiddle[i].isVisible;
+                return (
+                  <img
+                    src={imgUrl}
+                    className={cls(show ? styles.fadeIn : styles.fadeOut)}
+                    alt=""
+                  />
+                );
+              })}
             </figure>
             <figure>
               <img src={genPublicImgSrc('/img/hero-bulb.png')} alt="" />
@@ -71,10 +126,16 @@ const Header = () => {
               <img src={genPublicImgSrc('/img/hero-magnif.png')} alt="" />
             </figure>
             <figure>
-              <img
-                src={genPublicImgSrc(`/img/header/seq${imgSeq.bottom}_bottom.jpg`)}
-                alt=""
-              />
+              {BOTTOM_PHOTOS_LOCAL.map((imgUrl, i) => {
+                const show = photosAtBottom[i].isVisible;
+                return (
+                  <img
+                    src={imgUrl}
+                    className={cls(show ? styles.fadeIn : styles.fadeOut)}
+                    alt=""
+                  />
+                );
+              })}
             </figure>
           </div>
           <div className={cls(styles.social, 'd-flex align-items-center gap-4 mt-3')}>
@@ -104,11 +165,24 @@ const Header = () => {
         </div>
       </div>
 
-      <figure className="position-absolute">
+      {/* <figure className="position-absolute">
         <img src={genPublicImgSrc('/img/rocket-line.png')} alt="" />
-      </figure>
+      </figure> */}
     </header>
   );
 };
 
 export default Header;
+
+// const separatePhotos = (photos: string[]) => {
+//   let top: string[] = [],
+//     mid: string[] = [],
+//     bottom: string[] = [];
+
+//   photos.forEach(ph => {
+//     if (ph.toLowerCase().includes('top')) return top.push(ph);
+//     if (['_mid', 'middle'].some(str => ph.toLowerCase().includes(str))) return mid.push(ph);
+//     bottom.push(ph);
+//   });
+//   return [top, mid, bottom];
+// };

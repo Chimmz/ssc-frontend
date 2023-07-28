@@ -3,29 +3,29 @@ import { StartupProps } from '../types';
 import { genPublicImgSrc } from '../utils/url-utils';
 import { StartupIndustries, StartupStages } from './constants';
 
-export const dummyStartups: StartupProps[] = [
+export const dummyStartups = [
   {
     _id: uuidv4(),
     name: 'Mongdragon',
-    industry: 'Technology',
+    industry: 'Financial',
     stage: StartupStages.GROWTH_STAGE,
-    logoUrl: genPublicImgSrc('/img/mondragon.png'),
+    logo: genPublicImgSrc('/img/mondragon.png'),
     website: 'https://www.google.com'
   },
   {
     _id: uuidv4(),
     name: 'Kakao',
-    industry: 'Brewery',
+    industry: 'Technology',
     stage: StartupStages.GROWTH_STAGE,
-    logoUrl: genPublicImgSrc('/img/kakao.png'),
+    logo: genPublicImgSrc('/img/kakao.png'),
     website: 'https://www.google.com'
   },
   {
     _id: uuidv4(),
     name: 'Netflix',
-    industry: 'Technology',
+    industry: 'E-commerce',
     stage: 'Expansion and Maturity',
-    logoUrl: genPublicImgSrc('/img/netflix.png'),
+    logo: genPublicImgSrc('/img/netflix.png'),
     website: 'https://www.netflix.com'
   },
   {
@@ -33,7 +33,39 @@ export const dummyStartups: StartupProps[] = [
     name: 'Airbnb',
     industry: 'Technology',
     stage: 'Seed stage',
-    logoUrl: genPublicImgSrc('/img/airbnb.png'),
+    logo: genPublicImgSrc('/img/airbnb.png'),
     website: 'https://www.airbnb.com'
+  },
+  {
+    _id: uuidv4(),
+    name: 'MUI Designs',
+    industry: 'Technology',
+    stage: StartupStages.GROWTH_STAGE,
+    logo: genPublicImgSrc('/img/mondragon.png'),
+    website: 'https://www.mui.com'
+  },
+  {
+    _id: uuidv4(),
+    name: 'Kolatunes',
+    industry: 'Technology',
+    stage: StartupStages.EARLY_TRACTION,
+    logo: genPublicImgSrc('/img/kakao.png'),
+    website: 'https://www.airbnb.com'
+  },
+  {
+    _id: uuidv4(),
+    name: 'Samsung',
+    industry: 'Technology',
+    stage: StartupStages.EXPANSION_AND_MATURITY,
+    logo: genPublicImgSrc('/img/mondragon.png'),
+    website: 'https://www.samsung.com'
+  },
+  {
+    _id: uuidv4(),
+    name: 'Nokia',
+    industry: 'Technology',
+    stage: StartupStages.GROWTH_STAGE,
+    logo: genPublicImgSrc('/img/mondragon.png'),
+    website: 'https://www.nokia.com'
   }
 ];
