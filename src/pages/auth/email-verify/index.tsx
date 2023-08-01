@@ -35,7 +35,14 @@ const EmailVerify = () => {
 
       const title = response.msg.toLowerCase().includes('invalid') ? 'Invalid' : 'Error';
 
-      return <EmailVerifyFailure summary={title} msg={response.msg} />;
+      return (
+        <EmailVerifyFailure
+          summary={title}
+          msg={response.msg}
+          invalid={response.msg.toLowerCase().includes('invalid')}
+          expired={response.msg.toLowerCase().includes('expired')}
+        />
+      );
 
     case 'EMAIL_PREVIOUSLY_VERIFIED':
       return <Navigate to="/auth/login" />;
@@ -49,7 +56,7 @@ const EmailVerify = () => {
             Your email has been verified.
           </p>
           <Link to="/auth/login" className="color-pry family-raleway fw-bold mt-2">
-            Click here to log in
+            Log in
           </Link>
         </div>
       );

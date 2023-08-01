@@ -30,15 +30,27 @@ const StartupsList = ({ items, className }: Props) => {
       >
         <Modal.Body className="p-4 rounded-5" style={{ backgroundColor: '#f5f5f5' }}>
           <img
-            src={genPublicImgSrc(`/logos/${activeStartup?.logo}`)}
+            // src={genPublicImgSrc(`/logos/${activeStartup?.logoUrl}`)}
+            src={activeStartup?.logoUrl}
             className="w-100 bg-white object-fit-contain"
             height={200}
             alt=""
           />
           <h5 className="fs-3 fw-bold mt-5 mb-3">{activeStartup?.name}</h5>
-          <h6 className="text-light family-raleway text-uppercase fs-5 mb-3">
-            {activeStartup?.industry}
-          </h6>
+
+          {activeStartup?.industries.map((ind, i, arr) => (
+            <h6
+              className="d-inline-block text-light family-raleway text-uppercase fs-5 mb-3"
+              key={ind}
+            >
+              {ind}
+              {i !== arr.length - 1 ? (
+                <span className="d-inline-block mx-2 fw-bold">·</span>
+              ) : (
+                ''
+              )}
+            </h6>
+          ))}
           <span
             className="d-block w-max-content border rounded mb-4 p-1 px-2 fs-5 bg-pry-lightest font-italic"
             style={{ fontStyle: 'italic' }}

@@ -99,11 +99,7 @@ const Header = () => {
               {TOP_PHOTOS_LOCAL.map((imgUrl, i) => {
                 const show = photosAtTop[i].isVisible;
                 return (
-                  <img
-                    src={imgUrl}
-                    className={cls(show ? styles.fadeIn : styles.fadeOut)}
-                    alt=""
-                  />
+                  <img src={imgUrl} className={cls(show ? 'fadeIn' : 'fadeOut')} alt="" />
                 );
               })}
             </figure>
@@ -139,13 +135,13 @@ const Header = () => {
             </figure>
           </div>
           <div className={cls(styles.social, 'd-flex align-items-center gap-4 mt-3')}>
-            <span className="d-block circle bg-pry-dark">
+            <span className="d-block circular bg-pry-dark">
               <Icon icon="ooui:next-ltr" color="#fff" />
             </span>
             <a
               href="https://www.instagram.com/seoulstartupsclub/"
               target="_blank"
-              className="circle bg-pry"
+              className="circular bg-pry"
               rel="noreferrer"
             >
               <Icon icon="mdi:instagram" color="#fff" />
@@ -153,7 +149,7 @@ const Header = () => {
             <a
               href="https://www.linkedin.com/groups/14133660/"
               target="_blank"
-              className="circle bg-pry"
+              className="circular bg-pry"
               rel="noreferrer"
             >
               <Icon icon="uil:linkedin" color="#fff" />

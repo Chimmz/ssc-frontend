@@ -55,9 +55,9 @@ export type StartupStage =
 export interface StartupProps {
   _id: string;
   name: string;
-  industry: StartupIndustry | string;
+  industries: StartupIndustry[];
   stage: StartupStage | string;
-  logo: string;
+  logoUrl: string;
   website: string;
   description: String;
 }

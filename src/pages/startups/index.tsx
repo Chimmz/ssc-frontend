@@ -59,7 +59,7 @@ function CustomToggle(props: { children: ReactNode; eventKey: string; className?
 
 const StartupsPage = function () {
   const [startups, setStartups] = useState<StartupProps[]>([]);
-  useScrollToTop();
+  // useScrollToTop();
 
   const { send: sendSearchReq, response } = useRequest<{
     status: string;
@@ -150,7 +150,7 @@ const StartupsPage = function () {
                       'd-flex flex-column fs-5 fw-bold list-style-none p-4 py-3'
                     )}
                   >
-                    {INDUSTRIES.map(ind => (
+                    {Object.values(StartupIndustries).map(ind => (
                       <li className="" key={uuidv4()}>
                         <Form.Check
                           label={ind}
@@ -181,7 +181,7 @@ const StartupsPage = function () {
                       'd-flex flex-column fs-5 fw-bold list-style-none p-4 py-3'
                     )}
                   >
-                    {STAGES.map(stage => (
+                    {Object.values(StartupStages).map(stage => (
                       <li className="cursor-pointer" key={uuidv4()}>
                         <Form.Check
                           label={stage}
@@ -203,7 +203,13 @@ const StartupsPage = function () {
             {/* STARTUP CARDS */}
             <div className="container app-container">
               <StartupsList items={startups} />
-              <Pagination currentPage={1} totalPages={1} />
+              {startups.length ? (
+                <Pagination currentPage={1} totalPages={1} />
+              ) : (
+                <div className="bg-light my-auto rounded-2 border text-center p-3">
+                  No results
+                </div>
+              )}
             </div>
           </aside>
         </div>

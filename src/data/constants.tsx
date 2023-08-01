@@ -18,20 +18,24 @@ export const datesOfTheMonth = [
   26, 27, 28, 29, 30, 31
 ];
 
-export const enum StartupIndustries {
+export enum StartupIndustries {
   TECHNOLOGY = 'Technology',
   HEALTHCARE = 'Healthcare',
   BLOCK_CHAIN = 'Block Chain',
   FINANCIAL = 'Financial',
   GAMING = 'Gaming',
-  E_COMMERCE = 'E-commerce'
+  E_COMMERCE = 'E-commerce',
+  BIG_DATA = 'Big Data',
+  TRAVEL = 'Travel',
+  FOOD = 'Food'
 }
 
-export const enum StartupStages {
+export enum StartupStages {
+  PRE_SEED = 'Pre-seed',
+  SEED_STAGE = 'Seed',
   IDEA_AND_CONCEPTUALIZATION = 'Idea and Conceptualization',
-  PROOF_OF_CONCEPT = 'Proof of Concept',
-  SEED_STAGE = 'Seed Stage',
   EARLY_TRACTION = 'Early Traction',
-  GROWTH_STAGE = 'Growth Stage',
+  PROOF_OF_CONCEPT = 'Proof of Concept',
+  GROWTH_STAGE = 'Growth',
   EXPANSION_AND_MATURITY = 'Expansion and Maturity'
 }

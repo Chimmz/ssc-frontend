@@ -49,7 +49,7 @@ const Nav = function (props: Props) {
         </Link>
         {isSignedIn ? (
           <>
-            <span className="circle circle--3 fs-5 bg-pry-dark color-white family-raleway">
+            <span className="circular circular--3 fs-5 bg-pry-dark color-white family-raleway">
               {userInitials}
             </span>
 

@@ -18,12 +18,18 @@ const StartupCard: React.FC<Props> = props => {
       onClick={props.onClick?.bind(null, props.startup)}
     >
       <figure className="border xy-center rounded mb-4">
-        <img src={genPublicImgSrc(`/logos/${props.startup.logo}`)} alt="" />
+        {/* <img src={genPublicImgSrc(`/logos/${props.startup.logoUrl}`)} alt="" /> */}
+        <img src={props.startup.logoUrl} alt="" />
       </figure>
       <h4 className="fw-bold mb-3 fs-3 mt-1">{props.startup.name}</h4>
-      <h6 className="text-light family-raleway text-uppercase fs-5 mb-3">
-        {props.startup.industry}
-      </h6>
+      {props.startup.industries.map((ind, i, arr) => (
+        <h6
+          className="d-inline-block text-light family-raleway text-uppercase fs-5 mb-3"
+          key={ind}
+        >
+          {ind}
+        </h6>
+      ))}
       <span
         className="d-block border rounded mb-4 p-1 px-2 fs-5 bg-pry-lightest font-italic"
         style={{ fontStyle: 'italic' }}

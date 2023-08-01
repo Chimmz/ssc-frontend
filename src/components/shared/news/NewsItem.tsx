@@ -13,14 +13,6 @@ interface NewsItemProps {
 }
 
 const NewsItem: React.FC<NewsItemProps> = ({ item, searchTerm }) => {
-  // const boldenedHeadline = useMemo(() => {
-  //   if (searchTerm) return boldenPatternsInText(item.headline, searchTerm);
-  // }, [item, searchTerm]);
-
-  // const boldenedStory = useMemo(() => {
-  //   if (searchTerm) return boldenPatternsInText(item.story, searchTerm);
-  // }, [item, searchTerm]);
-
   return (
     <Link to={`${item._id}`} state={{ newsItem: item }}>
       <li className={styles.newsItem}>

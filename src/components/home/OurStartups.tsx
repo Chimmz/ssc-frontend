@@ -53,9 +53,7 @@ const OurStartups = () => {
             }
           />
 
-          {startups ? (
-            <StartupsList items={startups as StartupProps[]} className={styles.startups} />
-          ) : null}
+          {startups ? <StartupsList items={startups} className={styles.startups} /> : null}
         </div>
       </section>
     </>
