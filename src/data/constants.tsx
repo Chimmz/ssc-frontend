@@ -19,14 +19,18 @@ export const datesOfTheMonth = [
 ];
 
 export enum StartupIndustries {
+  EDUCATION_TECHNOLOGY = 'Education Technology',
   TECHNOLOGY = 'Technology',
   HEALTHCARE = 'Healthcare',
   BLOCK_CHAIN = 'Block Chain',
-  FINANCIAL = 'Financial',
-  GAMING = 'Gaming',
   E_COMMERCE = 'E-commerce',
+  FINANCIAL = 'Financial',
   BIG_DATA = 'Big Data',
+  MARKETING = 'Marketing',
+  BRANDING = 'Branding',
+  GAMING = 'Gaming',
   TRAVEL = 'Travel',
+  DESIGN = 'Design',
   FOOD = 'Food'
 }
 
@@ -37,5 +41,6 @@ export enum StartupStages {
   EARLY_TRACTION = 'Early Traction',
   PROOF_OF_CONCEPT = 'Proof of Concept',
   GROWTH_STAGE = 'Growth',
-  EXPANSION_AND_MATURITY = 'Expansion and Maturity'
+  EXPANSION_AND_MATURITY = 'Expansion and Maturity',
+  BOOTSTRAPPED = 'Bootstrapped'
 }
