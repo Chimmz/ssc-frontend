@@ -60,6 +60,7 @@ export interface StartupProps {
   logoUrl: string;
   website: string;
   description: String;
+  email?: string;
 }
 
 export interface NewsObj {

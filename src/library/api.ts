@@ -110,24 +110,13 @@ class API {
     });
   }
 
-  // async searchStartups(q: string, industryFilters?: string, stageFilters?: string) {
-  //   return this._makeRequest({
-  //     method: 'GET',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     path: `/startups/search`
-  //       .concat(q.length ? `?q=${q}` : '')
-  //       .concat(industryFilters?.length ? `&industry=${industryFilters}` : '')
-  //       .concat(stageFilters?.length ? `&stage=${stageFilters}` : '')
-  //   });
-  // }
-
-  // async searchNews(query?: string, opts?: { page: number; limit: number }) {
-  //   return this._makeRequest({
-  //     path: `/news/search`,
-  //     method: 'GET',
-  //     headers: { 'Content-Type': 'application/json' }
-  //   });
-  // }
+  async getStartupFilters() {
+    return this._makeRequest({
+      method: 'GET',
+      path: `/startups/filters`,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
 }
 
 export default new API();

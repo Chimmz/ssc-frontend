@@ -34,6 +34,15 @@
     &:disabled {
       background-color: $color-pry-light !important;
     }
+
+    &-dark {
+      background-color: $color-pry-dark;
+      color: #fff !important;
+
+      &:hover {
+        background-color: $color-pry !important;
+      }
+    }
   }
 
   &-text-pry {

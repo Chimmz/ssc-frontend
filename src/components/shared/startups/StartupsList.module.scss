@@ -1,7 +1,8 @@
 .startups {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 20rem));
-  gap: 1.5rem;
+  column-gap: 9rem;
+  row-gap: 2rem;
 
   @media screen and (min-width: 768px) and (max-width: 990px) {
     // grid-template-columns: 1fr 1fr;

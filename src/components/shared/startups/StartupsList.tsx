@@ -58,13 +58,24 @@ const StartupsList = ({ items, className }: Props) => {
             {activeStartup?.stage}
           </span>
           <small className="d-block text-black fs-5 mb-4">{activeStartup?.description}</small>
-          <a
+          {/* <a
             href={activeStartup?.website}
             target="_blank"
             className="fs-4 fw-bold text-black text-decoration-underline cursor-pointer"
           >
             {activeStartup?.website}
-          </a>
+          </a> */}
+
+          <div className="d-flex align-items-center flex-wrap gap-2 flex-grow-1">
+            {activeStartup?.industries.map((ind, i, arr) => (
+              <h6
+                className="fs-5 color-pry-dark border border-pry-dark rounded-5 p-2 px-3"
+                key={ind}
+              >
+                {ind}
+              </h6>
+            ))}
+          </div>
         </Modal.Body>
       </Modal>
     </>

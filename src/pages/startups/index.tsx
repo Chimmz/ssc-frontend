@@ -41,7 +41,11 @@ const STAGES = [
   StartupStages.EXPANSION_AND_MATURITY
 ];
 
-function CustomToggle(props: { children: ReactNode; eventKey: string; className?: string }) {
+const CustomToggle = (props: {
+  children: ReactNode;
+  eventKey: string;
+  className?: string;
+}) => {
   const decoratedOnClick = useAccordionButton(props.eventKey, () =>
     console.log('totally custom!')
   );
@@ -55,11 +59,14 @@ function CustomToggle(props: { children: ReactNode; eventKey: string; className?
       {props.children}
     </button>
   );
-}
+};
 
 const StartupsPage = function () {
   const [startups, setStartups] = useState<StartupProps[]>([]);
-  // useScrollToTop();
+  const [filters, setFilters] = useState<{ industries: string[]; stages: string[] }>({
+    industries: [],
+    stages: []
+  });
 
   const { send: sendSearchReq, response } = useRequest<{
     status: string;
@@ -96,7 +103,15 @@ const StartupsPage = function () {
   }, [searchTerm, industryFilters, stageFilters]);
 
   useEffect(() => {
-    api.getStartups().then(res => res.status === 'SUCCESS' && setStartups(res.startups));
+    const reqs = Promise.all([api.getStartups(), api.getStartupFilters()]);
+    reqs.then(([resStartups, resStartupFilters]) => {
+      if (resStartups.status === 'SUCCESS') setStartups(resStartups.startups);
+      if (resStartupFilters.status !== 'SUCCESS') return;
+      setFilters({
+        industries: resStartupFilters.industries,
+        stages: resStartupFilters.stages
+      });
+    });
   }, []);
 
   const clearAllFilters = () => {
@@ -150,7 +165,7 @@ const StartupsPage = function () {
                       'd-flex flex-column fs-5 fw-bold list-style-none p-4 py-3'
                     )}
                   >
-                    {Object.values(StartupIndustries).map(ind => (
+                    {filters.industries.map(ind => (
                       <li className="" key={uuidv4()}>
                         <Form.Check
                           label={ind}
@@ -181,7 +196,7 @@ const StartupsPage = function () {
                       'd-flex flex-column fs-5 fw-bold list-style-none p-4 py-3'
                     )}
                   >
-                    {Object.values(StartupStages).map(stage => (
+                    {filters.stages.map(stage => (
                       <li className="cursor-pointer" key={uuidv4()}>
                         <Form.Check
                           label={stage}

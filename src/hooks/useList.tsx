@@ -13,12 +13,7 @@ const useList = function <T = string>(initItems?: T[]) {
 
   const removeAll = () => setItems([]);
 
-  return {
-    items,
-    addItem,
-    removeItem,
-    removeAll
-  };
+  return { items, setItems, addItem, removeItem, removeAll };
 };
 
 export default useList;

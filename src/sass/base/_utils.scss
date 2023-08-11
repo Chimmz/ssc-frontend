@@ -183,11 +183,14 @@
 
 .border {
   &-pry {
-    border: 1px solid $color-pry;
+    border: 1px solid $color-pry !important;
 
     &-dark {
-      border: 1px solid $color-pry-dark;
+      border: 1px solid $color-pry-dark !important;
     }
+  }
+  &-white {
+    border: 1px solid #fff !important;
   }
 }
 
@@ -274,20 +277,28 @@
 
 .circular {
   width: 27px;
-  aspect-ratio: 1;
+  height: 27px;
   @include grid-center;
   border-radius: 50%;
 
   &--1 {
     width: 30px;
+    height: 30px;
   }
   &--2 {
     width: 33px;
+    height: 33px;
   }
   &--3 {
     width: 33px;
+    height: 33px;
   }
   &--4 {
     width: 35px;
+    height: 35px;
+  }
+  &--sm {
+    width: 17px;
+    height: 17px;
   }
 }
