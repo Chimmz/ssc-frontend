@@ -19,11 +19,46 @@ import Pagination from '../../components/shared/pagination/Pagination';
 import Paginators from '../../components/shared/pagination/Paginators';
 import ThreeDotsSpinner from '../../components/ui/loader/ThreeDotsSpinner';
 import { boldenPatternsInText, scrollToElement } from '../../utils/dom-utils';
+import { genPublicImgSrc } from '../../utils/url-utils';
 
 const NEWS_PER_PAGE = 4;
 
+const items: NewsObj[] = [
+  {
+    _id: '1',
+    headline: 'How we maximize your Korean food experience',
+    isApprovedByAdmin: true,
+    story:
+      'From our experiences of introducing Korean food to our foreign friends, they had the most enjoyable time when 1) the menu was something they liked, 2) there were some explanation on how to eat the food and 3) when it was with a good company :)',
+    createdAt: new Date(1691449200000).toString(),
+    imgUrl: genPublicImgSrc('/img/hanseek-article-pie-chart.webp'),
+    updatedAt: ''
+  },
+  {
+    _id: '2',
+    headline: 'How to keep track of global startup programs as a founder',
+    isApprovedByAdmin: true,
+    story:
+      'Are you an ambitious, early-stage startup founder on the hunt for accelerators, incubators, competitions, or corporate innovation programs? Look no further, because we have a game-changing solution for you: Flair by Founders Lair!      ',
+    createdAt: new Date(1691449200000).toString(),
+    imgUrl: genPublicImgSrc('/img/flair-and-products.png'),
+    updatedAt: ''
+  },
+  {
+    _id: '3',
+    headline: 'We conducted brief interview with Joshua Chung, CEO of Intelliwebi',
+    isApprovedByAdmin: true,
+    story:
+      'Intelliwebi is a software application that helps startups create and deliver more effective pitches. They typically offer a variety of features, such as Templates for creating pitch decks, Tools for visualizing data, Practice with chatbot mode',
+    createdAt: new Date(1691449200000).toString(),
+    imgUrl:
+      'https://res.cloudinary.com/devletwwd/image/upload/v1691873616/startup-logos/cqrkk2lkr4cpahfts1yd.png',
+    updatedAt: ''
+  }
+];
+
 const NewsPage: FC = () => {
-  const [news, setNews] = useState<NewsObj[] | undefined>();
+  const [news, setNews] = useState<NewsObj[] | undefined>(items);
 
   const { inputValue: searchTerm, onChange: handleChangeSearchTerm } = useInput({ init: '' });
   const { page, goPrevPage, goNextPage, setPage, setPageData } = usePagination<NewsObj>();

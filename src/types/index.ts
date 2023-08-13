@@ -58,7 +58,7 @@ export interface StartupProps {
   industries: StartupIndustry[];
   stage: StartupStage | string;
   logoUrl: string;
-  website: string;
+  websiteUrl: string;
   description: String;
   email?: string;
 }
@@ -71,4 +71,5 @@ export interface NewsObj {
   isApprovedByAdmin: boolean;
   createdAt: string;
   updatedAt: string;
+  imgUrl: string;
 }

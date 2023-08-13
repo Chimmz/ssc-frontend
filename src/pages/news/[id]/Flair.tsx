@@ -50,12 +50,20 @@ const FlairArticle: React.FC = () => {
             }
           />
 
+          <img
+            src={genPublicImgSrc('/img/flair-programs.png')}
+            // src={genPublicImgSrc('/img/flair-and-products.png')}
+            // height={500}
+            className="w-100 object-fit-cover rounded-3 mb-8"
+            alt=""
+          />
+
           <div className={styles.newsSectionContent}>
             <h3
               className={cls(
                 styles.newsSubheading,
                 styles.leftBorder,
-                'fs-1 color-pry-dark family-raleway fw-bold mb-7'
+                'fs-1 color-pry-dark family-raleway fw-bold mb-6'
               )}
             >
               How to keep track of global startup programs as a founder?

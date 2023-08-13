@@ -5,6 +5,7 @@ import StartupCard from './StartupCard';
 import Modal from 'react-bootstrap/Modal';
 import cls from 'classnames';
 import styles from './StartupsList.module.scss';
+import { Icon } from '@iconify/react';
 
 interface Props {
   items: StartupProps[] | undefined;
@@ -26,54 +27,63 @@ const StartupsList = ({ items, className }: Props) => {
       <Modal
         aria-labelledby="contained-modal-title-vcenter"
         show={!!activeStartup}
-        onHide={() => setActiveStartup(null)}
+        onHide={setActiveStartup.bind(null, null)}
       >
-        <Modal.Body className="p-4 rounded-5" style={{ backgroundColor: '#f5f5f5' }}>
+        <Modal.Header
+          className="align-items-start border-none"
+          closeButton
+          style={{ padding: '2.2rem', paddingBottom: 0, borderBottom: 'none' }}
+        >
           <img
-            // src={genPublicImgSrc(`/logos/${activeStartup?.logoUrl}`)}
             src={activeStartup?.logoUrl}
-            className="w-100 bg-white object-fit-contain"
-            height={200}
+            className="d-block w-100 justify-self-center mx-auto bg-white object-fit-contain mb-5"
+            height={180}
             alt=""
           />
-          <h5 className="fs-3 fw-bold mt-5 mb-3">{activeStartup?.name}</h5>
-
-          {activeStartup?.industries.map((ind, i, arr) => (
-            <h6
-              className="d-inline-block text-light family-raleway text-uppercase fs-5 mb-3"
-              key={ind}
-            >
-              {ind}
-              {i !== arr.length - 1 ? (
-                <span className="d-inline-block mx-2 fw-bold">·</span>
-              ) : (
-                ''
-              )}
-            </h6>
-          ))}
-          <span
-            className="d-block w-max-content border rounded mb-4 p-1 px-2 fs-5 bg-pry-lightest font-italic"
-            style={{ fontStyle: 'italic' }}
-          >
-            {activeStartup?.stage}
-          </span>
-          <small className="d-block text-black fs-5 mb-4">{activeStartup?.description}</small>
-          {/* <a
-            href={activeStartup?.website}
+        </Modal.Header>
+        <Modal.Body className="rounded-5" style={{ padding: '2.2rem', paddingTop: 0 }}>
+          <a
+            href={`mailto:${activeStartup?.email}`}
             target="_blank"
-            className="fs-4 fw-bold text-black text-decoration-underline cursor-pointer"
+            className={cls(
+              !activeStartup?.email && 'd-none',
+              'btn rounded-5 w-max-content color-pry-dark btn-light align-self-end justify-self-end'
+            )}
           >
-            {activeStartup?.website}
-          </a> */}
+            <Icon icon="gg:website" />{' '}
+            <small className="border-none border-pry-dark border-bottom">
+              {activeStartup?.email}
+            </small>
+          </a>
+          <div className="d-flex align-items-center justify-content-between mt-3 border-top pt-4">
+            <h5 className="fs-3 fw-bold">{activeStartup?.name}</h5>
+            <a
+              href={activeStartup?.websiteUrl}
+              target="_blank"
+              className={cls(
+                !activeStartup?.websiteUrl && 'd-none',
+                'btn btn-pry-dark rounded-5'
+              )}
+            >
+              <Icon icon="gg:website" />
+              Visit website
+            </a>
+          </div>
+
+          <span className="d-block w-max-content border rounded mb-4 p-1 px-2 fs-5 bg-pry-lightest font-italic">
+            {activeStartup?.stage.concat(' stage')}
+          </span>
+
+          <article className="d-block fs-5 mb-4">{activeStartup?.description}</article>
 
           <div className="d-flex align-items-center flex-wrap gap-2 flex-grow-1">
-            {activeStartup?.industries.map((ind, i, arr) => (
-              <h6
+            {activeStartup?.industries.map(ind => (
+              <span
                 className="fs-5 color-pry-dark border border-pry-dark rounded-5 p-2 px-3"
                 key={ind}
               >
                 {ind}
-              </h6>
+              </span>
             ))}
           </div>
         </Modal.Body>

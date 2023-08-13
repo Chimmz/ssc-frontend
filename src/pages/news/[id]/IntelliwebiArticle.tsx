@@ -50,6 +50,13 @@ const IntelliwebiArticle: React.FC = () => {
             }
           />
 
+          <img
+            src="https://res.cloudinary.com/devletwwd/image/upload/v1691873616/startup-logos/cqrkk2lkr4cpahfts1yd.png"
+            height={450}
+            className="w-100 object-fit-cover rounded-3 mb-8"
+            alt=""
+          />
+
           <div className={cls(styles.newsSectionContent, 'd-flex gap-5')}>
             <figure className="mb-7 w-100">
               <img

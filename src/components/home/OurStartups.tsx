@@ -11,6 +11,7 @@ import { StartupProps } from '../../types';
 import useRequest from '../../hooks/useRequest';
 
 const TOTAL_STARTUPS_TO_SHOW = 4;
+const FETCH_DURATION = 10000;
 
 const OurStartups = () => {
   const [startups, setStartups] = useState<StartupProps[]>();
@@ -26,7 +27,7 @@ const OurStartups = () => {
 
   useEffect(() => {
     genRandomStartups();
-    const intervalId = setInterval(genRandomStartups, 10000);
+    const intervalId = setInterval(genRandomStartups, FETCH_DURATION);
     return () => clearInterval(intervalId);
   }, []);
 

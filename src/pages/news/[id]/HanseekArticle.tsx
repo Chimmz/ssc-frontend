@@ -53,7 +53,7 @@ const SingleNewsPage: React.FC = () => {
             <img
               src={genPublicImgSrc('/img/hanseek-article-first-img.webp')}
               style={{ height: 'max(33vw, 22rem)', objectFit: 'cover' }}
-              className="w-100"
+              className="w-100 rounded-3"
               alt=""
             />
             <figcaption className="fs-5 color-pry-dark fw-bold mt-2">
@@ -81,7 +81,7 @@ const SingleNewsPage: React.FC = () => {
             <img
               src={genPublicImgSrc('/img/hanseek-article-pie-chart.webp')}
               className="float-left"
-              alt=""
+              alt=" rounded-3"
             />
             <p>
               In order for someone outside of Korean society to have the best Korean food
@@ -129,7 +129,11 @@ const SingleNewsPage: React.FC = () => {
 
             <div className={styles.step}>
               <figure>
-                <img src={genPublicImgSrc('/img/hanseek-article-double-img-1.webp')} alt="" />
+                <img
+                  src={genPublicImgSrc('/img/hanseek-article-double-img-1.webp')}
+                  alt=""
+                  className="rounded-3"
+                />
               </figure>
               <article>
                 <h4 className="fw-bold fs-3">Step 1: Learning each person’s preference ✍️</h4>
@@ -144,7 +148,11 @@ const SingleNewsPage: React.FC = () => {
 
             <div className={cls(styles.step, styles.rStep)}>
               <figure>
-                <img src={genPublicImgSrc('/img/hanseek-article-phones-img.webp')} alt="" />
+                <img
+                  src={genPublicImgSrc('/img/hanseek-article-phones-img.webp')}
+                  alt=""
+                  className="rounded-3"
+                />
               </figure>
               <article>
                 <h4 className="fw-bold fs-3">
@@ -168,7 +176,12 @@ const SingleNewsPage: React.FC = () => {
             </h6>
 
             <figure className="mb-5">
-              <img src={genPublicImgSrc('/img/hanseek-article-double-img-1.webp')} alt="" />
+              <img
+                src={genPublicImgSrc('/img/hanseek-article-double-img-1.webp')}
+                className="w-100 object-fit-cover rounded-3"
+                height={500}
+                alt=""
+              />
               <figcaption className="mt-2">
                 Suyuk (느린마을 수육) + Samgyeopgui & Bibimjjolmyeon (삼겹구이와 비빔쫄면)
               </figcaption>
@@ -196,7 +209,12 @@ const SingleNewsPage: React.FC = () => {
               noodles (사골고기국수)
             </h6>
             <figure className="mb-5">
-              <img src={genPublicImgSrc('/img/hanseek-article-double-img-2.webp')} alt="" />
+              <img
+                src={genPublicImgSrc('/img/hanseek-article-double-img-2.webp')}
+                height={500}
+                className="w-100 object-fit-cover rounded-3"
+                alt=""
+              />
               <figcaption className="mt-2">
                 Braised Kimchi & Pork (느린마을 김치찜) + Beef bone soup with beef noodles
                 (사골고기국수)
@@ -227,7 +245,12 @@ const SingleNewsPage: React.FC = () => {
               Round 3: Assorted Jeon (모둠부침개) + Mulhoe with sea snails (골뱅이물회)
             </h6>
             <figure className="mb-5">
-              <img src={genPublicImgSrc('/img/hanseek-article-double-img-3.webp')} alt="" />
+              <img
+                src={genPublicImgSrc('/img/hanseek-article-double-img-3.webp')}
+                height={500}
+                className="w-100 object-fit-cover rounded-3"
+                alt=""
+              />
               <figcaption className="mt-2">
                 Round 3: Assorted Jeon (모둠부침개) + Mulhoe with sea snails (골뱅이물회)
               </figcaption>
@@ -256,7 +279,11 @@ const SingleNewsPage: React.FC = () => {
 
             <div className={cls(styles.step, 'mb-7')}>
               <figure>
-                <img src={genPublicImgSrc('/img/hanseek-article-step3.webp')} alt="" />
+                <img
+                  src={genPublicImgSrc('/img/hanseek-article-step3.webp')}
+                  alt=""
+                  className="rounded-3"
+                />
                 <figcaption className="mt-2">
                   Behind the scenes of preparing the event
                 </figcaption>
@@ -305,7 +332,11 @@ const SingleNewsPage: React.FC = () => {
             </p>
 
             <figure>
-              <img src={genPublicImgSrc('/img/hanseek-article-bonus-img.webp')} alt="" />
+              <img
+                src={genPublicImgSrc('/img/hanseek-article-bonus-img.webp')}
+                alt=""
+                className="rounded-3"
+              />
               <figcaption className="mt-2">
                 Hong’s Makgeolli (느린마을양조점) venue photo from the official website.
               </figcaption>
@@ -318,7 +349,12 @@ const SingleNewsPage: React.FC = () => {
             </p>
 
             <figure>
-              <img src={genPublicImgSrc('/img/hanseek-article-double-img-4.webp')} alt="" />
+              <img
+                src={genPublicImgSrc('/img/hanseek-article-double-img-4.webp')}
+                height={500}
+                className="w-100 object-fit-cover rounded-3"
+                alt=""
+              />
               <figcaption className="mt-2">
                 Hong&apos;s Makgeolli (느린마을양조점) venue photo from the official website.
               </figcaption>

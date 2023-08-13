@@ -7,7 +7,8 @@ interface RequestConfig {
 }
 
 class API {
-  _baseUrl = 'http://localhost:5000/api/v1';
+  _baseUrl = process.env.REACT_APP_API_BASE_URL;
+  // _baseUrl = 'http://localhost:5000/api/v1';
   // process.env.NODE_ENV === 'development'
   // ? 'http://localhost:5000'
   // ? process.env.NEXT_PUBLIC_API_BASE_URL_REMOTE
