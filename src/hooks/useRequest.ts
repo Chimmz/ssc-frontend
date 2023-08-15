@@ -1,14 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import useToggle from './useToggle';
 
-interface Params<ExpectedResponse> {
+interface Params<APIResponse> {
   startLoadingInitially?: boolean;
   autoStopLoading?: boolean;
-  checkPositiveResponse?: (res: ExpectedResponse) => boolean;
+  checkPositiveResponse?: (res: APIResponse) => boolean;
 }
 
-function useRequest<ExpectedResponse>(args?: Params<ExpectedResponse>) {
-  const [response, setResponse] = useState<ExpectedResponse | undefined>(undefined);
+function useRequest<APIResponse>(args?: Params<APIResponse>) {
+  const [response, setResponse] = useState<APIResponse | undefined>(undefined);
   const [loading, setLoading] = useState(args?.startLoadingInitially || false);
   const [loaded, setLoaded] = useState(false);
   const [isRetrying, setIsRetrying] = useState(false);

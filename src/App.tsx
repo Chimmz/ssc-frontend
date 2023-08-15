@@ -14,7 +14,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/auth/*" element={<Auth />} />
+      {/* <Route path="/auth/*" element={<Auth />} /> */}
       <Route path="/news" element={<NewsPage />} />
       <Route path="/news/hanseek" element={<HanseekArticle />} />
       <Route path="/news/intelliwebi" element={<IntelliwebiArticle />} />

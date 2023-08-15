@@ -52,8 +52,8 @@ const SingleNewsPage: React.FC = () => {
           <figure className="mb-7">
             <img
               src={genPublicImgSrc('/img/hanseek-article-first-img.webp')}
-              style={{ height: 'max(33vw, 22rem)', objectFit: 'cover' }}
-              className="w-100 rounded-3"
+              style={{ height: 'max(33vw, 22rem)' }}
+              className="w-100 rounded-3 object-fit-cover"
               alt=""
             />
             <figcaption className="fs-5 color-pry-dark fw-bold mt-2">
@@ -80,7 +80,7 @@ const SingleNewsPage: React.FC = () => {
             </p>
             <img
               src={genPublicImgSrc('/img/hanseek-article-pie-chart.webp')}
-              className="float-left"
+              className="w-100"
               alt=" rounded-3"
             />
             <p>
@@ -132,7 +132,7 @@ const SingleNewsPage: React.FC = () => {
                 <img
                   src={genPublicImgSrc('/img/hanseek-article-double-img-1.webp')}
                   alt=""
-                  className="rounded-3"
+                  className="object-fit-cover rounded-3"
                 />
               </figure>
               <article>
@@ -151,7 +151,7 @@ const SingleNewsPage: React.FC = () => {
                 <img
                   src={genPublicImgSrc('/img/hanseek-article-phones-img.webp')}
                   alt=""
-                  className="rounded-3"
+                  className="object-fit-cover rounded-3"
                 />
               </figure>
               <article>
@@ -182,7 +182,7 @@ const SingleNewsPage: React.FC = () => {
                 height={500}
                 alt=""
               />
-              <figcaption className="mt-2">
+              <figcaption className="mt-2 fs-5">
                 Suyuk (느린마을 수육) + Samgyeopgui & Bibimjjolmyeon (삼겹구이와 비빔쫄면)
               </figcaption>
             </figure>
@@ -251,7 +251,7 @@ const SingleNewsPage: React.FC = () => {
                 className="w-100 object-fit-cover rounded-3"
                 alt=""
               />
-              <figcaption className="mt-2">
+              <figcaption className="mt-2 fs-5">
                 Round 3: Assorted Jeon (모둠부침개) + Mulhoe with sea snails (골뱅이물회)
               </figcaption>
             </figure>
@@ -282,10 +282,10 @@ const SingleNewsPage: React.FC = () => {
                 <img
                   src={genPublicImgSrc('/img/hanseek-article-step3.webp')}
                   alt=""
-                  className="rounded-3"
+                  className="object-fit-cover rounded-3"
                 />
-                <figcaption className="mt-2">
-                  Behind the scenes of preparing the event
+                <figcaption className="mt-2 fs-5">
+                  Behind the scenes of preparing the event.
                 </figcaption>
               </figure>
               <article>
@@ -335,10 +335,10 @@ const SingleNewsPage: React.FC = () => {
               <img
                 src={genPublicImgSrc('/img/hanseek-article-bonus-img.webp')}
                 alt=""
-                className="rounded-3"
+                className="w-100 object-fit-cover rounded-3"
               />
-              <figcaption className="mt-2">
-                Hong’s Makgeolli (느린마을양조점) venue photo from the official website.
+              <figcaption className="mt-2 fs-5">
+                Hong&apos;s Makgeolli (느린마을양조점) venue photo from the official website.
               </figcaption>
             </figure>
 

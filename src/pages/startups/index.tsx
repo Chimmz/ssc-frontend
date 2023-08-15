@@ -41,26 +41,6 @@ const STAGES = [
   StartupStages.EXPANSION_AND_MATURITY
 ];
 
-const CustomToggle = (props: {
-  children: ReactNode;
-  eventKey: string;
-  className?: string;
-}) => {
-  const decoratedOnClick = useAccordionButton(props.eventKey, () =>
-    console.log('totally custom!')
-  );
-  return (
-    <button
-      className={cls(props.className, 'btn bg-white btn-bg-none p-0')}
-      style={{ borderRadius: '0' }}
-      type="button"
-      onClick={decoratedOnClick}
-    >
-      {props.children}
-    </button>
-  );
-};
-
 const StartupsPage = function () {
   const [startups, setStartups] = useState<StartupProps[]>([]);
   const [filters, setFilters] = useState<{ industries: string[]; stages: string[] }>({
@@ -150,7 +130,7 @@ const StartupsPage = function () {
               </h5>
 
               {/* FILTER SECTION */}
-              <Accordion defaultActiveKey="0" className={styles.filter}>
+              <Accordion className={styles.filter}>
                 <CustomToggle
                   eventKey="0"
                   className="d-flex justify-content-between border-bottom w-100 p-4 pb-3"
@@ -231,6 +211,26 @@ const StartupsPage = function () {
       </section>
       <ContactSection className="mt-5" />
     </Layout>
+  );
+};
+
+const CustomToggle = (props: {
+  children: ReactNode;
+  eventKey: string;
+  className?: string;
+}) => {
+  const decoratedOnClick = useAccordionButton(props.eventKey, () =>
+    console.log('totally custom!')
+  );
+  return (
+    <button
+      className={cls(props.className, 'btn bg-white btn-bg-none p-0')}
+      style={{ borderRadius: '0' }}
+      type="button"
+      onClick={decoratedOnClick}
+    >
+      {props.children}
+    </button>
   );
 };
 

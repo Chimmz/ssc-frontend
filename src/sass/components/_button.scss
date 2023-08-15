@@ -106,11 +106,11 @@
 
     &:is(.btn-outline-white) {
       border-color: #838383;
-      color: #d1d1d1;
+      color: #f1e6ff;
 
       &:hover {
-        border-color: $color-pry;
-        color: #fff;
+        // border-color: $color-pry;
+        color: $color-pry-light;
       }
     }
 

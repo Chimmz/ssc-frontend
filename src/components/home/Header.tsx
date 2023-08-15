@@ -72,7 +72,12 @@ const Header = () => {
               {TOP_PHOTOS_LOCAL.map((imgUrl, i) => {
                 const show = photosAtTop[i].isVisible;
                 return (
-                  <img src={imgUrl} className={cls(show ? 'fadeIn' : 'fadeOut')} alt="" />
+                  <img
+                    key={imgUrl}
+                    src={imgUrl}
+                    className={cls(show ? 'fadeIn' : 'fadeOut')}
+                    alt=""
+                  />
                 );
               })}
             </figure>
@@ -84,6 +89,7 @@ const Header = () => {
                     src={imgUrl}
                     className={cls(show ? styles.fadeIn : styles.fadeOut)}
                     alt=""
+                    key={imgUrl}
                   />
                 );
               })}
@@ -101,7 +107,9 @@ const Header = () => {
                   <img
                     src={imgUrl}
                     className={cls(show ? styles.fadeIn : styles.fadeOut)}
+                    style={{ objectPosition: 'center' }}
                     alt=""
+                    key={imgUrl}
                   />
                 );
               })}

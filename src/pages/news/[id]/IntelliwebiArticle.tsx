@@ -50,44 +50,17 @@ const IntelliwebiArticle: React.FC = () => {
             }
           />
 
-          <img
-            src="https://res.cloudinary.com/devletwwd/image/upload/v1691873616/startup-logos/cqrkk2lkr4cpahfts1yd.png"
-            height={450}
-            className="w-100 object-fit-cover rounded-3 mb-8"
-            alt=""
-          />
+          <figure>
+            <img
+              src="https://res.cloudinary.com/devletwwd/image/upload/v1691873616/startup-logos/cqrkk2lkr4cpahfts1yd.png"
+              height={450}
+              className="w-100 object-fit-cover rounded-3 mb-8"
+              alt=""
+            />
+            {/* <figcaption>Intelliwebi Logo</figcaption> */}
+          </figure>
 
-          <div className={cls(styles.newsSectionContent, 'd-flex gap-5')}>
-            <figure className="mb-7 w-100">
-              <img
-                src={genPublicImgSrc('/img/joshua-chung.jpg')}
-                style={{
-                  height: 'max(30vw, 22rem)',
-                  width: 'max(33vw, 22rem)',
-                  objectFit: 'cover'
-                }}
-                alt=""
-              />
-              <figcaption className="fs-5 color-pry-dark fw-bold mt-2">
-                Joshua Chung, CEO of Intelliwebi
-              </figcaption>
-            </figure>
-
-            <div className="">
-              <p className="family-raleway">
-                Intelliwebi is a software application that helps startups create and deliver
-                more effective pitches. They typically offer a variety of features, such as:
-              </p>
-
-              <ul className="ms-5 font-inherit">
-                <li>Templates for creating pitch decks</li>
-                <li>Tools for visualizing data</li>
-                <li>Practice with chatbot mode</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className={styles.newsSectionContent}>
+          <div className={cls(styles.newsSectionContent, '')}>
             <h3
               className={cls(
                 styles.newsSubheading,
@@ -95,8 +68,56 @@ const IntelliwebiArticle: React.FC = () => {
                 'fs-1 color-pry-dark family-raleway fw-bold mb-7'
               )}
             >
-              We conducted brief interview with Joshua Chung, CEO of Intelliwebi.
+              We conducted a brief interview with Joshua Chung, CEO of Intelliwebi.
             </h3>
+            <div className={styles.step}>
+              <figure
+                className={cls(
+                  styles.joshuaFigure,
+                  'mb-7 w-100 d-flex flex-column overflow-hidden'
+                )}
+              >
+                {/* <img
+                src={genPublicImgSrc('/img/joshua.jpg')}
+                style={{
+                  height: 'max(30vw, 22rem)',
+                  width: 'max(33vw, 22rem)',
+                  objectFit: 'contain'
+                }}
+                alt=""
+              /> */}
+
+                <img
+                  src={genPublicImgSrc('/img/joshua.jpg')}
+                  className="w-100 rounded-4"
+                  style={{
+                    height: 'max(40vw, 50rem)',
+                    // width: 'max(35vw, 22rem)',
+                    objectFit: 'contain'
+                  }}
+                  alt=""
+                />
+                <figcaption className="d-block ms-8 fs-5 color-pry-dark fw-bold mt-2">
+                  Joshua Chung, CEO of Intelliwebi
+                </figcaption>
+              </figure>
+
+              <div className="">
+                <p className="family-raleway">
+                  Intelliwebi is a software application that helps startups create and deliver
+                  more effective pitches. They typically offer a variety of features, such as:
+                </p>
+
+                <ul className="ms-5 font-inherit">
+                  <li>Templates for creating pitch decks</li>
+                  <li>Tools for visualizing data</li>
+                  <li>Practice with chatbot mode</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.newsSectionContent}>
             <ol className="d-flex flex-column gap-5">
               <li>
                 <h6 className="fw-bold fs-3">How did you come up with this idea?</h6>

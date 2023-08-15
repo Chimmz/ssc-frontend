@@ -28,13 +28,26 @@
   }
 }
 
+.joshuaFigure {
+  // Tab-portrait and below
+  @media screen and (max-width: 56.25em) {
+    align-items: center;
+
+    & > figcaption {
+      margin-inline-start: 0;
+    }
+  }
+}
+.joshua-jpg {
+}
+
 .newsSectionContent {
   font-size: 1.745rem;
   font-family: 'Raleway', sans-serif;
 
   & > img {
     width: max(55%, 25rem);
-    height: max(35vw, 27rem);
+    // height: max(35vw, 27rem);
     object-fit: cover;
     float: left;
     margin: 2.5rem;
@@ -52,6 +65,11 @@
   grid-template-columns: 1fr 1fr;
   align-items: start;
   gap: 3rem;
+
+  // Tab-portrait and below
+  @media screen and (max-width: 56.25em) {
+    grid-template-columns: 1fr;
+  }
 
   & h4 {
     margin-bottom: 2rem;
