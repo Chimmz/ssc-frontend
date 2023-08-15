@@ -12,13 +12,13 @@ interface Props {
   className?: string;
 }
 
-const StartupsList = ({ items, className }: Props) => {
+const StartupsList = (props: Props) => {
   const [activeStartup, setActiveStartup] = useState<StartupProps | null>(null);
 
   return (
     <>
-      <ul className={cls(styles.startups, className, 'list-style-none mt-5')}>
-        {items?.map(st => (
+      <ul className={cls(props.className, styles.startups, 'list-style-none mt-5')}>
+        {props.items?.map(st => (
           <StartupCard startup={st} key={st._id} onClick={setActiveStartup} />
         ))}
       </ul>
@@ -71,7 +71,7 @@ const StartupsList = ({ items, className }: Props) => {
           </div>
 
           <span className="d-block w-max-content border rounded mb-4 p-1 px-2 fs-5 bg-pry-lightest font-italic">
-            {activeStartup?.stage.concat(' stage')}
+            {activeStartup?.stage}
           </span>
 
           <article className="d-block fs-5 mb-4">{activeStartup?.description}</article>
