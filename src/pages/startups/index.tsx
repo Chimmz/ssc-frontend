@@ -12,16 +12,16 @@ import Pagination from '../../components/shared/pagination/Pagination';
 import ContactSection from '../../components/shared/contact/Contact';
 import Layout from '../../components/layout';
 import SectionTitle from '../../components/section-title/SectionTitle';
-import TextField from '../../components/ui/text-field/TextField';
 import StartupsList from '../../components/shared/startups/StartupsList';
 import styles from './styles.module.scss';
 import { StartupProps } from '../../types';
 import { StartupIndustries, StartupStages } from '../../data/constants';
 import api from '../../library/api';
 import useRequest from '../../hooks/useRequest';
-import { Form } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
 import { v4 as uuidv4 } from 'uuid';
 import useList from '../../hooks/useList';
+import TextSearch from '../../components/ui/text-field/TextSearch';
 
 const INDUSTRIES = [
   StartupIndustries.TECHNOLOGY,
@@ -53,7 +53,11 @@ const StartupsPage = function () {
     startups?: StartupProps[];
   }>();
 
-  const { inputValue: searchTerm, onChange: handleChangeSearchTerm } = useInput({ init: '' });
+  const {
+    inputValue: searchTerm,
+    onChange: handleChangeSearchTerm,
+    clearInput: clearSearchTerm
+  } = useInput({ init: '' });
 
   const {
     items: industryFilters,
@@ -109,17 +113,11 @@ const StartupsPage = function () {
             <button className="btn btn-pry btn--lg" disabled>
               <Icon icon="mdi:company" /> Add My Startup
             </button>
-            <div className="position-relative">
-              <TextField
-                value={searchTerm}
-                onChange={handleChangeSearchTerm}
-                placeholder="Search"
-                inputClassName="underline"
-              />
-              <span className="position-absolute" style={{ right: 0, bottom: '10px' }}>
-                <Icon icon="fluent:search-32-regular" color="#7600ff" width={20} />
-              </span>
-            </div>
+            <TextSearch
+              inputValue={searchTerm}
+              onChange={handleChangeSearchTerm}
+              clearInput={clearSearchTerm}
+            />
           </div>
 
           <div
@@ -156,9 +154,11 @@ const StartupsPage = function () {
                       'd-flex flex-column fs-5 fw-bold list-style-none p-4 py-3'
                     )}
                   >
+                    {/* <Form> */}
                     {filters.industries.map(ind => (
                       <li className="" key={uuidv4()}>
                         <Form.Check
+                          id={ind}
                           label={ind}
                           className=""
                           checked={industryFilters.includes(ind)}
@@ -170,6 +170,7 @@ const StartupsPage = function () {
                         />
                       </li>
                     ))}
+                    {/* </Form> */}
                   </ul>
                 </Accordion.Collapse>
 
@@ -188,15 +189,16 @@ const StartupsPage = function () {
                     )}
                   >
                     {filters.stages.map(stage => (
-                      <li className="cursor-pointer" key={uuidv4()}>
+                      <li key={uuidv4()}>
                         <Form.Check
+                          type="checkbox"
                           label={stage}
-                          className=""
+                          id={stage}
                           checked={stageFilters.includes(stage)}
-                          onChange={ev => {
-                            !stageFilters.includes(stage)
-                              ? addStageFilter(stage)
-                              : removeStageFilter(stage);
+                          onChange={() => {
+                            (stageFilters.includes(stage)
+                              ? removeStageFilter
+                              : addStageFilter)(stage);
                           }}
                         />
                       </li>

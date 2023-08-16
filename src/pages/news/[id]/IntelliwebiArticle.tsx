@@ -50,14 +50,21 @@ const IntelliwebiArticle: React.FC = () => {
             }
           />
 
-          <figure>
+          <figure className="mb-8">
             <img
               src="https://res.cloudinary.com/devletwwd/image/upload/v1691873616/startup-logos/cqrkk2lkr4cpahfts1yd.png"
               height={450}
-              className="w-100 object-fit-cover border rounded-3 mb-8"
+              className="w-100 object-fit-cover border rounded-3"
               alt=""
             />
-            {/* <figcaption>Intelliwebi Logo</figcaption> */}
+            <figcaption>
+              <a
+                href="https://www.intelliwebi.com/"
+                className="text-black text-decoration-underline"
+              >
+                Intelliwebi.com
+              </a>
+            </figcaption>
           </figure>
 
           <div className={cls(styles.newsSectionContent, '')}>
@@ -70,7 +77,7 @@ const IntelliwebiArticle: React.FC = () => {
             >
               We conducted a brief interview with Joshua Chung, CEO of Intelliwebi.
             </h3>
-            <div className={styles.step}>
+            <div className="d-flex align-items-start gap-5">
               <figure
                 className={cls(
                   styles.joshuaFigure,
@@ -79,15 +86,10 @@ const IntelliwebiArticle: React.FC = () => {
               >
                 <img
                   src={genPublicImgSrc('/img/joshua.webp')}
-                  className="w-100 rounded-4"
-                  style={{
-                    height: 'max(40vw, 50rem)',
-                    // width: 'max(35vw, 22rem)',
-                    objectFit: 'contain'
-                  }}
+                  className="w-100 rounded-4 object-fit-contain"
                   alt=""
                 />
-                <figcaption className="d-block ms-8 fs-5 color-pry-dark fw-bold mt-2">
+                <figcaption className="d-block fs-5 color-pry-dark fw-bold mt-2">
                   Joshua Chung, CEO of Intelliwebi
                 </figcaption>
               </figure>
@@ -204,7 +206,7 @@ const IntelliwebiArticle: React.FC = () => {
                   replaced by AI.
                 </p>
               </li>
-              <li>
+              <li className="ms-2">
                 <h6 className="fw-bold fs-3">How have you overcome these challenges?</h6>
                 <p>
                   We choose to partner with those industry gurus. I think there are areas in

@@ -52,8 +52,6 @@ const FlairArticle: React.FC = () => {
 
           <img
             src={genPublicImgSrc('/img/flair-programs.png')}
-            // src={genPublicImgSrc('/img/flair-and-products.png')}
-            // height={500}
             className="w-100 object-fit-cover rounded-3 mb-8"
             alt=""
           />
@@ -89,13 +87,19 @@ const FlairArticle: React.FC = () => {
               overwhelming and often daunting task of seeking out the most suitable programs
               for your specific needs. Sometimes you have to dig deep to find that information
               lies somewhere in the dark corner or follow hundreds of LinkedIn pages to be
-              able to keep up with the program announcement. This is where Flair steps in,
-              offering an indispensable one-stop platform that connects startup founders with
-              an unrivaled selection of global programs.
+              able to keep up with the program announcement. This is where{' '}
+              <a href="https://flair.founderslair.com/welcome" className="color-pry">
+                Flair
+              </a>{' '}
+              steps in, offering an indispensable one-stop platform that connects startup
+              founders with an unrivaled selection of global programs.
             </p>
 
             <p className="mb-5">
-              Flair simplifies this process by providing an extensive database of programs -
+              <a href="https://flair.founderslair.com/welcome" className="color-pry">
+                Flair
+              </a>{' '}
+              simplifies this process by providing an extensive database of programs -
               acceleration, incubation, competition, and corporate collaboration programs,
               making it effortless for founders like you to find the ones that are tailored to
               your unique needs.
@@ -108,20 +112,36 @@ const FlairArticle: React.FC = () => {
             />
 
             <p className="mb-5">
-              Flair is your go-to platform for simplifying and streamlining your search for
-              the perfect startup programs. No longer will you waste valuable time sifting
-              through countless websites or overlooking hidden gems in the startup ecosystem.
-              Founders Lair bridges the information gap, equipping founders with the necessary
+              <a href="https://flair.founderslair.com/welcome" className="color-pry">
+                Flair
+              </a>{' '}
+              is your go-to platform for simplifying and streamlining your search for the
+              perfect startup programs. No longer will you waste valuable time sifting through
+              countless websites or overlooking hidden gems in the startup ecosystem. Founders
+              Lair bridges the information gap, equipping founders with the necessary
               information and access to a wide array of programs that you need to thrive for
               free. <br />
               <br />
-              Visit Flair today and embark on a journey of accelerated growth and unrivaled
-              success - because your startup deserves nothing less.
+              Visit{' '}
+              <a href="https://flair.founderslair.com/welcome" className="color-pry">
+                Flair
+              </a>{' '}
+              today and embark on a journey of accelerated growth and unrivaled success -
+              because your startup deserves nothing less.
             </p>
 
             <h6 className="fw-bold fs-3 mb-3">
               Want to learn more about Founders Lair products?
             </h6>
+
+            <figure className="w-100">
+              <img
+                src={genPublicImgSrc('/img/flair-and-products.png')}
+                className="w-100 object-fit-cover rounded-4"
+                height={300}
+                alt=""
+              />
+            </figure>
 
             <p className="mb-5">
               <a

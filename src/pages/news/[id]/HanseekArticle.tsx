@@ -98,7 +98,7 @@ const SingleNewsPage: React.FC = () => {
               className={cls(
                 styles.newsSubheading,
                 styles.leftBorder,
-                'fs-1 color-pry-dark family-raleway fw-bold mb-4'
+                'fs-2 family-raleway fw-bold mb-4'
               )}
             >
               Hanseeker Event at Hong&apos;s Makgeolli

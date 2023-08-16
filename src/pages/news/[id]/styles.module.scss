@@ -31,14 +31,12 @@
 .joshuaFigure {
   // Tab-portrait and below
   @media screen and (max-width: 56.25em) {
-    align-items: center;
+    // align-items: center;
 
     & > figcaption {
-      margin-inline-start: 0;
+      // margin-inline-start: 0;
     }
   }
-}
-.joshua-jpg {
 }
 
 .newsSectionContent {
@@ -63,7 +61,7 @@
 .step {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: start;
+  align-items: start !important;
   gap: 3rem;
 
   // Tab-portrait and below

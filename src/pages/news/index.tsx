@@ -23,13 +23,19 @@ import { genPublicImgSrc } from '../../utils/url-utils';
 import { NEWS_ITEMS } from '../../data/news-items';
 import styles from './index.module.scss';
 import cls from 'classnames';
+import TextSearch from '../../components/ui/text-field/TextSearch';
 
 const NEWS_PER_PAGE = 4;
 
 const NewsPage: FC = () => {
   const [articles, setArticles] = useState<NewsObj[] | undefined>(NEWS_ITEMS);
 
-  const { inputValue: searchTerm, onChange: handleChangeSearchTerm } = useInput({ init: '' });
+  const {
+    inputValue: searchTerm,
+    onChange: handleChangeSearchTerm,
+    clearInput: clearSearchTerm
+  } = useInput({ init: '' });
+
   const { page, goPrevPage, goNextPage, setPage, setPageData } = usePagination<NewsObj>();
   // const handleInputKeyUp = useDelayedActionOnTextInput(() => search());
 
@@ -101,23 +107,17 @@ const NewsPage: FC = () => {
       <section className="section-pad-top section-pad-bottom-lg">
         <div className="container app-container d-flex flex-column">
           <SectionTitle title="News" line={false} />
-          <div
-            className={cls(
-              styles.search,
-              'justify-self-end ms-auto d-flex align-items-center position-relative'
-            )}
-          >
-            <TextField
-              value={searchTerm}
+
+          <div className={cls(styles.pageOptions, 'gap-4 mb-5')}>
+            <button className="btn btn-pry btn--lg" disabled>
+              <Icon icon="jam:write" /> Post an Article
+            </button>
+            <TextSearch
+              className="justify-self-end ms-auto d-flex align-items-center position-relative"
+              inputValue={searchTerm}
               onChange={handleChangeSearchTerm}
-              // onKeyUp={handleInputKeyUp}
-              placeholder="Search"
-              className="justify-self-end ms-auto"
-              inputClassName="underline"
+              clearInput={clearSearchTerm}
             />
-            <span className="position-absolute" style={{ right: 0, bottom: '10px' }}>
-              <Icon icon="fluent:search-32-regular" color="#7600ff" width={20} />
-            </span>
           </div>
           {!searchTerm ? <NewsGrid articles={articlesToPreview} /> : null}
 

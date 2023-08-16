@@ -3,7 +3,7 @@ import { ValidationFeedback } from '../../../utils/validators/types';
 import { Form, FormControlProps } from 'react-bootstrap';
 import cls from 'classnames';
 
-interface TextFieldProps extends FormControlProps {
+export interface TextFieldProps extends FormControlProps {
   as?: 'input' | 'textarea';
   type?: 'text' | 'number' | 'email' | 'password' | 'textarea' | 'date';
   value: string;
@@ -19,6 +19,8 @@ interface TextFieldProps extends FormControlProps {
   onInput?: React.ChangeEventHandler<HTMLInputElement> | (() => void);
   onKeyUp?: React.KeyboardEventHandler<HTMLInputElement> | (() => void);
   className?: string;
+  maxLength?: number;
+  minLength?: number;
   inputClassName?: string;
   labelClassName?: string;
   [key: string]: any;
@@ -27,13 +29,14 @@ interface TextFieldProps extends FormControlProps {
 function TextField(props: TextFieldProps) {
   const {
     validationErrors,
-    type = 'text',
     autoFocus,
     readonly,
     onFocusSelect,
     inputClassName,
     ...nativeProps
   } = props;
+
+  const { type = 'text', maxLength, minLength } = nativeProps;
 
   const hasError = !!validationErrors?.length;
 
@@ -47,6 +50,7 @@ function TextField(props: TextFieldProps) {
           {nativeProps.label}
         </Form.Label>
       ) : null}
+
       <Form.Control
         type={type}
         {...nativeProps}
@@ -61,6 +65,8 @@ function TextField(props: TextFieldProps) {
         id={typeof nativeProps.label === 'string' ? nativeProps.label : nativeProps.id}
         readOnly={props.readonly}
         className={cls('textfield', props.inputClassName)}
+        maxLength={maxLength}
+        minLength={minLength}
         style={props.inputStyle}
       />
 
