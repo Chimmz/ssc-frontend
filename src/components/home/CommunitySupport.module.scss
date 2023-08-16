@@ -43,17 +43,19 @@
       grid-column: 2 / 3;
     }
 
-    @media screen and (max-width: 37.5em) {
+    @media screen and (max-width: 600px) {
       grid-template-columns: 1fr;
 
       & > figure {
-        background-color: rgba(#fff, 0.7);
+        // background-color: rgba(#fff, 0.7);
+        background-color: #efe2ff;
         height: 20rem;
         grid-column: 1 / -1 !important;
         grid-row: 1 / 2 !important;
 
         & > img {
-          object-position: 80% 25%;
+          // object-position: 80% 25%;
+          object-fit: contain;
         }
       }
       & > h5 {

@@ -35,7 +35,7 @@ const FlairArticle: React.FC = () => {
             line
             options={
               <>
-                <small className="color-pry-dark">{formatDate(newsItem?.createdAt)}</small>
+                <small className="color-pry-dark">August 08, 2023</small>
                 <AppTooltip
                   title={!copied ? 'Copy' : 'Copied'}
                   onMouseLeave={setCopiedFalse.bind(null, 100)}

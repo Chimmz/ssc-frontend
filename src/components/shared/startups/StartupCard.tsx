@@ -44,7 +44,7 @@ const StartupCard: React.FC<Props> = props => {
         </div>
       </div>
 
-      <div className="align-self-stretch d-flex align-items-center justify-content-between gap-3 p-3">
+      <div className="align-self-stretch d-flex align-items-center justify-content-between gap-2 p-3">
         <a
           href={websiteUrl}
           target="_blank"

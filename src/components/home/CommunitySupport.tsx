@@ -7,7 +7,7 @@ const CommunitySupport = () => {
   return (
     <section className={styles.section}>
       <div className="container app-container d-flex flex-column text-center">
-        <SectionTitle title="Community Support" />
+        <SectionTitle title="Community Support" responsive={false} />
 
         <div className={cls(styles.features, 'list-style-none mt-5')}>
           <article className="bg-pry-light text-start">

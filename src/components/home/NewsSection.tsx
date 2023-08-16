@@ -5,6 +5,7 @@ import { genPublicImgSrc } from '../../utils/url-utils';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import NewsGrid from '../shared/news/NewsGrid';
+import { NEWS_ITEMS } from '../../data/news-items';
 
 const NewsSection = () => {
   return (
@@ -13,10 +14,11 @@ const NewsSection = () => {
         <SectionTitle
           title="News"
           layout="end"
+          responsive
           options={
             <Link
               to="/news"
-              className="d-flex btn-text-pry align-items-center fs-5 family-raleway gap-2"
+              className="d-flex align-items-center btn-text-pry fs-5 family-raleway gap-2"
             >
               See all
               <button
@@ -28,7 +30,7 @@ const NewsSection = () => {
             </Link>
           }
         />
-        <NewsGrid />
+        <NewsGrid articles={NEWS_ITEMS} />
       </div>
     </section>
   );

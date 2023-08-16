@@ -1,5 +1,36 @@
 .ownContainer {
-  max-width: 1200px;
+  // max-width: 1200px;
+}
+
+.pageOptions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media screen and (max-width: 37.5em) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3rem !important;
+
+    & > button {
+      order: 1;
+    }
+  }
+}
+
+.pageBody {
+  // display: flex;
+  // align-items: start;
+  @media screen and (max-width: 56.25em) {
+    flex-direction: column;
+  }
+  @media screen and (max-width: 37.5em) {
+    align-items: center !important;
+
+    & > aside {
+      width: 100%;
+    }
+  }
 }
 
 .filter {
@@ -8,6 +39,10 @@
   box-shadow: 0 0 7px rgba(#000, 0.2);
   border-radius: 7px;
   overflow: hidden;
+
+  @media screen and (max-width: 37.5em) {
+    width: 100%;
+  }
 }
 
 ul.filterList {
@@ -29,39 +64,5 @@ ul.filterList {
         background-color: #7600ff;
       }
     }
-
-    // &::before {
-    //   order: -1;
-    //   content: '';
-    //   left: 0;
-    //   display: grid;
-    //   place-items: center;
-    //   margin-right: 4px;
-    //   margin-bottom: 3px;
-    //   width: 10px;
-    //   height: 10px;
-    //   border-radius: 50%;
-    //   background-color: #7600ff;
-    //   outline: 3px solid #d8d8d8;
-    //   color: rgba(#fff, 0.5);
-    // }
-
-    // &::after {
-    //   order: 2;
-    //   content: '000';
-    //   display: grid;
-    //   place-items: center;
-    //   right: 0;
-    //   width: 20px;
-    //   height: 20px;
-    //   border-radius: 50%;
-    //   background-color: #3f0088;
-    //   font-weight: 300;
-    //   font-size: 8px;
-    //   color: rgba(#fff, 0.5);
-    // }
-  }
-
-  & > .filterItemAdded {
   }
 }

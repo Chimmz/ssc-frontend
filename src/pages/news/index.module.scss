@@ -1,0 +1,11 @@
+.search {
+  @media screen and (max-width: 37.5em) {
+    width: 100% !important;
+
+    & > div {
+      width: 100% !important;
+    }
+  }
+}
+
+// style={{ width: 'max(20%, 150px)' }}

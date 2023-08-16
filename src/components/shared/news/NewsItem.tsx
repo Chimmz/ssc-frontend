@@ -17,7 +17,7 @@ const NewsItem: React.FC<NewsItemProps> = ({ item, searchTerm }) => {
     <Link to={`${item._id}`} state={{ newsItem: item }}>
       <li className={styles.newsItem}>
         <figure>
-          <img src={genPublicImgSrc('/img/news-img2.png')} alt="" />
+          <img src={item.imgUrl} alt="" />
         </figure>
         <article className="d-flex flex-column gap-3">
           <h4 className={cls(!searchTerm && 'fw-bold')}>{item.headline}</h4>

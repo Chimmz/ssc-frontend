@@ -38,6 +38,7 @@ const OurStartups = () => {
           <SectionTitle
             title="Our Startups"
             layout="end"
+            responsive
             options={
               <Link
                 to="/startups"

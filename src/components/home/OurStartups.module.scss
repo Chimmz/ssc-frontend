@@ -1,17 +1,13 @@
 .startups {
-  // grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)) !important;
-
   @media screen and (min-width: 768px) and (max-width: 990px) {
     grid-template-columns: 1fr 1fr !important;
   }
-  // Phone breakpoint
+
+  // Phone breakpoint - 600px
   @media screen and (max-width: 37.5em) {
     display: flex !important;
     padding-block: 2rem;
-    // width: max-content;
-    // margin-left: 4rem;
-    // padding-inline: 90vw;
-    // padding-inline-start: 50rem;
+    padding-inline-start: 5rem;
     overflow-x: scroll;
 
     &::-webkit-scrollbar {
@@ -19,7 +15,7 @@
     }
 
     & > li:first-child {
-      margin-left: 62rem;
+      margin-left: 60rem;
     }
     & > li:last-child {
       margin-right: 5px;

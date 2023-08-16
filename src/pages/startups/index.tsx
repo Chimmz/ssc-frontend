@@ -104,22 +104,33 @@ const StartupsPage = function () {
       <section className="section-pad-top section-pad-bottom-lg">
         <div className={cls(styles.ownContain, 'container app-container d-flex flex-column')}>
           <SectionTitle title="Our Startups" line={false} />
-          <div className="justify-self-end ms-auto d-flex align-items-center position-relative">
-            <TextField
-              value={searchTerm}
-              onChange={handleChangeSearchTerm}
-              placeholder="Search"
-              inputClassName="underline"
-            />
-            <span className="position-absolute" style={{ right: 0, bottom: '10px' }}>
-              <Icon icon="fluent:search-32-regular" color="#7600ff" width={20} />
-            </span>
+
+          <div className={cls(styles.pageOptions, 'gap-4 mb-5')}>
+            <button className="btn btn-pry btn--lg" disabled>
+              <Icon icon="mdi:company" /> Add My Startup
+            </button>
+            <div className="position-relative">
+              <TextField
+                value={searchTerm}
+                onChange={handleChangeSearchTerm}
+                placeholder="Search"
+                inputClassName="underline"
+              />
+              <span className="position-absolute" style={{ right: 0, bottom: '10px' }}>
+                <Icon icon="fluent:search-32-regular" color="#7600ff" width={20} />
+              </span>
+            </div>
           </div>
 
-          <aside className="d-flex justify-content-center align-items-start gap-5">
-            <div className="mt-3">
-              <h5 className="d-flex align-items-center justify-content-between color-pry-dark fw-bold mb-2 ms-1">
-                Filter by
+          <div
+            className={cls(
+              styles.pageBody,
+              'd-flex justify-content-between align-items-start gap-4 mt-3'
+            )}
+          >
+            <aside className="">
+              <div className="d-flex align-items-center justify-content-between">
+                <h5 className="color-pry-dark fw-bold mb-2 ms-1">Filter by</h5>
                 <button
                   className={cls('btn btn--sm color-pry')}
                   disabled={!industryFilters.length && !stageFilters.length}
@@ -127,7 +138,7 @@ const StartupsPage = function () {
                 >
                   Clear all
                 </button>
-              </h5>
+              </div>
 
               {/* FILTER SECTION */}
               <Accordion className={styles.filter}>
@@ -193,11 +204,12 @@ const StartupsPage = function () {
                   </ul>
                 </Accordion.Collapse>
               </Accordion>
-            </div>
+            </aside>
 
             {/* STARTUP CARDS */}
             <div className="container app-container">
               <StartupsList items={startups} />
+
               {startups.length ? (
                 <Pagination currentPage={1} totalPages={1} />
               ) : (
@@ -206,7 +218,7 @@ const StartupsPage = function () {
                 </div>
               )}
             </div>
-          </aside>
+          </div>
         </div>
       </section>
       <ContactSection className="mt-5" />

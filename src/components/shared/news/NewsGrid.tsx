@@ -1,50 +1,24 @@
 import cls from 'classnames';
-import { genPublicImgSrc } from '../../../utils/url-utils';
 import styles from './NewsGrid.module.scss';
+import { NewsObj } from '../../../types';
+import { formatDate } from '../../../utils/date-utils';
+import { Link } from 'react-router-dom';
 
-const NewsGrid: React.FC = () => {
+const NewsGrid: React.FC<{ readonly articles: NewsObj[] | undefined }> = props => {
   return (
     <div className={cls(styles.newsUpdates, 'my-5')}>
-      <article className="">
-        <figure>
-          <img src={genPublicImgSrc('/img/hero-img2.png')} alt="" />{' '}
-          <figcaption className="fs-3 text-start">
-            Lorem ipsum dolor sit amet consectetur adipisicing.
-            <br />
-            <small className="fs-5">May 23, 2023</small>
-          </figcaption>
-        </figure>
-      </article>
-      <article className="">
-        <figure>
-          <img src={genPublicImgSrc('/img/hero-img1.png')} alt="" />{' '}
-          <figcaption className="fs-3 text-start">
-            Lorem ipsum dolor sit amet consectetur adipisicing.
-            <br />
-            <small className="fs-5">May 23, 2023</small>
-          </figcaption>
-        </figure>
-      </article>
-      <article className="">
-        <figure>
-          <img src={genPublicImgSrc('/img/hero-img3.png')} alt="" />{' '}
-          <figcaption className="fs-3 text-start">
-            Lorem ipsum dolor sit amet consectetur adipisicing.
-            <br />
-            <small className="fs-5">May 23, 2023</small>
-          </figcaption>
-        </figure>
-      </article>
-      <article className="">
-        <figure>
-          <img src={genPublicImgSrc('/img/hero-img2.png')} alt="" />{' '}
-          <figcaption className="fs-3 text-start">
-            Lorem ipsum dolor sit amet consectetur adipisicing.
-            <br />
-            <small className="fs-5">May 23, 2023</small>
-          </figcaption>
-        </figure>
-      </article>
+      {props.articles?.slice(0, 4).map(a => (
+        <Link to={`/news/${a._id}`} className={styles.newsItem}>
+          <figure>
+            <img src={a.imgUrl} alt="" />{' '}
+            <figcaption className="fs-3 text-start">
+              {a.headline}
+              <br />
+              <small className="fs-5">{formatDate(a.createdAt)}</small>
+            </figcaption>
+          </figure>
+        </Link>
+      ))}
     </div>
   );
 };

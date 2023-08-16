@@ -5,7 +5,7 @@ import useScrollToTop from '../../hooks/useScrollToTop';
 
 import Layout from '../../components/layout';
 import TextField from '../../components/ui/text-field/TextField';
-import NewsGroup from '../../components/shared/news/NewsGrid';
+import NewsGrid from '../../components/shared/news/NewsGrid';
 import NewsList from '../../components/shared/news/NewsList';
 import SectionTitle from '../../components/section-title/SectionTitle';
 import ContactSection from '../../components/shared/contact/Contact';
@@ -20,93 +20,81 @@ import Paginators from '../../components/shared/pagination/Paginators';
 import ThreeDotsSpinner from '../../components/ui/loader/ThreeDotsSpinner';
 import { boldenPatternsInText, scrollToElement } from '../../utils/dom-utils';
 import { genPublicImgSrc } from '../../utils/url-utils';
+import { NEWS_ITEMS } from '../../data/news-items';
+import styles from './index.module.scss';
+import cls from 'classnames';
 
 const NEWS_PER_PAGE = 4;
 
-const items: NewsObj[] = [
-  {
-    _id: '1',
-    headline: 'How we maximize your Korean food experience',
-    isApprovedByAdmin: true,
-    story:
-      'From our experiences of introducing Korean food to our foreign friends, they had the most enjoyable time when 1) the menu was something they liked, 2) there were some explanation on how to eat the food and 3) when it was with a good company :)',
-    createdAt: new Date(1691449200000).toString(),
-    imgUrl: genPublicImgSrc('/img/hanseek-article-pie-chart.webp'),
-    updatedAt: ''
-  },
-  {
-    _id: '2',
-    headline: 'How to keep track of global startup programs as a founder',
-    isApprovedByAdmin: true,
-    story:
-      'Are you an ambitious, early-stage startup founder on the hunt for accelerators, incubators, competitions, or corporate innovation programs? Look no further, because we have a game-changing solution for you: Flair by Founders Lair!      ',
-    createdAt: new Date(1691449200000).toString(),
-    imgUrl: genPublicImgSrc('/img/flair-and-products.png'),
-    updatedAt: ''
-  },
-  {
-    _id: '3',
-    headline: 'We conducted brief interview with Joshua Chung, CEO of Intelliwebi',
-    isApprovedByAdmin: true,
-    story:
-      'Intelliwebi is a software application that helps startups create and deliver more effective pitches. They typically offer a variety of features, such as Templates for creating pitch decks, Tools for visualizing data, Practice with chatbot mode',
-    createdAt: new Date(1691449200000).toString(),
-    imgUrl:
-      'https://res.cloudinary.com/devletwwd/image/upload/v1691873616/startup-logos/cqrkk2lkr4cpahfts1yd.png',
-    updatedAt: ''
-  }
-];
-
 const NewsPage: FC = () => {
-  const [news, setNews] = useState<NewsObj[] | undefined>(items);
+  const [articles, setArticles] = useState<NewsObj[] | undefined>(NEWS_ITEMS);
 
   const { inputValue: searchTerm, onChange: handleChangeSearchTerm } = useInput({ init: '' });
   const { page, goPrevPage, goNextPage, setPage, setPageData } = usePagination<NewsObj>();
-  const handleInputKeyUp = useDelayedActionOnTextInput(() => search());
-
-  useScrollToTop();
+  // const handleInputKeyUp = useDelayedActionOnTextInput(() => search());
 
   const {
     send: sendNewsReq,
-    loading: loadingNews,
-    response
+    response,
+    setResponse
   } = useRequest<{
     status: 'SUCCESS' | 'fail';
     results?: number;
     total?: number;
-    news?: NewsObj[];
+    articles?: NewsObj[];
   }>();
 
   const search = () => {
-    const req = api.getAllNews({ query: searchTerm, page, limit: NEWS_PER_PAGE });
-    sendNewsReq(req);
+    if (!searchTerm.length) {
+      setArticles(NEWS_ITEMS);
+      setResponse(undefined);
+      return;
+    }
+    const pattern = searchTerm.trim().toLowerCase();
+
+    const results = articles?.filter(a => {
+      return ([a.headline, a.story] as string[]).some(
+        str => str.toLowerCase().search(pattern) !== -1
+      );
+    });
+    setResponse({
+      status: 'SUCCESS',
+      articles: results,
+      results: results?.length,
+      total: NEWS_ITEMS.length
+    });
+    console.log(results?.map(r => r.headline));
   };
 
+  // const search = () => {
+  //   const req = api.getAllNews({ query: searchTerm, page, limit: NEWS_PER_PAGE });
+  //   sendNewsReq(req);
+  // };
+
   useEffect(() => {
-    if (response?.news) {
-      setNews(response.news);
+    if (response?.articles) {
+      setArticles(response.articles);
       if (page !== 1) scrollToElement('#news');
     }
   }, [response]);
 
   useEffect(() => {
     search();
-  }, [page]);
-
-  useEffect(() => {
-    setPage(1);
   }, [searchTerm]);
 
   const newsBoldened = useMemo(() => {
-    if (response?.news && searchTerm)
-      return response?.news?.map(item => ({
-        ...item,
-        headline: boldenPatternsInText(item.headline as string, searchTerm.trim()),
-        story: boldenPatternsInText(item.story as string, searchTerm.trim())
+    if (response?.articles && searchTerm.trim().length)
+      return response?.articles?.map(art => ({
+        ...art,
+        headline: boldenPatternsInText(art.headline as string, searchTerm.trim()),
+        story: boldenPatternsInText(art.story as string, searchTerm.trim())
       }));
   }, [response]);
 
   const handlePageChange = (pg: number) => pg !== 0 && setPage(pg);
+
+  const articlesToPreview = useMemo(() => articles?.slice(0, 4), []); // Change this deps when API is done
+  const articlesToShowFully = useMemo(() => articles?.slice(4, articles.length), []);
 
   return (
     <Layout navStyles={{ backgroundColor: '#fff' }}>
@@ -114,13 +102,15 @@ const NewsPage: FC = () => {
         <div className="container app-container d-flex flex-column">
           <SectionTitle title="News" line={false} />
           <div
-            className="justify-self-end ms-auto d-flex align-items-center position-relative"
-            style={{ width: 'max(20%, 150px)' }}
+            className={cls(
+              styles.search,
+              'justify-self-end ms-auto d-flex align-items-center position-relative'
+            )}
           >
             <TextField
               value={searchTerm}
               onChange={handleChangeSearchTerm}
-              onKeyUp={handleInputKeyUp}
+              // onKeyUp={handleInputKeyUp}
               placeholder="Search"
               className="justify-self-end ms-auto"
               inputClassName="underline"
@@ -129,24 +119,27 @@ const NewsPage: FC = () => {
               <Icon icon="fluent:search-32-regular" color="#7600ff" width={20} />
             </span>
           </div>
-          {!searchTerm ? <NewsGroup /> : null}
+          {!searchTerm ? <NewsGrid articles={articlesToPreview} /> : null}
 
           {/* <ThreeDotsSpinner show={loadingNews} size="lg" text="Loading..." className="my-8" /> */}
 
-          <NewsList items={newsBoldened || news} searchTerm={searchTerm} />
+          <NewsList
+            items={newsBoldened?.length ? newsBoldened : articlesToShowFully}
+            searchTerm={searchTerm}
+          />
 
-          {!response?.news?.length ? (
+          {!newsBoldened?.length && searchTerm.trim() ? (
             <div className="bg-light rounded-2 border text-center p-3">No results</div>
           ) : null}
 
-          {response?.news?.length ? (
+          {/* {response?.news?.length ? (
             <Pagination
               currentPage={page}
               onChangePage={handlePageChange}
               totalPages={Math.ceil(response.total! / NEWS_PER_PAGE)}
               className="mt-6"
             />
-          ) : null}
+          ) : null} */}
         </div>
       </section>
       <ContactSection className="mt-5" />

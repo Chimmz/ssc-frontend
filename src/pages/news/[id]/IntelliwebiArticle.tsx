@@ -35,7 +35,7 @@ const IntelliwebiArticle: React.FC = () => {
             line
             options={
               <>
-                <small className="color-pry-dark">{formatDate(newsItem?.createdAt)}</small>
+                <small className="color-pry-dark">August 08, 2023</small>
                 <AppTooltip
                   title={!copied ? 'Copy' : 'Copied'}
                   onMouseLeave={setCopiedFalse.bind(null, 100)}
@@ -54,7 +54,7 @@ const IntelliwebiArticle: React.FC = () => {
             <img
               src="https://res.cloudinary.com/devletwwd/image/upload/v1691873616/startup-logos/cqrkk2lkr4cpahfts1yd.png"
               height={450}
-              className="w-100 object-fit-cover rounded-3 mb-8"
+              className="w-100 object-fit-cover border rounded-3 mb-8"
               alt=""
             />
             {/* <figcaption>Intelliwebi Logo</figcaption> */}
@@ -77,18 +77,8 @@ const IntelliwebiArticle: React.FC = () => {
                   'mb-7 w-100 d-flex flex-column overflow-hidden'
                 )}
               >
-                {/* <img
-                src={genPublicImgSrc('/img/joshua.jpg')}
-                style={{
-                  height: 'max(30vw, 22rem)',
-                  width: 'max(33vw, 22rem)',
-                  objectFit: 'contain'
-                }}
-                alt=""
-              /> */}
-
                 <img
-                  src={genPublicImgSrc('/img/joshua.jpg')}
+                  src={genPublicImgSrc('/img/joshua.webp')}
                   className="w-100 rounded-4"
                   style={{
                     height: 'max(40vw, 50rem)',
@@ -102,7 +92,7 @@ const IntelliwebiArticle: React.FC = () => {
                 </figcaption>
               </figure>
 
-              <div className="">
+              <div className="mb-5">
                 <p className="family-raleway">
                   Intelliwebi is a software application that helps startups create and deliver
                   more effective pitches. They typically offer a variety of features, such as:
