@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { genPublicImgSrc } from '../../utils/url-utils';
@@ -9,6 +9,13 @@ interface Props {
   opened: boolean;
   handleClose: () => void;
 }
+
+const NAV_LINKS = [
+  { path: '/', label: 'Home' },
+  { path: '/startups', label: 'Startups' },
+  { path: '/news', label: 'News' }
+  // { path: '/community', label: 'Community' }
+];
 
 const MobileSidebar: React.FC<Props> = props => {
   const { opened, handleClose } = props;
@@ -32,32 +39,16 @@ const MobileSidebar: React.FC<Props> = props => {
         style={{ marginInline: '1.2rem' }}
       >
         <ul className="list-style-none d-flex flex-column gap-5 m-0 p-0 w-100">
-          <li>
-            <Link to="/" className="d-flex align-items-center justify-content-between w-100">
-              Home <Icon icon="ooui:next-ltr" width={11} />
-            </Link>
-          </li>
-          {/* <li>
-            <Link to="/" className="d-flex align-items-center justify-content-between w-100">
-              Community <Icon icon="ooui:next-ltr" width={11}/>
-            </Link>
-          </li> */}
-          <li>
-            <Link
-              to="/news"
-              className="d-flex align-items-center justify-content-between w-100"
-            >
-              News <Icon icon="ooui:next-ltr" width={11} />
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/startups"
-              className="d-flex align-items-center justify-content-between w-100"
-            >
-              Startups <Icon icon="ooui:next-ltr" width={11} />
-            </Link>
-          </li>
+          {NAV_LINKS.map(({ label, path }) => (
+            <li key={path} onClick={handleClose}>
+              <Link
+                to={path}
+                className="d-flex align-items-center justify-content-between w-100"
+              >
+                {label} <Icon icon="ooui:next-ltr" width={11} />
+              </Link>
+            </li>
+          ))}
         </ul>
       </Offcanvas.Body>
 

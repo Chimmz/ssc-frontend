@@ -7,7 +7,6 @@
   @media screen and (max-width: 37.5em) {
     display: flex !important;
     padding-block: 2rem;
-    padding-bottom: 5rem;
     padding-inline-start: 5rem;
     overflow-x: scroll;
 
@@ -15,11 +14,14 @@
       // display: none;
     }
 
-    & > li:first-child {
-      margin-left: 72rem;
-    }
-    & > li:last-child {
-      margin-right: 5px;
+    & > li {
+      min-width: 27rem !important;
+      &:first-child {
+        margin-left: 72rem;
+      }
+      &:last-child {
+        margin-right: 5px;
+      }
     }
   }
 }

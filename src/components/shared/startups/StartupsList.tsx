@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, MutableRefObject, forwardRef } from 'react';
 import { StartupProps } from '../../../types';
 import { genPublicImgSrc } from '../../../utils/url-utils';
 import StartupCard from './StartupCard';
@@ -10,20 +10,21 @@ import { Icon } from '@iconify/react';
 interface Props {
   items: StartupProps[] | undefined;
   className?: string;
+  ref: MutableRefObject<HTMLUListElement | null>;
 }
 
-const StartupsList = (props: Props) => {
+const StartupsList = forwardRef<HTMLUListElement | null, Props>((props, ref) => {
   const [activeStartup, setActiveStartup] = useState<StartupProps | null>(null);
 
   return (
     <>
-      <ul className={cls(props.className, styles.startups, 'list-style-none mt-5')}>
+      <ul className={cls(props.className, styles.startups, 'list-style-none mt-5')} ref={ref}>
         {props.items?.map(st => (
           <StartupCard startup={st} key={st._id} onClick={setActiveStartup} />
         ))}
       </ul>
 
-      {/* To show full details of clicked startup card */}
+      {/* Modal showing full details of clicked startup card */}
       <Modal
         aria-labelledby="contained-modal-title-vcenter"
         show={!!activeStartup}
@@ -90,13 +91,6 @@ const StartupsList = (props: Props) => {
       </Modal>
     </>
   );
-};
+});
 
 export default StartupsList;
-
-// Startups showing randomly
-// Bolden searched term in search results of news page
-// Should bolden multiple words of search term in search results
-// Search in startups page should search in startup name and text description
-// Filter in startup page
-// Put checkboxes in startups page. Add the clear-all button

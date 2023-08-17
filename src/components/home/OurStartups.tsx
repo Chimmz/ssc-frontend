@@ -1,7 +1,6 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import cls from 'classnames';
 import SectionTitle from '../section-title/SectionTitle';
-import styles from './OurStartups.module.scss';
 import { genPublicImgSrc } from '../../utils/url-utils';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
@@ -9,16 +8,18 @@ import StartupsList from '../shared/startups/StartupsList';
 import api from '../../library/api';
 import { StartupProps } from '../../types';
 import useRequest from '../../hooks/useRequest';
+import styles from './OurStartups.module.scss';
+import HorizontalScroll from '../ui/HorizontalScroll';
 
 const TOTAL_STARTUPS_TO_SHOW = 4;
 const FETCH_DURATION = 10000;
 
 const OurStartups = () => {
   const [startups, setStartups] = useState<StartupProps[]>();
+  const startupsListRef = useRef<HTMLUListElement | null>(null);
 
   const genRandomStartups = () => {
     const req = api.getRandomStartups(TOTAL_STARTUPS_TO_SHOW);
-
     req.then((res: { status: string; startups?: StartupProps[] }) => {
       if (res.status !== 'SUCCESS') return;
       setStartups(res.startups);
@@ -26,6 +27,7 @@ const OurStartups = () => {
   };
 
   useEffect(() => {
+    console.log({ startupsListRef });
     genRandomStartups();
     const intervalId = setInterval(genRandomStartups, FETCH_DURATION);
     return () => clearInterval(intervalId);
@@ -54,8 +56,20 @@ const OurStartups = () => {
               </Link>
             }
           />
+          {startups ? (
+            <StartupsList
+              items={startups}
+              className={styles.startups}
+              ref={startupsListRef}
+            />
+          ) : null}
 
-          {startups ? <StartupsList items={startups} className={styles.startups} /> : null}
+          <HorizontalScroll
+            containerQuerySelector={`.${styles.startups}`}
+            itemsTotal={TOTAL_STARTUPS_TO_SHOW}
+            itemsLoaded={!!startups?.length}
+            containerRef={startupsListRef}
+          />
         </div>
       </section>
     </>

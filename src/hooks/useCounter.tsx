@@ -34,7 +34,7 @@ const useCounter = ({ init = 1, step = 1, min = 0, ...args }: Params) => {
     reset: setCount.bind(null, init),
     nextCount: nextCount,
     isAtMax: useMemo(() => count === maxLimit, [count, maxLimit]),
-    isAtMin: useMemo(() => count === min, [count, maxLimit]),
+    isAtMin: useMemo(() => count === min, [count, maxLimit])
   };
 };
 

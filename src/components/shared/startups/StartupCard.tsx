@@ -83,13 +83,6 @@ const StartupCard: React.FC<Props> = props => {
         </small>
 
         {industriesUI}
-        {/* <span
-            role="button"
-            className="btn-light border fw-bold fs-5 rounded-5 p-2 px-3"
-            style={{ backgroundColor: '#e6e6e6' }}
-          >
-            +3 more
-          </span> */}
       </div>
 
       <div className="align-self-stretch d-flex align-items-center justify-content-between gap-2 p-3">
