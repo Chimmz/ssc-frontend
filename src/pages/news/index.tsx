@@ -117,6 +117,7 @@ const NewsPage: FC = () => {
               inputValue={searchTerm}
               onChange={handleChangeSearchTerm}
               clearInput={clearSearchTerm}
+              onSubmit={search}
             />
           </div>
           {!searchTerm ? <NewsGrid articles={articlesToPreview} /> : null}

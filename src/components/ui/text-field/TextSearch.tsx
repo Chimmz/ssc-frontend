@@ -7,7 +7,7 @@ import styles from './TextSearch.module.scss';
 type TextSearchProps = Pick<
   ReturnType<typeof useInput>,
   'inputValue' | 'onChange' | 'clearInput'
-> & { className?: string };
+> & { onSubmit?: () => void; className?: string };
 
 const MAX_SEARCH_TEXT_LEN = 35;
 
@@ -19,7 +19,13 @@ const TextSearch: React.FC<TextSearchProps> = props => {
   } = props;
 
   return (
-    <div className={cls(styles.search, props.className, 'position-relative')}>
+    <form
+      className={cls(styles.search, props.className, 'position-relative')}
+      onSubmit={ev => {
+        ev.preventDefault();
+        props.onSubmit?.();
+      }}
+    >
       <TextField
         value={searchTerm}
         onChange={handleChangeSearchTerm}
@@ -36,7 +42,7 @@ const TextSearch: React.FC<TextSearchProps> = props => {
           onClick={searchTerm ? clearSearchTerm : undefined}
         />
       </span>
-    </div>
+    </form>
   );
 };
 

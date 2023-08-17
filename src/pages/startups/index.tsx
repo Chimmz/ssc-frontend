@@ -117,6 +117,7 @@ const StartupsPage = function () {
               inputValue={searchTerm}
               onChange={handleChangeSearchTerm}
               clearInput={clearSearchTerm}
+              onSubmit={search}
             />
           </div>
 
