@@ -35,7 +35,7 @@ const OurStartups = () => {
 
   return (
     <>
-      <section className="section-pad-top section-pad-bottom-lg">
+      <section className="section-pad-top section-pad-bottom">
         <div className="container app-container d-flex flex-column text-center p-5">
           <SectionTitle
             title="Our Startups"
@@ -65,10 +65,10 @@ const OurStartups = () => {
           ) : null}
 
           <HorizontalScroll
-            containerQuerySelector={`.${styles.startups}`}
+            containerRef={startupsListRef}
             itemsTotal={TOTAL_STARTUPS_TO_SHOW}
             itemsLoaded={!!startups?.length}
-            containerRef={startupsListRef}
+            className={styles.horizontalScrollMenu}
           />
         </div>
       </section>

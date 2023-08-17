@@ -26,3 +26,9 @@
     }
   }
 }
+
+.horizontalScrollMenu {
+  @media screen and (min-width: 37.5em) {
+    display: none !important;
+  }
+}

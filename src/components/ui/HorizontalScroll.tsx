@@ -1,33 +1,33 @@
 import { Icon } from '@iconify/react';
 import React, { useState, useEffect, useCallback, FC, MutableRefObject } from 'react';
 import useCounter from '../../hooks/useCounter';
+import cls from 'classnames';
 
 interface Props {
   itemsTotal: number;
-  containerQuerySelector: string;
   containerRef: MutableRefObject<HTMLUListElement | null>;
   itemsLoaded: boolean;
+  className?: string;
 }
 
 const HorizontalScroll: FC<Props> = props => {
-  const { itemsTotal, containerRef, containerQuerySelector, itemsLoaded } = props;
+  const { itemsTotal, containerRef, className, itemsLoaded } = props;
   const [containerWidth, setContainerWidth] = useState<number>();
-  const [scrollAmt, setScrollAmt] = useState<number>(0);
+  // const [scrollAmt, setScrollAmt] = useState<number>(0);
 
   useEffect(() => {
-    const onScroll = function (this: HTMLUListElement, ev: Event) {
-      setScrollAmt(this.scrollLeft);
-      console.log({ 'this.scrollLeft': this.scrollLeft });
-    };
-    containerRef.current?.addEventListener('scroll', onScroll);
-    return () => containerRef.current?.removeEventListener('scroll', onScroll);
+    if (!containerRef.current) return;
+    const onResizeWindow = setContainerWidth.bind(null, containerRef.current.scrollWidth);
+
+    window.addEventListener('resize', onResizeWindow);
+    return () => window.removeEventListener('resize', onResizeWindow);
   }, [containerRef.current]);
 
   useEffect(() => {
-    if (!itemsLoaded) return;
+    if (!itemsLoaded || !containerRef.current) return;
     setContainerWidth(containerRef.current?.scrollWidth);
-    containerRef.current?.scrollTo(0, 0);
-  }, [itemsLoaded]);
+    containerRef.current.scrollTo(0, 0);
+  }, [itemsLoaded, containerRef.current]);
 
   const scroll = useCallback(
     (direction: 'left' | 'right') => {
@@ -35,8 +35,8 @@ const HorizontalScroll: FC<Props> = props => {
 
       const scrollAmt = containerRef.current!.scrollLeft;
       const shouldScroll =
-        (scrollAmt > 0 && direction === 'left') ||
-        (scrollAmt <= containerWidth && direction === 'right');
+        (direction === 'left' && scrollAmt > 0) ||
+        (direction === 'right' && scrollAmt <= containerWidth);
 
       if (!shouldScroll) return;
 
@@ -51,7 +51,7 @@ const HorizontalScroll: FC<Props> = props => {
   );
 
   return (
-    <div className="d-flex align-items-center gap-4 mx-auto mt-5">
+    <div className={cls(className, 'd-flex align-items-center gap-2 mx-auto mt-5')}>
       <Icon
         icon="solar:arrow-left-line-duotone"
         className="color-pry cursor-pointer"
