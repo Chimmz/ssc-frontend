@@ -7,11 +7,12 @@
   @media screen and (max-width: 37.5em) {
     display: flex !important;
     padding-block: 2rem;
+    padding-bottom: 5rem;
     padding-inline-start: 5rem;
     overflow-x: scroll;
 
     &::-webkit-scrollbar {
-      display: none;
+      // display: none;
     }
 
     & > li:first-child {

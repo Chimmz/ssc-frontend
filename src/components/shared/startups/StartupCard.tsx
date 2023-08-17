@@ -3,14 +3,64 @@ import styles from './StartupCard.module.scss';
 import { genPublicImgSrc } from '../../../utils/url-utils';
 import { StartupProps } from '../../../types';
 import { Icon } from '@iconify/react';
+import { useMemo, useCallback } from 'react';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 interface Props {
   startup: StartupProps;
   onClick?: (startup: StartupProps) => void;
 }
 
+const MAX_INDUSTRY_TAGS_SHOWN = 3;
+
 const StartupCard: React.FC<Props> = props => {
   const { logoUrl, name, email, industries, websiteUrl } = props.startup;
+
+  const btnWebsite = useMemo(() => {
+    const elemProps = {
+      className: 'btn rounded-5 w-max-content fs-4 btn-light',
+      children: (
+        <>
+          <Icon icon="gg:website" /> Visit website
+        </>
+      )
+    };
+    if (websiteUrl) return <a href={websiteUrl} target="_blank" {...elemProps} />;
+    return <button {...elemProps} disabled />;
+  }, [websiteUrl]);
+
+  const industriesUI = useMemo(() => {
+    const restIndustries = industries.slice(MAX_INDUSTRY_TAGS_SHOWN);
+    return (
+      <div className="d-flex align-items-center flex-wrap gap-2">
+        {industries
+          .slice(0, MAX_INDUSTRY_TAGS_SHOWN)
+          .sort()
+          .map(ind => (
+            <h6
+              key={ind}
+              className="fs-5 color-pry-dark border border-pry-dark rounded-5 p-2 px-3"
+            >
+              {ind}
+            </h6>
+          ))}
+
+        {restIndustries.length ? (
+          <DropdownButton
+            title={`+${restIndustries.length} more`}
+            drop="down-centered"
+            variant="light"
+          >
+            {restIndustries.sort().map(ind => (
+              <Dropdown.Item className="pe-none" key={ind}>
+                {ind}
+              </Dropdown.Item>
+            ))}
+          </DropdownButton>
+        ) : null}
+      </div>
+    );
+  }, [industries]);
 
   return (
     <li className={cls(styles.startupCard, 'd-flex flex-column rounded-4')}>
@@ -32,29 +82,18 @@ const StartupCard: React.FC<Props> = props => {
           {email}
         </small>
 
-        <div className="d-flex align-items-center flex-wrap gap-1 flex-grow-1 my-auto">
-          {industries.map((ind, i, arr) => (
-            <h6
-              className="fs-5 color-pry-dark border border-pry-dark rounded-5 p-2 px-3"
-              key={ind}
-            >
-              {ind}
-            </h6>
-          ))}
-        </div>
+        {industriesUI}
+        {/* <span
+            role="button"
+            className="btn-light border fw-bold fs-5 rounded-5 p-2 px-3"
+            style={{ backgroundColor: '#e6e6e6' }}
+          >
+            +3 more
+          </span> */}
       </div>
 
       <div className="align-self-stretch d-flex align-items-center justify-content-between gap-2 p-3">
-        <a
-          href={websiteUrl}
-          target="_blank"
-          className={cls(
-            !websiteUrl && 'd-none',
-            'btn rounded-5 w-max-content fs-4 btn-light'
-          )}
-        >
-          <Icon icon="gg:website" /> Visit website
-        </a>
+        {btnWebsite}
 
         <button
           className="btn btn-pry-dark justify-content-between align-self-end fs-4"

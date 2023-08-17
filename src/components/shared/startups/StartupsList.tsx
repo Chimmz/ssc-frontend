@@ -31,8 +31,8 @@ const StartupsList = (props: Props) => {
       >
         <Modal.Header
           className="align-items-start border-none"
-          closeButton
           style={{ padding: '2.2rem', paddingBottom: 0, borderBottom: 'none' }}
+          closeButton
         >
           <img
             src={activeStartup?.logoUrl}
@@ -77,13 +77,13 @@ const StartupsList = (props: Props) => {
           <article className="d-block fs-5 mb-4">{activeStartup?.description}</article>
 
           <div className="d-flex align-items-center flex-wrap gap-2 flex-grow-1">
-            {activeStartup?.industries.map(ind => (
-              <span
+            {activeStartup?.industries.sort().map(ind => (
+              <h6
                 className="fs-5 color-pry-dark border border-pry-dark rounded-5 p-2 px-3"
                 key={ind}
               >
                 {ind}
-              </span>
+              </h6>
             ))}
           </div>
         </Modal.Body>
