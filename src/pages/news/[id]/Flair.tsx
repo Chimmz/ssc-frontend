@@ -35,7 +35,7 @@ const FlairArticle: React.FC = () => {
             line
             options={
               <>
-                <Link to="/news">See all News</Link>
+                <Link to="/news">See All News</Link>
                 <small className="color-pry-dark">August 08, 2023</small>
                 <AppTooltip
                   title={!copied ? 'Copy' : 'Copied'}

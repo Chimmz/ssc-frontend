@@ -35,7 +35,7 @@ const IntelliwebiArticle: React.FC = () => {
             line
             options={
               <>
-                <Link to="/news">See all</Link>
+                <Link to="/news">See All News</Link>
                 <small className="color-pry-dark">August 08, 2023</small>
                 <AppTooltip
                   title={!copied ? 'Copy' : 'Copied'}
@@ -58,12 +58,8 @@ const IntelliwebiArticle: React.FC = () => {
               className="w-100 object-fit-cover border rounded-3"
               alt=""
             />
-            <figcaption>
-              <a
-                href="https://www.intelliwebi.com/"
-                className="text-black text-decoration-underline"
-                target="_blank"
-              >
+            <figcaption className="fs-5 color-pry-dark fw-bold mt-2">
+              <a href="https://www.intelliwebi.com/" target="_blank">
                 Intelliwebi.com
               </a>
             </figcaption>

@@ -65,13 +65,13 @@ const CommunitySupport = () => {
               <img src={genPublicImgSrc('/img/feature-img5.png')} alt="" />
             </figure>
             <h5 className="fs-3 text-white fw-bold">
-              Start-up Immigration System(OASIS) Supplemental Support
+              Start-up Immigration System (OASIS) Supplemental Support
             </h5>
             <small className="parag text-white fs-5">
               Tap into the wisdom of our OASIS visa program alumni. Gain insights from the
-              firsthand knowledge of our Overall Assistance for Start-up Immigration
-              System(OASIS) alumni, who have successfully navigated the visa process, program
-              steps, and handled intellectual property (IP) matters and more.
+              firsthand knowledge of our Overall Assistance for Start-up Immigration System
+              (OASIS) alumni, who have successfully navigated the visa process, program steps,
+              and handled Intellectual Property (IP) matters and more.
             </small>
           </article>
 

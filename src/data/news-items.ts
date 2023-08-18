@@ -1,3 +1,4 @@
+import { getJSDocPublicTag } from 'typescript';
 import { NewsObj } from '../types';
 import { genPublicImgSrc } from '../utils/url-utils';
 
@@ -29,8 +30,7 @@ export const NEWS_ITEMS: NewsObj[] = [
     story:
       'Intelliwebi is a software application that helps startups create and deliver more effective pitches. They typically offer a variety of features, such as Templates for creating pitch decks, Tools for visualizing data, Practice with chatbot mode',
     createdAt: new Date(1691449200000).toString(),
-    imgUrl:
-      'https://res.cloudinary.com/devletwwd/image/upload/v1691873616/startup-logos/cqrkk2lkr4cpahfts1yd.png',
+    imgUrl: genPublicImgSrc('/img/intelliwebi-logo-no-text.jpg'),
     updatedAt: ''
   }
 ];

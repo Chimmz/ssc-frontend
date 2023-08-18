@@ -21,7 +21,7 @@ const StartupCard: React.FC<Props> = props => {
       className: 'btn rounded-5 w-max-content fs-4 btn-light',
       children: (
         <>
-          <Icon icon="gg:website" /> Visit website
+          <Icon icon="gg:website" /> Visit Website
         </>
       )
     };
@@ -32,7 +32,7 @@ const StartupCard: React.FC<Props> = props => {
   const industriesUI = useMemo(() => {
     const restIndustries = industries.slice(MAX_INDUSTRY_TAGS_SHOWN);
     return (
-      <div className="d-flex align-items-center flex-wrap gap-2">
+      <div className="d-flex align-items-center flex-wrap gap-2 flex-grow-1">
         {industries
           .slice(0, MAX_INDUSTRY_TAGS_SHOWN)
           .sort()
@@ -75,8 +75,9 @@ const StartupCard: React.FC<Props> = props => {
 
         <small
           className={cls(
-            email ? 'd-inline-block' : 'd-none',
-            'w-max-content border-bottom mb-4'
+            'd-inline-block',
+            email ? 'opacity-1 mb-4' : 'opacity-0 mb-5',
+            'w-max-content border-bottom'
           )}
         >
           {email}
@@ -89,10 +90,10 @@ const StartupCard: React.FC<Props> = props => {
         {btnWebsite}
 
         <button
-          className="btn btn-pry-dark justify-content-between align-self-end fs-4"
+          className="btn btn-pry-dark justify-content-between align-self-end fs-5 py-3"
           onClick={props.onClick?.bind(null, props.startup)}
         >
-          More{' '}
+          See More{' '}
           <div className="circular circular--sm border-white">
             <Icon icon="grommet-icons:form-next" />
           </div>

@@ -50,7 +50,7 @@ const Header = () => {
           <h1 className="h-1--main mb-5" style={{ maxWidth: '20ch' }}>
             <span className="fs-1 color-pry d-inline-block mb-3">Seoul Startups Club</span>
             <br />
-            Empowering Entrepreneurs in Korea on their Journey to Startup Success
+            Empowering Entrepreneurs on their Journey to Success
           </h1>
 
           <a
@@ -142,9 +142,9 @@ const Header = () => {
         </div>
       </div>
 
-      {/* <figure className="position-absolute">
+      <figure className="position-absolute">
         <img src={genPublicImgSrc('/img/rocket-line.png')} alt="" />
-      </figure> */}
+      </figure>
     </header>
   );
 };

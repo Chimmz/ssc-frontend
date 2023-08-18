@@ -10,7 +10,7 @@ const NewsGrid: React.FC<{ readonly articles: NewsObj[] | undefined }> = props =
       {props.articles?.slice(0, 4).map(a => (
         <Link to={`/news/${a._id}`} className={styles.newsItem} key={a._id}>
           <figure>
-            <img src={a.imgUrl} alt="" />{' '}
+            <img src={a.imgUrl} alt="" />
             <figcaption className="fs-3 text-start">
               {a.headline}
               <br />

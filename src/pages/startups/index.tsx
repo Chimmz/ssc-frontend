@@ -107,7 +107,7 @@ const StartupsPage = function () {
     <Layout navStyles={{ backgroundColor: '#fff' }}>
       <section className="section-pad-top section-pad-bottom-lg">
         <div className={cls(styles.ownContain, 'container app-container d-flex flex-column')}>
-          <SectionTitle title="Our Startups" line={false} />
+          <SectionTitle title="Featured Startups" line={false} />
 
           <div className={cls(styles.pageOptions, 'gap-4 mb-5')}>
             <button className="btn btn-pry btn--lg" disabled>
