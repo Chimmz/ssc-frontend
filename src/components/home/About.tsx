@@ -22,16 +22,25 @@ const About = () => {
           />
         </figure>
         <h2 className="h-2 fs-2 d-inline-block mb-5">What is Seoul Startups Club?</h2>
-        <p className="parag text-black mx-auto mb-5" style={{ maxWidth: '39ch' }}>
-          Seoul Startups Club (SSC) is Korea’s leading startup community founded by successful
-          entrepreneurs who have firsthand experience in navigating the startup ecosystem.
+        <p className="parag text-black mx-auto mb-5" style={{ maxWidth: '50ch' }}>
+          Welcome to SSC – Seoul Startups Club, Your Gateway to Success in South Korea's
+          Thriving Startup Scene!
+          <br />
+          <br />
+          Are you ready to embark on an exhilarating journey into the heart of innovation and
+          entrepreneurship? Look no further than SSC – Seoul Startups Club, the vanguard of
+          South Korea's startup revolution.
+          <br />
+          <br />
+          Crafted by accomplished entrepreneurs who have navigated the very waters you are
+          about to explore, SSC is more than just a community; it's your launchpad to success.
         </p>
-        <p className="parag text-black mx-auto" style={{ maxWidth: '45ch' }}>
+        {/* <p className="parag text-black mx-auto" style={{ maxWidth: '45ch' }}>
           We understand the challenges and lack of support system that comes with starting a
           business in Korea. <br /> That's why we established SSC- a resourceful community
           where like-minded Korean and non-Korean entrepreneurs exchange ideas, collaborate,
           innovate, and receive guidance needed to overcome challenges.
-        </p>
+        </p> */}
 
         <img src={genPublicImgSrc('/img/union.png')} width={22} className="absolute" />
         <img src={genPublicImgSrc('/img/union.png')} width={22} className="absolute" />

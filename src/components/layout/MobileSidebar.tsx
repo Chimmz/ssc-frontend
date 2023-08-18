@@ -25,7 +25,7 @@ const MobileSidebar: React.FC<Props> = props => {
       <Offcanvas.Header className="px-5" closeButton={false}>
         <Offcanvas.Title>
           <Link to="/" className="d-flex align-items-center gap-2">
-            <img src={genPublicImgSrc('/img/slant-logo-purple.png')} width={50} />
+            <img src={genPublicImgSrc('/img/ssc-slant-logo-purple.png')} width={50} />
             <h2 className="mt-3">SSC</h2>
           </Link>
         </Offcanvas.Title>

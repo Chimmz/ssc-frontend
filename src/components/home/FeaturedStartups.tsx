@@ -14,7 +14,7 @@ import HorizontalScroll from '../ui/HorizontalScroll';
 const TOTAL_STARTUPS_TO_SHOW = 4;
 const FETCH_DURATION = 10000;
 
-const OurStartups = () => {
+const FeaturedStartups = () => {
   const [startups, setStartups] = useState<StartupProps[]>();
   const startupsListRef = useRef<HTMLUListElement | null>(null);
 
@@ -38,7 +38,7 @@ const OurStartups = () => {
       <section className="section-pad-top section-pad-bottom">
         <div className="container app-container d-flex flex-column text-center p-5">
           <SectionTitle
-            title="Our Startups"
+            title="Featured Startups"
             layout="end"
             responsive
             options={
@@ -76,4 +76,4 @@ const OurStartups = () => {
   );
 };
 
-export default OurStartups;
+export default FeaturedStartups;

@@ -12,7 +12,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import useCopyToClipboard from '../../../hooks/useCopyToClipboard';
 import { useState } from 'react';
 import { NewsObj } from '../../../types';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { formatDate } from '../../../utils/date-utils';
 
 const IntelliwebiArticle: React.FC = () => {
@@ -35,6 +35,7 @@ const IntelliwebiArticle: React.FC = () => {
             line
             options={
               <>
+                <Link to="/news">See all</Link>
                 <small className="color-pry-dark">August 08, 2023</small>
                 <AppTooltip
                   title={!copied ? 'Copy' : 'Copied'}
@@ -52,7 +53,7 @@ const IntelliwebiArticle: React.FC = () => {
 
           <figure className="mb-8">
             <img
-              src="https://res.cloudinary.com/devletwwd/image/upload/v1691873616/startup-logos/cqrkk2lkr4cpahfts1yd.png"
+              src="https://res.cloudinary.com/devletwwd/image/upload/v1692363467/intelliwebi-logo_kchzls.png"
               height={450}
               className="w-100 object-fit-cover border rounded-3"
               alt=""
@@ -61,6 +62,7 @@ const IntelliwebiArticle: React.FC = () => {
               <a
                 href="https://www.intelliwebi.com/"
                 className="text-black text-decoration-underline"
+                target="_blank"
               >
                 Intelliwebi.com
               </a>

@@ -13,7 +13,6 @@ interface Props {
 const HorizontalScroll: FC<Props> = props => {
   const { itemsTotal, containerRef, className, itemsLoaded } = props;
   const [containerWidth, setContainerWidth] = useState<number>();
-  // const [scrollAmt, setScrollAmt] = useState<number>(0);
 
   useEffect(() => {
     if (!containerRef.current) return;

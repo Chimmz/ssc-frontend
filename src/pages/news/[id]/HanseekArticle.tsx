@@ -12,7 +12,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import useCopyToClipboard from '../../../hooks/useCopyToClipboard';
 import { useState } from 'react';
 import { NewsObj } from '../../../types';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { formatDate } from '../../../utils/date-utils';
 
 const SingleNewsPage: React.FC = () => {
@@ -35,6 +35,7 @@ const SingleNewsPage: React.FC = () => {
             line
             options={
               <>
+                <Link to="/news">See all</Link>
                 <small className="color-pry-dark">August 08, 2023</small>
                 <AppTooltip
                   title={!copied ? 'Copy' : 'Copied'}

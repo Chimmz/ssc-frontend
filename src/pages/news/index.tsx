@@ -104,7 +104,7 @@ const NewsPage: FC = () => {
 
   return (
     <Layout navStyles={{ backgroundColor: '#fff' }}>
-      <section className="section-pad-top section-pad-bottom-lg">
+      <section className="section-pad-top section-pad-bottom">
         <div className="container app-container d-flex flex-column">
           <SectionTitle title="News" line={false} />
 

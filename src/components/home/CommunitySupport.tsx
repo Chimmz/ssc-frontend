@@ -14,11 +14,12 @@ const CommunitySupport = () => {
             <figure className="rounded overflow-hidden">
               <img src={genPublicImgSrc('/img/feature-img1.png')} alt="" />
             </figure>
-            <h5 className="fs-3 text-white fw-bold">Networking Events & Meetups</h5>
+            <h5 className="fs-3 text-white fw-bold">Amplify Your Network</h5>
             <small className="parag text-white fs-5">
-              Unlock the vibrant startup event scene in Seoul and throughout Korea to expand
-              your knowledge and network. SSC events are thoughtfully designed to equip you
-              for success.
+              Networking isn't just an activity; it’s a form of art. Our events provide the
+              perfect canvas to expand your horizons and forge connections that matter. Swap
+              stories, exchange ideas, and build relationships that might just lead to your
+              next big breakthrough.
             </small>
           </article>
 
@@ -26,11 +27,12 @@ const CommunitySupport = () => {
             <figure className="rounded overflow-hidden">
               <img src={genPublicImgSrc('/img/feature-img3.png')} alt="" />
             </figure>
-            <h5 className="fs-3 text-white fw-bold">Access to the online community</h5>
+            <h5 className="fs-3 text-white fw-bold">Stay Connected Anytime, Anywhere</h5>
             <small className="parag text-white fs-5">
-              Join our vibrant online global startup community, a thriving hub for
-              accomplished entrepreneurs and startups. Access a wealth of valuable insights,
-              collaborative opportunities and unwavering support.
+              Join our vibrant online community channels. Diversity fuels our strength. Our
+              community boasts a mixture of perspectives, backgrounds, and experiences that
+              converge to create a vibrant mosaic of ideas. Collaborate, learn, and grow
+              alongside individuals who share your passion for innovation.
             </small>
           </article>
 
@@ -38,11 +40,11 @@ const CommunitySupport = () => {
             <figure className="rounded overflow-hidden">
               <img src={genPublicImgSrc('/img/feature-img2.png')} alt="" />
             </figure>
-            <h5 className="fs-3 text-white fw-bold">Startup & Tech Mentoring</h5>
+            <h5 className="fs-3 text-white fw-bold">Startup & Technology Mentoring</h5>
             <small className="parag text-white fs-5">
-              Receive expert guidance from our experienced community advocates and members in
-              crucial areas including startup building, impactful pitching, pitch deck &
-              business plan creation, and system design.
+              Receive invaluable guidance from our seasoned community advocates and members.
+              Access expertise in vital areas such as startup development, impactful pitching,
+              crafting pitch decks and business plans, and refining system design.
             </small>
           </article>
 
@@ -52,10 +54,9 @@ const CommunitySupport = () => {
             </figure>
             <h5 className="fs-3 text-white fw-bold">Co-founder & Resource Matching</h5>
             <small className="parag text-white fs-5">
-              Unleash possibilities with experts who could become your team members. Discover
-              divers programs that fuel your startup’s growth and easily access
-              English-speaking businesses that provide the services you need on your startup
-              journey.
+              Unleash possibilities with experts who might just become your future team
+              members. Discover diverse programs that fuel your startup’s growth and easily
+              connect with businesses offering essential services for your startup voyage.
             </small>
           </article>
 
@@ -64,12 +65,13 @@ const CommunitySupport = () => {
               <img src={genPublicImgSrc('/img/feature-img5.png')} alt="" />
             </figure>
             <h5 className="fs-3 text-white fw-bold">
-              Start-up Immigration System (OASIS) Supplemental Support
+              Start-up Immigration System(OASIS) Supplemental Support
             </h5>
             <small className="parag text-white fs-5">
-              Leverage the experience of our OASIS visa program alumni, who have successfully
-              navigated the visa process, program steps, intellectual property matters, and
-              beyond.
+              Tap into the wisdom of our OASIS visa program alumni. Gain insights from the
+              firsthand knowledge of our Overall Assistance for Start-up Immigration
+              System(OASIS) alumni, who have successfully navigated the visa process, program
+              steps, and handled intellectual property (IP) matters and more.
             </small>
           </article>
 
@@ -77,10 +79,12 @@ const CommunitySupport = () => {
             <figure className="rounded overflow-hidden">
               <img src={genPublicImgSrc('/img/feature-img6.png')} alt="" />
             </figure>
-            <h5 className="fs-3 text-white fw-bold">Free office space hours</h5>
+            <h5 className="fs-3 text-white fw-bold">Workspace and facilities</h5>
             <small className="parag text-white fs-5">
-              Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis
-              molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla.
+              Take advantage of a dynamic workspace that sparks creativity and innovation,
+              provided to members through designated programs and opportunities. Alongside
+              workspace, we offer startups the tools they need to facilitate workshops to
+              showcase their services, products and to share knowledge.
             </small>
           </article>
         </div>

@@ -3,7 +3,7 @@ import CommunitySupport from '../components/home/CommunitySupport';
 
 import Header from '../components/home/Header';
 import NewsSection from '../components/home/NewsSection';
-import OurStartups from '../components/home/OurStartups';
+import FeaturedStartups from '../components/home/FeaturedStartups';
 import Layout from '../components/layout';
 import ContactSection from '../components/shared/contact/Contact';
 import ScrollTop from 'react-scroll-to-top';
@@ -15,7 +15,7 @@ function Home() {
       <About />
       <CommunitySupport />
       <NewsSection />
-      <OurStartups />
+      <FeaturedStartups />
       <ContactSection />
       <ScrollTop color="#7600ff" smooth />
     </Layout>

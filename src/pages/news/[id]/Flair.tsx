@@ -12,7 +12,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import useCopyToClipboard from '../../../hooks/useCopyToClipboard';
 import { useState } from 'react';
 import { NewsObj } from '../../../types';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { formatDate } from '../../../utils/date-utils';
 
 const FlairArticle: React.FC = () => {
@@ -35,6 +35,7 @@ const FlairArticle: React.FC = () => {
             line
             options={
               <>
+                <Link to="/news">See all News</Link>
                 <small className="color-pry-dark">August 08, 2023</small>
                 <AppTooltip
                   title={!copied ? 'Copy' : 'Copied'}
@@ -51,7 +52,7 @@ const FlairArticle: React.FC = () => {
           />
 
           <img
-            src={genPublicImgSrc('/img/flair-programs.png')}
+            src={genPublicImgSrc('/img/flair-main-img.png')}
             className="w-100 object-fit-cover rounded-3 mb-8"
             alt=""
           />
