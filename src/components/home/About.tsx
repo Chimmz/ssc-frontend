@@ -21,8 +21,8 @@ const About = () => {
             alt=""
           />
         </figure>
-        <h2 className="h-2 fs-2 d-inline-block mb-5">What is Seoul Startups Club?</h2>
-        <p className="parag text-black mx-auto mb-5" style={{ maxWidth: '50ch' }}>
+        <h2 className="h-2 fs-2 d-inline-block mb-5">What is Seoul Startups Club (SSC)?</h2>
+        <p className="parag text-black mx-auto mb-5" style={{ maxWidth: '45ch' }}>
           Welcome to SSC – Seoul Startups Club, Your Gateway to Success in South Korea's
           Thriving Startup Scene!
           <br />

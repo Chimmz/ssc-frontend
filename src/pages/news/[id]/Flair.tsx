@@ -89,7 +89,11 @@ const FlairArticle: React.FC = () => {
               for your specific needs. Sometimes you have to dig deep to find that information
               lies somewhere in the dark corner or follow hundreds of LinkedIn pages to be
               able to keep up with the program announcement. This is where{' '}
-              <a href="https://flair.founderslair.com/welcome" className="color-pry">
+              <a
+                href="https://flair.founderslair.com/welcome"
+                target="_blank"
+                className="color-pry"
+              >
                 Flair
               </a>{' '}
               steps in, offering an indispensable one-stop platform that connects startup
@@ -97,7 +101,11 @@ const FlairArticle: React.FC = () => {
             </p>
 
             <p className="mb-5">
-              <a href="https://flair.founderslair.com/welcome" className="color-pry">
+              <a
+                href="https://flair.founderslair.com/welcome"
+                target="_blank"
+                className="color-pry"
+              >
                 Flair
               </a>{' '}
               simplifies this process by providing an extensive database of programs -
@@ -113,7 +121,11 @@ const FlairArticle: React.FC = () => {
             />
 
             <p className="mb-5">
-              <a href="https://flair.founderslair.com/welcome" className="color-pry">
+              <a
+                href="https://flair.founderslair.com/welcome"
+                target="_blank"
+                className="color-pry"
+              >
                 Flair
               </a>{' '}
               is your go-to platform for simplifying and streamlining your search for the
@@ -124,7 +136,11 @@ const FlairArticle: React.FC = () => {
               free. <br />
               <br />
               Visit{' '}
-              <a href="https://flair.founderslair.com/welcome" className="color-pry">
+              <a
+                href="https://flair.founderslair.com/welcome"
+                target="_blank"
+                className="color-pry"
+              >
                 Flair
               </a>{' '}
               today and embark on a journey of accelerated growth and unrivaled success -
@@ -158,7 +174,7 @@ const FlairArticle: React.FC = () => {
             </p>
 
             <p className="mb-5">
-              <a target="_blank" href="https://founderslair.com/" className="color-pry">
+              <a href="https://founderslair.com/" target="_blank" className="color-pry">
                 Founders Lair
               </a>{' '}
               helps startup ecosystem builders to monetize, expand, and manage their startup

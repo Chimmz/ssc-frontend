@@ -37,6 +37,7 @@ const ContactSection = (props: Props) => {
   const {
     inputValue: emailSubscribe,
     onChange: handleChangeEmailSubscribe,
+    clearInput: clearEmailSubscribe,
     validationErrors: emailSubscribeValidationErrors,
     runValidators: runEmailSubscribeValidators
   } = useInput({
@@ -89,6 +90,7 @@ const ContactSection = (props: Props) => {
     ev.preventDefault();
     if (runEmailSubscribeValidators().errorExists) return;
     await sendSubscribeReq(api.newsLetterSubscribe(emailSubscribe));
+    clearEmailSubscribe()
   };
 
   const handleSubmitContactForn: FormEventHandler = async ev => {

@@ -3,7 +3,7 @@
 .header {
   padding-bottom: 9rem !important;
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
 
   & > *:not(figure[class*='position-absolute']) {
     position: relative;
@@ -11,16 +11,19 @@
   }
 
   & > figure[class*='position-absolute'] {
-    left: 20%;
-    bottom: 20%;
-    transform: scaleX(2.1) scaleY(2.1) translateX(8%) translateY(-3%);
+    left: 5%;
+    bottom: 5%;
+    transform: scale(0.5);
+    // width: 90vw;
+    // height: 50vh;
 
     @media screen and (max-width: 1000px) {
       left: 0;
-      transform: scaleX(1.8) scaleY(2) translateX(8%) translateY(-3%);
+      top: 10rem;
+      // transform: scaleX(1.8) scaleY(2) translateX(8%) translateY(-3%);
       // display: none;
     }
-    @media screen and (max-width: 56l25em) {
+    @media screen and (max-width: 56.25em) {
       display: none;
     }
   }

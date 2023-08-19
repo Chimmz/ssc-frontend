@@ -11,7 +11,7 @@ const NewsGrid: React.FC<{ readonly articles: NewsObj[] | undefined }> = props =
         <Link to={`/news/${a._id}`} className={styles.newsItem} key={a._id}>
           <figure>
             <img src={a.imgUrl} alt="" />
-            <figcaption className="fs-3 text-start">
+            <figcaption className="fs-3 family-raleway text-start">
               {a.headline}
               <br />
               <small className="fs-5">{formatDate(a.createdAt)}</small>

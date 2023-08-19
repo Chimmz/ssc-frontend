@@ -142,24 +142,11 @@ const Header = () => {
         </div>
       </div>
 
-      <figure className="position-absolute">
-        <img src={genPublicImgSrc('/img/rocket-line.png')} alt="" />
-      </figure>
+      {/* <figure className="position-absolute">
+        <img src={genPublicImgSrc('/img/rocket-path.svg')} alt="" />
+      </figure> */}
     </header>
   );
 };
 
 export default Header;
-
-// const separatePhotos = (photos: string[]) => {
-//   let top: string[] = [],
-//     mid: string[] = [],
-//     bottom: string[] = [];
-
-//   photos.forEach(ph => {
-//     if (ph.toLowerCase().includes('top')) return top.push(ph);
-//     if (['_mid', 'middle'].some(str => ph.toLowerCase().includes(str))) return mid.push(ph);
-//     bottom.push(ph);
-//   });
-//   return [top, mid, bottom];
-// };
