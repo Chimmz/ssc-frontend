@@ -5,7 +5,7 @@ import { genPublicImgSrc } from '../../utils/url-utils';
 
 const CommunitySupport = () => {
   return (
-    <section className={styles.section}>
+    <section className="section-pad">
       <div className="container app-container d-flex flex-column text-center">
         <SectionTitle title="Community Support" responsive={false} />
 

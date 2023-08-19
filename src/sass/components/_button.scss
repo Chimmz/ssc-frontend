@@ -52,7 +52,11 @@
     border: none;
 
     &:hover {
-      color: $color-pry-dark;
+      &,
+      & * {
+        color: $color-pry-dark;
+        border-color: $color-pry-dark !important;
+      }
     }
   }
 

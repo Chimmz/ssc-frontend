@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const NewsGrid: React.FC<{ readonly articles: NewsObj[] | undefined }> = props => {
   return (
-    <div className={cls(styles.newsUpdates, 'my-5')}>
+    <div className={cls(styles.newsUpdates, 'mt-5')}>
       {props.articles?.slice(0, 4).map(a => (
         <Link to={`/news/${a._id}`} className={styles.newsItem} key={a._id}>
           <figure>

@@ -11,9 +11,10 @@ interface Props {
 }
 
 const NewsList: React.FC<Props> = ({ items, searchTerm, className }) => {
+  if (!items?.length) return <></>;
   return (
     <div className={className} id="news">
-      <ul className="d-flex flex-column gap-5 list-style-none mt-5 mb-8">
+      <ul className="d-flex flex-column gap-5 list-style-none mt-5">
         {items?.map(item => (
           <NewsItem item={item} searchTerm={searchTerm} key={item._id} />
         ))}

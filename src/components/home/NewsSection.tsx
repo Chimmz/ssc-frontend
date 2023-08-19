@@ -9,7 +9,7 @@ import { NEWS_ITEMS } from '../../data/news-items';
 
 const NewsSection = () => {
   return (
-    <section className={styles.section}>
+    <section className="section-pad">
       <div className="container app-container d-flex flex-column text-center">
         <SectionTitle
           title="News"
@@ -21,12 +21,9 @@ const NewsSection = () => {
               className="d-flex align-items-center btn-text-pry fs-5 family-raleway gap-2"
             >
               See all
-              <button
-                className="btn btn-circle border-pry"
-                style={{ width: '1.7rem', height: '1.7rem', borderColor: '#7600ff' }}
-              >
+              <span className="circular circular--sm border-pry">
                 <Icon icon="grommet-icons:form-next" color="#7600ff" />
-              </button>
+              </span>
             </Link>
           }
         />
