@@ -70,7 +70,7 @@
 
   @media screen and (max-width: 56.25em) {
     grid-template-columns: 1fr 1fr !important;
-    grid-template-rows: 30rem 20rem !important;
+    grid-template-rows: 30rem 20rem 17rem !important;
 
     & > .newsItem {
       &:first-child {
