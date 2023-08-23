@@ -59,7 +59,7 @@ const IntelliwebiArticle: React.FC = () => {
               alt=""
             />
             <figcaption className="fs-5 color-pry-dark fw-bold mt-2">
-              <a href="https://www.intelliwebi.com/" target="_blank">
+              <a href="https://www.intelliwebi.com/" target="about:blank">
                 Intelliwebi.com
               </a>
             </figcaption>
@@ -173,7 +173,7 @@ const IntelliwebiArticle: React.FC = () => {
                 <p>
                   Visit{' '}
                   <a
-                    target="_blank"
+                    target="about:blank"
                     href="https://intelliwebi.com"
                     className="text-decoration-underline text-pry"
                   >

@@ -64,8 +64,18 @@
   position: relative;
   z-index: 3;
 
+  &::after {
+    position: absolute;
+    top: calc(100% + 5px);
+    color: #7600ff;
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+  }
+
   @media screen and (max-width: 56.25em) {
-    // margin-inline: auto;
+    &::after {
+      content: attr(data-chatroom-password);
+    }
   }
 
   &:hover {
@@ -82,11 +92,6 @@
 
     &::after {
       content: attr(data-chatroom-password);
-      position: absolute;
-      top: calc(100% + 5px);
-      color: #7600ff;
-      font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 14px;
     }
   }
 }

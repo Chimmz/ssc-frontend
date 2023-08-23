@@ -415,7 +415,7 @@ const SingleNewsPage: React.FC = () => {
             <div className="mb-8">
               <a
                 className="text-black text-decoration-underline"
-                target="_blank"
+                target="about:blank"
                 href="http://www.instagram.com/hanseek.official"
               >
                 IG: www.instagram.com/hanseek.official

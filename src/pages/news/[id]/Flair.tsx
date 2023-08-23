@@ -73,7 +73,7 @@ const FlairArticle: React.FC = () => {
               incubators, competitions, or corporate innovation programs? Look no further,
               because we have a game-changing solution for you:{' '}
               <a
-                target="_blank"
+                target="about:blank"
                 href="https://flair.founderslair.com/welcome"
                 className="color-pry"
               >
@@ -91,7 +91,7 @@ const FlairArticle: React.FC = () => {
               able to keep up with the program announcement. This is where{' '}
               <a
                 href="https://flair.founderslair.com/welcome"
-                target="_blank"
+                target="about:blank"
                 className="color-pry"
               >
                 Flair
@@ -103,7 +103,7 @@ const FlairArticle: React.FC = () => {
             <p className="mb-5">
               <a
                 href="https://flair.founderslair.com/welcome"
-                target="_blank"
+                target="about:blank"
                 className="color-pry"
               >
                 Flair
@@ -123,7 +123,7 @@ const FlairArticle: React.FC = () => {
             <p className="mb-5">
               <a
                 href="https://flair.founderslair.com/welcome"
-                target="_blank"
+                target="about:blank"
                 className="color-pry"
               >
                 Flair
@@ -138,7 +138,7 @@ const FlairArticle: React.FC = () => {
               Visit{' '}
               <a
                 href="https://flair.founderslair.com/welcome"
-                target="_blank"
+                target="about:blank"
                 className="color-pry"
               >
                 Flair
@@ -162,7 +162,7 @@ const FlairArticle: React.FC = () => {
 
             <p className="mb-5">
               <a
-                target="_blank"
+                target="about:blank"
                 href="https://dealflow.founderslair.com/signin"
                 className="color-pry"
               >
@@ -174,7 +174,7 @@ const FlairArticle: React.FC = () => {
             </p>
 
             <p className="mb-5">
-              <a href="https://founderslair.com/" target="_blank" className="color-pry">
+              <a href="https://founderslair.com/" target="about:blank" className="color-pry">
                 Founders Lair
               </a>{' '}
               helps startup ecosystem builders to monetize, expand, and manage their startup

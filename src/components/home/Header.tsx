@@ -33,6 +33,8 @@ const BOTTOM_PHOTOS_LOCAL = [
   genPublicImgSrc(`/img/header/seq6_bot.webp`)
 ];
 
+const CHAT_ROOM_PASSWORD = 'Community Password: 2023';
+
 const Header = () => {
   const photosAtTop = useFadingImages(TOP_PHOTOS_LOCAL.length, 12000);
   const photosAtMiddle = useFadingImages(MIDDLE_PHOTOS_LOCAL.length, 7000);
@@ -57,7 +59,7 @@ const Header = () => {
             href="https://open.kakao.com/o/gJd7Vgzd"
             target="_blank"
             className={cls(styles.btnJoin, 'btn btn-pry btn-curved btn--lg p-4 gap-3')}
-            data-chatroom-password="Chat room password: 2023"
+            data-chatroom-password={CHAT_ROOM_PASSWORD}
           >
             <span className={styles.talkIcon}>
               <Icon icon="ri:kakao-talk-fill" width={45} />
