@@ -60,9 +60,7 @@ const InnovoblocArticle: React.FC = () => {
               alt=""
             />
             <figcaption className="fs-5 color-pry-dark fw-bold mt-2">
-              <a href="https://www.intelliwebi.com/" target="_blank">
-                Intelliwebi.com
-              </a>
+              Tyler, The CEO & CTO of InnovoBloc
             </figcaption>
           </figure>
 
