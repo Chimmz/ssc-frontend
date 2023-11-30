@@ -1,0 +1,34 @@
+.startups {
+  @media screen and (min-width: 768px) and (max-width: 990px) {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  // Phone breakpoint - 600px
+  @media screen and (max-width: 37.5em) {
+    display: flex !important;
+    padding-block: 2rem;
+    padding-inline-start: 5rem;
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    & > li {
+      // min-width: 27rem !important;
+
+      &:first-child {
+        margin-left: 73rem;
+      }
+      &:last-child {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+.horizontalScrollMenu {
+  @media screen and (min-width: 37.5em) {
+    display: none !important;
+  }
+}

@@ -1,0 +1,36 @@
+.app-radio {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  & > span:first-child {
+    width: 20px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: relative;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &::before {
+      width: 75%;
+      background-color: #fff;
+    }
+  }
+
+  &.active > span:first-child {
+    &::after {
+      width: 40%;
+      border-radius: 100%;
+      background-color: inherit;
+    }
+  }
+}

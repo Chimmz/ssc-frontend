@@ -1,0 +1,16 @@
+.parent {
+  &.responsive {
+    @media screen and (max-width: 37.5em) {
+      & > h2 {
+        display: none;
+      }
+
+      & > .optionsContainer {
+        justify-content: space-between !important;
+        & > h2 {
+          display: block !important;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+.sidebar {
+  background-color: $bg-dark;
+  color: #fefefe;
+
+  & ul {
+    li {
+      transition: color 0.2s;
+
+      &:hover {
+        color: $color-pry-light;
+      }
+    }
+  }
+
+  & .close-btn {
+    all: unset;
+    font-size: 3rem;
+    color: inherit;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $color-pry-light;
+    }
+  }
+}

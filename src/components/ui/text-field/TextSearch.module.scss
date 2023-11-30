@@ -1,0 +1,22 @@
+.search {
+  max-width: 100%;
+
+  & input {
+    width: 18ch;
+    transition: width 0.2s;
+
+    &:focus {
+      width: 35ch;
+    }
+  }
+  @media screen and (max-width: 37.5em) {
+    width: 100% !important;
+
+    & input {
+      width: 100% !important;
+    }
+    & > div {
+      width: 100% !important;
+    }
+  }
+}

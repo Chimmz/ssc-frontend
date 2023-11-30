@@ -1,0 +1,36 @@
+.container {
+  gap: 18rem;
+  gap: clamp(12vw, 8rem, 10rem);
+  margin-bottom: 7rem;
+  position: relative;
+  z-index: 1;
+
+  @media screen and (max-width: 56.25em) {
+    // gap: 9rem;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset-inline: 2px;
+    top: 10px;
+    // transform: translateY(-50%);
+    height: 1px;
+    // z-index: -1;
+    background-color: #aca5b5;
+  }
+}
+
+.currentStepCircle {
+  position: relative;
+  display: grid;
+  place-items: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background-color: #b48dff;
+    border-radius: 50%;
+  }
+}

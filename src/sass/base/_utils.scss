@@ -1,0 +1,375 @@
+.family-raleway {
+  font-family: 'Raleway', system-ui, BlinkMacSystemFont, 'Segoe UI';
+}
+.list-style-none {
+  list-style: none;
+}
+
+.m {
+  &b {
+    &-6 {
+      margin-bottom: 4rem;
+    }
+    &-7 {
+      margin-bottom: 5rem;
+    }
+    &-8 {
+      margin-bottom: 6rem;
+    }
+  }
+
+  &t {
+    &-6 {
+      margin-top: 4rem;
+    }
+    &-7 {
+      margin-top: 5rem;
+    }
+    &-8 {
+      margin-top: 6rem;
+    }
+  }
+
+  &s {
+    &-6 {
+      margin-left: 4rem;
+    }
+    &-7 {
+      margin-left: 5rem;
+    }
+    &-8 {
+      margin-left: 6rem;
+    }
+  }
+
+  &e {
+    &-6 {
+      margin-right: 4rem;
+    }
+    &-7 {
+      margin-right: 5rem;
+    }
+    &-8 {
+      margin-right: 6rem;
+    }
+  }
+  &y {
+    &-6 {
+      margin-block: 4rem;
+    }
+    &-7 {
+      margin-block: 5rem;
+    }
+    &-8 {
+      margin-block: 6rem;
+    }
+  }
+}
+
+.p {
+  &-6 {
+    padding: 4rem;
+  }
+  &-7 {
+    padding: 5rem;
+  }
+  &-8 {
+    padding: 6rem;
+  }
+
+  &b {
+    &-6 {
+      padding-bottom: 4rem;
+    }
+    &-7 {
+      padding-bottom: 5rem;
+    }
+    &-8 {
+      padding-bottom: 6rem;
+    }
+  }
+  &t {
+    &-6 {
+      padding-top: 4rem;
+    }
+    &-7 {
+      padding-top: 5rem;
+    }
+    &-8 {
+      padding-top: 6rem;
+    }
+  }
+  &s {
+    &-6 {
+      padding-left: 4rem;
+    }
+    &-7 {
+      padding-left: 5rem;
+    }
+    &-8 {
+      padding-left: 6rem;
+    }
+  }
+  &e {
+    &-6 {
+      padding-right: 4rem;
+    }
+    &-7 {
+      padding-right: 5rem;
+    }
+    &-8 {
+      padding-right: 6rem;
+    }
+  }
+  &x {
+    &-6 {
+      padding-inline: 4rem;
+    }
+    &-7 {
+      padding-inline: 5rem;
+    }
+    &-8 {
+      padding-inline: 6rem;
+    }
+  }
+  &y {
+    &-6 {
+      padding-block: 4rem;
+    }
+    &-7 {
+      padding-block: 5rem;
+    }
+    &-8 {
+      padding-block: 6rem;
+    }
+  }
+}
+
+.section-pad {
+  padding-block: 7rem;
+
+  &-bottom {
+    padding-bottom: 7rem;
+
+    &-lg {
+      padding-bottom: 12rem;
+    }
+  }
+  &-top {
+    padding-top: 7rem;
+
+    &-lg {
+      padding-top: 12rem;
+    }
+  }
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg-halfwhite {
+  background-color: rgba(#fff, 0.5);
+}
+
+.flex-gap-1 {
+  gap: 0.7rem;
+}
+.flex-gap-2 {
+  gap: 2.2rem;
+}
+.flex-gap-3 {
+  gap: 3rem;
+}
+
+.thin-scrollbar,
+.modal-body {
+  @include thin-scrollbar;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+
+.w-max-content {
+  max-width: max-content;
+}
+.w-min-content {
+  min-width: fit-content;
+}
+
+.text-black {
+  color: #000;
+  font-weight: 500;
+}
+
+.color-pry {
+  color: $color-pry;
+}
+.color-pry-dark {
+  color: $color-pry-dark !important;
+}
+.color-white {
+  color: #fff !important;
+}
+
+.border {
+  &-pry {
+    border-color: $color-pry !important;
+
+    &-dark {
+      border-color: $color-pry-dark !important;
+    }
+  }
+  &-white {
+    border: 1px solid #fff !important;
+  }
+  &-transparent {
+    border-color: transparent !important;
+  }
+}
+
+.bg-pry {
+  background-color: $color-pry !important;
+
+  &-light {
+    background-color: $color-pry-light !important;
+  }
+  &-lighter {
+    background-color: $color-pry-lighter !important;
+  }
+  &-lightest {
+    background-color: $color-pry-lightest !important;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .bg-rocket {
+    background-image: url('../../../public/img/arrow-rocket.png');
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position-y: 75%;
+  }
+}
+
+.bg-pry-dark {
+  background-color: $color-pry-dark !important;
+}
+
+.bg-dark {
+  background-color: $bg-dark !important;
+}
+
+.cursor-pointer {
+  &,
+  & * {
+    cursor: pointer !important;
+  }
+}
+
+.text-pry {
+  color: $color-pry-dark;
+}
+.text-pry-dark {
+  color: $color-pry-dark;
+}
+
+.text-light {
+  color: #888888 !important;
+}
+
+.bg-halfwhite {
+  background-color: rgba(#fff, 0.5);
+}
+
+.u-page-main-heading {
+  font-size: 4rem;
+  font-weight: 500;
+  font-family: 'Baskervville', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #353535;
+}
+
+.thin-scrollbar,
+.modal-body {
+  @include thin-scrollbar;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+
+.w-max-content {
+  max-width: max-content;
+}
+.w-min-content {
+  max-width: min-content;
+}
+
+.text-black {
+  color: #000;
+  font-weight: 500;
+}
+
+.text-hover-dark:hover {
+  &,
+  & * {
+    color: #000 !important;
+  }
+}
+
+.text-hover-underline:hover {
+  text-decoration: underline;
+}
+
+.circular {
+  width: 27px;
+  height: 27px;
+  @include grid-center;
+  border-radius: 50%;
+
+  &--1 {
+    width: 30px;
+    height: 30px;
+  }
+  &--2 {
+    width: 33px;
+    height: 33px;
+  }
+  &--3 {
+    width: 33px;
+    height: 33px;
+  }
+  &--4 {
+    width: 35px;
+    height: 35px;
+  }
+  &--sm {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+.rounded {
+  &-6 {
+    border-radius: 3rem !important;
+  }
+  &-7 {
+    border-radius: 4rem !important;
+  }
+  &-8 {
+    border-radius: 5rem !important;
+  }
+  &-9 {
+    border-radius: 6rem !important;
+  }
+}
+
+.text-hover-dark {
+  &:hover {
+    color: #343434;
+    opacity: 100% !important;
+  }
+}

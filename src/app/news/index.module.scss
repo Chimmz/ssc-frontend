@@ -1,0 +1,25 @@
+.search {
+  @media screen and (max-width: 37.5em) {
+    width: 100% !important;
+
+    & > div {
+      width: 100% !important;
+    }
+  }
+}
+.pageOptions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media screen and (max-width: 37.5em) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3rem !important;
+
+    & > button {
+      order: 1;
+    }
+  }
+}
+// style={{ width: 'max(20%, 150px)' }}

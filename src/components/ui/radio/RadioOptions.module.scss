@@ -1,0 +1,6 @@
+.gridLayout {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 6rem;
+  justify-content: space-between;
+}

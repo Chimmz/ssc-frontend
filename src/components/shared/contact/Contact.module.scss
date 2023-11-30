@@ -1,0 +1,51 @@
+.section {
+  padding-block: 9rem;
+  padding-bottom: 12rem;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  // align-items: start;
+
+  @media screen and (max-width: 56.25em) {
+    gap: 6rem !important;
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.subscribe {
+  @media screen and (max-width: 768px) {
+    text-align: center !important;
+  }
+}
+
+form.getInTouch {
+  border-left: 1px solid #adadad;
+
+  @media screen and (max-width: 768px) {
+    & > h3 {
+      text-align: center;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    border-left: none;
+    padding: 0 !important;
+  }
+
+  & > *:last-child {
+    @media screen and (max-width: 56.25em) {
+      flex-direction: column;
+
+      // & button {
+      //   order: 3;
+      //   flex-grow: 1;
+      //   width: 100%;
+      // }
+    }
+  }
+}
