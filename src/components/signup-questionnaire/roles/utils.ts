@@ -9,11 +9,19 @@ export enum RoleTypes {
 }
 
 export const roleTypes = [
-  { img: EntrepreneurialImg, value: RoleTypes.ENTREPRENEURIAL },
-  { img: MentorImg, value: RoleTypes.MENTOR_OR_PROVIDER },
-  { img: EnablersImg, value: RoleTypes.ECOSYSTEM_ENABLERS }
+  { img: EntrepreneurialImg.src, value: RoleTypes.ENTREPRENEURIAL },
+  { img: MentorImg.src, value: RoleTypes.MENTOR_OR_PROVIDER },
+  { img: EnablersImg.src, value: RoleTypes.ECOSYSTEM_ENABLERS }
 ];
-
+('Founder');
+('Co-founder');
+('CEO');
+('Startup team member');
+('Student');
+('Employee');
+('Pre-Entrepreneur');
+('Entrepreneur');
+('Other');
 export const classifiedRoles = {
   [RoleTypes.ENTREPRENEURIAL]: [
     'Founder',
@@ -22,7 +30,9 @@ export const classifiedRoles = {
     'Startup team member',
     'Student',
     'Employee',
-    'Freelancer'
+    'Freelancer',
+    'Pre-Entrepreneur',
+    'Entrepreneur'
   ],
   [RoleTypes.MENTOR_OR_PROVIDER]: [
     'Startup Consultant',
@@ -31,15 +41,21 @@ export const classifiedRoles = {
     'Lawyer',
     'Accountant',
     'Translator',
-    'Freelancer'
+    'Freelancer',
+    'Developer',
+    'Biz Owner',
+    'Other'
     // 'Other Service Provider'
   ],
   [RoleTypes.ECOSYSTEM_ENABLERS]: [
-    'Event Organizer',
     'Venture Capital Representative',
-    'Startup Program Representative',
+    'Startup Support Program Rep.',
     'Government Representative',
-    'Investment Entity',
-    'Individual Investor'
+    'Investment Firm Representative ',
+    'Individual Investor',
+    'Startup School Representative',
+    'Event Organizer',
+    'Startup Community Representative',
+    'Accelerator Program Representative'
   ]
 };

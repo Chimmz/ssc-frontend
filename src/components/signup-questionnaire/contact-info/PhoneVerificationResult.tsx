@@ -4,6 +4,7 @@ import LoadingButton from '../../ui/LoadingButton';
 import { usePostSignupQuestionnaireContext } from '../../../contexts/PostSignupQuestionnaireContext';
 import VerifySuccessIcon from './VerifySuccessIcon.svg';
 import VerifyFailureIcon from './VerifyFailureIcon.svg';
+import Image from 'next/image';
 
 interface Props {
   show: boolean;
@@ -22,9 +23,11 @@ const PhoneVerificationResult: FC<Props> = props => {
     <Modal show={props.show} centered onHide={props.close}>
       <Modal.Body className="p-6">
         <form className="d-flex flex-column align-items-center text-center">
-          <img
-            src={props.success ? VerifySuccessIcon : VerifyFailureIcon}
-            width={70}
+          <Image
+            src={props.success ? '/svg/VerifySuccessIcon.svg' : '/svg/VerifyFailureIcon.svg'}
+            alt="Success Icon"
+            width={80}
+            height={80}
             className="mb-4"
           />
           <h3 className="fs-1 family-raleway fw-bold color-pry mb-3">

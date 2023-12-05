@@ -1,16 +1,13 @@
-'use client';
-import { useMemo } from 'react';
-import { useAuthContext } from '../contexts/AuthContext';
+import { UseSessionOptions, useSession } from 'next-auth/react';
 
-const useSignedInUser = () => {
-  const context = useAuthContext();
+const useSignedInUser = function (options?: UseSessionOptions<boolean>) {
+  const { data: session, status } = useSession(options);
 
   return {
-    isSignedIn: !!context?.data?.accessToken?.length,
-    user: context?.data?.user,
-    accessToken: context?.data?.accessToken,
-    modifyUserObject: (user: UserPublicProfile) =>
-      context?.setCurrentUser?.(state => ({ ...state!, user }))
+    ...session?.user,
+    token: session?.token,
+    isSignedIn: status === 'authenticated',
+    authStatus: status
   };
 };
 

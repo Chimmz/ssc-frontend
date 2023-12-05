@@ -1,33 +1,59 @@
 import { Icon } from '@iconify/react';
-import React, { ComponentType, FC, useMemo, useState, useEffect, useCallback } from 'react';
+import React, {
+  ComponentType,
+  FC,
+  useMemo,
+  useState,
+  useEffect,
+  useCallback,
+  ReactNode
+} from 'react';
 import StepsIndicator from './StepsIndicator';
 import cls from 'classnames';
 import LoadingButton from '../../ui/LoadingButton';
+import withStepNavigation from './withStepNavigation';
+
+interface Step {
+  name: string;
+  isMandatory: boolean;
+  component: ComponentType<{
+    onGoBack: (() => void) | undefined;
+    onGoNext: (() => void) | undefined;
+    userClickedBack: boolean;
+    userClickedNext: boolean;
+  }>;
+}
 
 interface Props {
-  steps: Array<{ name: string; component: ComponentType; isMandatory: boolean | undefined }>;
+  steps: Step[];
   defaultStep?: number;
-  onFinish: () => void;
+  onFinish: (() => void) | undefined;
   loading?: boolean;
 }
 
 const MultiStepComponent: FC<Props> = function (props) {
   const [step, setStep] = useState<number>(props.defaultStep || 0);
 
-  const goNext = useMemo(() => setStep.bind(null, h => h + 1), [setStep]);
-  const goBack = useMemo(() => setStep.bind(null, h => h - 1), [setStep]);
-
-  const Component = useMemo(() => props.steps[step].component, [props.steps, step]);
-
-  const [isCurrentStepFirst, isCurrentStepLast] = useMemo(() => {
+  const [isFirstStep, isLastStep] = useMemo(() => {
     return [step === 0, step === props.steps.length - 1];
   }, [step, props.steps]);
+
+  const goNext = useCallback(() => {
+    isLastStep ? props.onFinish?.() : setStep(s => s + 1);
+  }, [setStep, isLastStep, props.onFinish]);
+
+  const goBack = useCallback(() => {
+    if (!isFirstStep) setStep(s => s - 1);
+  }, [setStep, isFirstStep]);
+
+  // const Component = useMemo(() => props.steps[step].component, [props.steps, step]);
 
   const stepNames = useMemo(() => props.steps.map(s => s.name), [props.steps]);
 
   useEffect(() => {
     if (props.defaultStep) setStep(props.defaultStep);
   }, [props.defaultStep]);
+
   useEffect(() => {
     const modalBody = document.querySelector('.modal-fullscreen .modal-body');
     if (!modalBody || step === 0) return;
@@ -37,11 +63,14 @@ const MultiStepComponent: FC<Props> = function (props) {
   return (
     <>
       <StepsIndicator stepNames={stepNames} currentStep={step} />
+      {/* <Component
+        onBack={isFirstStep ? undefined : goBack}
+        onNext={isLastStep ? undefined : goNext}
+      /> */}
+      {withStepNavigation(props.steps[step], { isFirstStep, isLastStep, goBack, goNext })}
 
-      <Component />
-
-      <div className={cls('d-flex align-items-center gap-3 mt-7')}>
-        <button className={cls('btn', isCurrentStepFirst && 'd-none')} onClick={goBack}>
+      {/* <div className={cls('d-flex align-items-center gap-3 mt-7')}>
+        <button className={cls('btn', isFirstStep && 'd-none')} onClick={goBack}>
           Back
         </button>
 
@@ -50,9 +79,9 @@ const MultiStepComponent: FC<Props> = function (props) {
           loadingMsg="Saving"
           withSpinner
           className={cls('btn btn-pry', props.steps[step].isMandatory && 'd-none')}
-          onClick={!isCurrentStepLast ? goNext : props.onFinish}
+          onClick={!isLastStep ? goNext : props.onFinish}
         >
-          {!isCurrentStepLast ? (
+          {!isLastStep ? (
             <>
               Next Step <Icon icon="heroicons:arrow-long-right-20-solid" />
             </>
@@ -60,32 +89,11 @@ const MultiStepComponent: FC<Props> = function (props) {
             'Finish'
           )}
         </LoadingButton>
-      </div>
+      </div> */}
     </>
   );
 };
 
 const withNavButtons = () => {};
 
-// The Machine Learning Specialisation from Andrew Ng (the instructor) will be the first actual Data Science/machine learning course I will be taking.
-// This machine learning course will expose me to the powerful Python libraries used in the world of Artificial Intelligence which include Sci-kit learn, Keras, Tensorflow, and more. I will also learn how to build powerful prediction models.
-
-// I'm currently a Fullstack developer. One thing I naturally love is creating intelligent things. Learning this course will enable me to incorporate AI in websites and web apps. I've lately been inspired and overwhelmed by the world of data science, data analysis, and machine learning. I want this passion to turn into reality.
-
-// I've heard that Python rules in the data science world. Going deep with Python through this course will stir me up to learn Django and Flask (which is a Python backend framework), thereby adding new technologies to my web dev stack.
-
-// Hope my request is granted.
-// Thank you.
-
-// The Machine Learning Specialisation from Andrew Ng (the instructor) will be the first actual Data Science/machine learning course I will be taking.
-// This machine learning course will expose me to the powerful Python libraries used in the world of Artificial Intelligence which include Sci-kit learn, Keras, Tensorflow, and more. I will also learn how to build powerful prediction models.
-
-// I'm currently a Fullstack developer. One thing I naturally love is creating intelligent things. Learning this course will enable me to incorporate AI in websites and web apps. I've lately been inspired and overwhelmed by the world of data science, data analysis, and machine learning. I want this passion to turn into reality.
-
-// I've heard that Python rules in the data science world. Going deep with Python through this course will stir me up to learn Django and Flask (which is a Python backend framework), thereby adding new technologies to my web dev stack.
-
-// But after searching on the internet, I began to understand that good understanding of Calculus, Linear Algebra, and statistics are helpful prerequisites to going into machine learning.
-
-// Hope my request is granted.
-// Thank you.
 export default MultiStepComponent;

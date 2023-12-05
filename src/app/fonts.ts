@@ -7,9 +7,9 @@ const raleway = Raleway({
   display: 'swap'
 });
 
-const lato = Raleway({
+const lato = Lato({
   subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  weight: ['100', '300', '400', '700', '900'],
   style: ['normal', 'italic'],
   display: 'swap'
 });

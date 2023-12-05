@@ -78,7 +78,7 @@ export const isEmail: Validator<string> = function (errMsg = 'Invalid email ente
   return new VFeedback(hasError ? 'failed' : 'passed', hasError && errMsg);
 };
 
-export const isStrongPassword: Validator<string> = function (errMsg) {
+export const isStrongPassword: Validator<string> = function (errMsg = 'Password is weak') {
   const strongPassword = new RegExp(
     '((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))'
   );

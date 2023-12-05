@@ -13,6 +13,7 @@ import MobileSidebar from './MobileSidebar';
 import cls from 'classnames';
 import Link from 'next/link';
 import AppContainer from '../shared/AppContainer';
+import { signOut } from 'next-auth/react';
 
 interface Props {
   style?: React.CSSProperties;
@@ -21,22 +22,14 @@ interface Props {
 
 const Nav = function (props: Props) {
   const { state: sidebarOpened, setOn: openSidebar, setOff: closeSidebar } = useToggle(false);
-  const { isSignedIn, user } = useSignedInUser();
-  // const authContext = useAuthContext();
+  const { firstName, lastName, isSignedIn } = useSignedInUser();
   const { sendReq: sendLogoutReq, loading: isLoggingOut } = useRequest();
 
   const userInitials = useMemo(() => {
-    return isSignedIn ? user?.firstName![0] + (user?.lastName?.[0] || '') : '';
+    return !isSignedIn ? '' : (firstName?.[0] || '') + (lastName?.[0] || '');
   }, [isSignedIn]);
 
-  const logoOut = () => {
-    return new Promise(resolve => {
-      localStorage.setItem('ssc_u', JSON.stringify({}));
-      // authContext!.setCurrentUser!(undefined);
-      // navigate('/'); // Come back here
-      resolve(null);
-    });
-  };
+  const signUserOut = () => sendLogoutReq(signOut({ callbackUrl: '/' }));
 
   return (
     <>
@@ -58,7 +51,7 @@ const Nav = function (props: Props) {
                 title={
                   <div className="d-flex align-items-center gap-5">
                     <span className="family-raleway fw-bold text-black me-2">
-                      Hi {user!.firstName}!
+                      Hi {firstName}!
                     </span>
                     <div className="nine-dots ">
                       <span className="three-dots "></span>
@@ -74,7 +67,7 @@ const Nav = function (props: Props) {
                 <NavDropdown.Divider /> */}
                 <NavDropdown.Item>한국어</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item onClick={() => sendLogoutReq(logoOut())}>
+                <NavDropdown.Item onClick={() => sendLogoutReq(signUserOut())}>
                   {isLoggingOut && <Spinner animation="border" size="sm" />}
                   {isLoggingOut ? 'Logging out...' : 'Log out'}
                 </NavDropdown.Item>
@@ -82,10 +75,10 @@ const Nav = function (props: Props) {
             </>
           ) : (
             <div className="nav-auth d-flex gap-4">
-              <Link href="/auth/login" className="btn btn-outline-pry">
+              <Link href="/login" className="btn btn-outline-pry">
                 Log in
               </Link>
-              <Link href="/auth/signup" className="btn btn-pry">
+              <Link href="/signup" className="btn btn-pry">
                 Sign up
               </Link>
             </div>

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+'use client';
+import React, { FC, useEffect, useState } from 'react';
 import { GOALS } from './utils';
 import useList from '../../../hooks/useList';
 import { Form } from 'react-bootstrap';
@@ -11,29 +12,35 @@ import api from '../../../library/api';
 import { toTitleCase } from '../../../utils/string-utils';
 import CheckboxOptions from '../../ui/checkboxes/CheckboxOptions';
 import { usePostSignupQuestionnaireContext } from '../../../contexts/PostSignupQuestionnaireContext';
+import { StepComponentProps } from '@/components/shared/multistep-component/withStepNavigation';
+import fonts from '@/app/fonts';
 
-const GoalsAndPreferences = function () {
-  const { user, accessToken } = useSignedInUser();
+const GoalsAndPreferences: FC<StepComponentProps> = function (props) {
+  const { token } = useSignedInUser();
   const { items: selectedGoals, addItem: addGoal, removeItem: removeGoal } = useList();
   const { updateUser } = usePostSignupQuestionnaireContext();
 
   const { items: otherItems, setItems: setOtherItems } = useList();
 
   useEffect(() => {
-    return () => {
-      const body = {
-        goals: selectedGoals
-          .filter(p => p !== 'other')
-          .concat(otherItems.map(word => toTitleCase(word)))
-      };
-      updateUser?.(body);
-    };
-  }, [selectedGoals, otherItems, accessToken]);
+    if (props.userClickedNext) props.onGoNext?.();
+  }, [props.userClickedNext]);
+
+  // useEffect(() => {
+  //   return () => {
+  //     const body = {
+  //       goals: selectedGoals
+  //         .filter(p => p !== 'other')
+  //         .concat(otherItems.map(word => toTitleCase(word)))
+  //     };
+  //     updateUser?.(body);
+  //   };
+  // }, [selectedGoals, otherItems, token]);
 
   return (
     <>
       <h3
-        className="fs-1 family-raleway fw-bold mb-3 text-center"
+        className={cls(fonts.raleway, 'fs-1 fw-bold mb-3 text-center')}
         style={{ maxWidth: '30ch' }}
       >
         Goals and Preferences
@@ -62,14 +69,12 @@ const GoalsAndPreferences = function () {
             )
           }
         />
-        <TagsInput
-          show={!!otherItems.length || selectedGoals.includes('other')}
-          containerClassName=""
-          onChange={setOtherItems}
-          // beforeAddValidate={(tag, existingTags) => {
-
-          // }}
-        />
+        {/* <div>
+          {!!otherItems.length || selectedGoals.includes('other') ? (
+            <TagsInput show containerClassName="" onChange={setOtherItems} />
+          ) : null}
+        </div> */}
+        {/* <TagsInput /> */}
       </div>
     </>
   );

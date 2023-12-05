@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useEffect, useState } from 'react';
+import React, { FC, FormEventHandler, useEffect, useState } from 'react';
 
 import useInput from '../../../hooks/useInput';
 
@@ -20,12 +20,14 @@ import api from '../../../library/api';
 import useSignedInUser from '../../../hooks/useSignedInUser';
 import LoadingButton from '../../ui/LoadingButton';
 import { Icon } from '@iconify/react';
+import { StepComponentProps } from '@/components/shared/multistep-component/withStepNavigation';
+import fonts from '@/app/fonts';
 
 // import 'react-phone-number-input/style.css';
 
-const ContactInfo = () => {
-  const { user, accessToken } = useSignedInUser();
-  const [phoneVerified, setPhoneVerified] = useState(user?.phone.isVerified);
+const ContactInfo: FC<StepComponentProps> = props => {
+  const user = useSignedInUser();
+  const [phoneVerified, setPhoneVerified] = useState(user?.phone?.isVerified);
   const [phoneConfirmationModalShown, setShowPhoneConfirmationModal] = useState(false);
   const [phoneVerificationResultModalShown, setShowPhoneVerificationResultModal] =
     useState(false);
@@ -67,15 +69,16 @@ const ContactInfo = () => {
     pushValidationError: pushPhoneValidationError,
     clearValidationErrors: clearPhoneValidationErrors
   } = useInput({
-    init: user?.phone.phoneNumber || '',
+    init: user?.phone?.phoneNumber || '',
     validators: [{ fn: isValidPhone, params: [] }]
   });
 
   const sendVerificationCode = async () => {
     if (runPhoneValidators().errorExists) return;
-    const req = api.sendVerificationCodeSMS(phone, accessToken!);
+    const req = api.sendVerificationCodeSMS(phone, user!.token!);
     sendSMSReq(req);
   };
+
   useEffect(() => {
     if (!responseSMS) return;
     if (responseSMS.status === 'SMS_SENT') setShowPhoneConfirmationModal(true);
@@ -84,9 +87,10 @@ const ContactInfo = () => {
 
   const handleOnEnterCode = (code: string) => {
     setShowPhoneConfirmationModal(false);
-    const req = api.verifyPhoneVerificationCode(code, accessToken!);
+    const req = api.verifyPhoneVerificationCode(code, user!.token!);
     sendVerifReq(req);
   };
+
   useEffect(() => {
     if (verifResponse) {
       setShowPhoneVerificationResultModal(true);
@@ -105,16 +109,33 @@ const ContactInfo = () => {
     setOverlayShown?.(phoneConfirmationModalShown || phoneVerificationResultModalShown);
   }, [phoneConfirmationModalShown, phoneVerificationResultModalShown]);
 
+  const validateFields = () => {
+    return [runEmailValidators(), runPhoneValidators()].every(v => !v.errorExists);
+  };
+
+  useEffect(() => {
+    props.setUserClickedNext?.(false);
+  }, [email, phone]);
+
+  useEffect(() => {
+    if (!props.userClickedNext) return;
+    if (validateFields()) props.onGoNext?.();
+  }, [props.userClickedNext]);
+
+  useEffect(() => {
+    clearPhoneValidationErrors();
+  }, [phone]);
+
   useEffect(() => {
     return () => {
-      api.updateUser({ phone }, accessToken!);
+      api.updateUser({ phone }, user.token!);
     };
   }, []);
 
   return (
     <>
       <h3
-        className="fs-1 family-raleway fw-bold mb-5 text-center"
+        className={cls(fonts.raleway, 'fs-1 fw-bold mb-5 text-center')}
         style={{ maxWidth: '30ch' }}
       >
         Contact Information
@@ -137,7 +158,7 @@ const ContactInfo = () => {
         {/* Phone */}
         <div className="w-100">
           <Form.Label className="fw-bold" htmlFor="phone">
-            Phone Number
+            Mobile Number
           </Form.Label>
 
           <PhoneInput
@@ -168,7 +189,7 @@ const ContactInfo = () => {
             </div>
           ) : null}
 
-          {!phoneVerified ? (
+          {!phoneVerified && !phoneValidationErrors?.length ? (
             <LoadingButton
               type="button"
               loading={isSendingSMS || isSendingVerifReq}

@@ -31,7 +31,7 @@ const QuestionnaireContext = createContext<QuestionnaireContextData>({
 });
 
 const QuestionnaireContextProvider: FC<{ children: ReactNode }> = props => {
-  const { accessToken, modifyUserObject } = useSignedInUser();
+  const { token } = useSignedInUser();
   const {
     sendReq: sendUpdateReq,
     loading: isUpdatingUser,
@@ -43,15 +43,14 @@ const QuestionnaireContextProvider: FC<{ children: ReactNode }> = props => {
   const [welcomeModalShown, setShowWelcomeModal] = useState(false);
 
   const updateUser = async (body: Partial<UserPublicProfile>) => {
-    console.log({ accessToken });
-    if (!accessToken) return;
-    const req = api.updateUser(body, accessToken);
+    console.log({ token });
+    if (!token) return;
+    const req = api.updateUser(body, token);
     sendUpdateReq(req);
   };
 
   useEffect(() => {
     if (!updateResponse || !updateResponse.user) return;
-    modifyUserObject(updateResponse.user);
   }, [updateResponse]);
 
   return (

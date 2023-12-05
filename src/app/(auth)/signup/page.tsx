@@ -1,31 +1,36 @@
 'use client';
+import { useEffect, useState } from 'react';
+
+import { useGoogleLogin } from '@react-oauth/google';
 import useInput from '../../../hooks/useInput';
+import useRequest from '../../../hooks/useRequest';
+
 import {
   isEmail,
   isRequired,
   isStrongPassword
 } from '../../../utils/validators/inputValidators';
-import { useGoogleLogin } from '@react-oauth/google';
-import { useEffect, useState } from 'react';
-import { Icon } from '@iconify/react';
-import TextField from '../../../components/ui/text-field/TextField';
-import { simulateRequest } from '../../../utils/async-utils';
-import useRequest from '../../../hooks/useRequest';
-// import SignupSuccess from './welcome';
-import LoadingButton from '../../../components/ui/LoadingButton';
 import classNames from 'classnames';
 import api from '../../../library/api';
+import { simulateRequest } from '../../../utils/async-utils';
+
+import LoadingButton from '../../../components/ui/LoadingButton';
 import Link from 'next/link';
+import SignupWelcome from './welcome';
+import TextField from '../../../components/ui/text-field/TextField';
+import { Icon } from '@iconify/react';
+import { SignInResponse, signIn } from 'next-auth/react';
+import useSignedInUser from '@/hooks/useSignedInUser';
 
 const Signup = function () {
+  const currentUser = useSignedInUser();
   const {
     sendReq: sendSignupReq,
     loading: isSigningUp,
     response: signupResponse
-  } = useRequest<
-    | { status?: 'fail'; msg: string; errors?: { field: string; msg: string }[] }
-    | { status: 'USER_CREATED'; user: UserPublicProfile }
-  >();
+  } = useRequest<SignInResponse>();
+  // | { status?: 'fail'; msg: string; errors?: { field: string; msg: string }[] }
+  // | { status: 'USER_CREATED'; user: UserPublicProfile }
 
   const {
     inputValue: fullname,
@@ -74,35 +79,39 @@ const Signup = function () {
     sendSignupReq(req);
   };
 
-  useEffect(() => {
-    if (signupResponse?.status !== 'fail') return;
+  const handleSignupFailure = () => {
     const errorPushers = {
       email: pushEmailValidationError,
       password: pushPasswordValidationError
     };
-    signupResponse.errors?.forEach(e => {
-      errorPushers[e.field as keyof typeof errorPushers]?.(e.msg);
-    });
+    const apiRes: { errors?: { field: string; msg: string }[] } = JSON.parse(
+      signupResponse!.error!
+    );
+    apiRes.errors?.forEach(e => errorPushers[e.field as keyof typeof errorPushers]?.(e.msg));
+  };
+
+  useEffect(() => {
+    if (signupResponse?.error) handleSignupFailure();
   }, [signupResponse]);
 
   const googleSignIn = useGoogleLogin({
     onSuccess: async response => {
       console.log('Google response: ', response);
       const { access_token } = response;
-      await sendSignupReq(api.googleSignIn(access_token));
+      await sendSignupReq(signIn('custom-google', { access_token, redirect: false }));
     },
     onError: errorResponse => console.log('Google response: ', errorResponse)
   });
 
-  // if (signupResponse?.status === 'USER_CREATED')
-  //   return <SignupSuccess signedUpEmail={signupResponse.user.email} />;
+  // Upon sign in, render Welcome component
+  if (currentUser.isSignedIn) return <SignupWelcome signedUpEmail={currentUser.email!} />;
 
   return (
     <form className="d-flex flex-column" onSubmit={handleSubmit}>
       <div className="d-flex align-items-center justify-content-center gap-5">
-        <h2 className="color-pry fw-bold text-center mb-5">Sign up</h2>
+        <h2 className="fs-2 color-pry fw-bold text-center mb-5">Sign up</h2>
         <Link
-          href="/auth/login"
+          href="/login"
           className="fs-2 text-hover-dark opacity-25 fw-bold text-center mb-5 "
         >
           Log in
@@ -165,7 +174,7 @@ const Signup = function () {
 
       <small className="d-flex justify-content-center fs-5 fw-bold text-center mt-3">
         Already have an account?
-        <Link href="/auth/login" className="color-pry ms-2">
+        <Link href="/login" className="color-pry ms-2">
           Log in
         </Link>
       </small>

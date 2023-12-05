@@ -56,13 +56,13 @@ const MobileSidebar: React.FC<Props> = props => {
 
       <div className="sidebar-footer pb-4" style={{ marginInline: '2rem' }}>
         <Link
-          href="/auth/login"
+          href="/login"
           className="btn btn-outline-white btn--lg w-100 mb-3"
           style={{ borderWidth: '2px' }}
         >
           Log in
         </Link>
-        <Link href="/auth/signup" className="btn btn-pry btn--lg w-100">
+        <Link href="/signup" className="btn btn-pry btn--lg w-100">
           Sign up
         </Link>
       </div>

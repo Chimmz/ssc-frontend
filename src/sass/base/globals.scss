@@ -223,6 +223,13 @@ input[type='checkbox'].form-check-input:has(+ label.form-check-label > span.chec
   padding-left: 0;
 }
 
+.checkbox-tag {
+  &:hover {
+    border-color: gray !important;
+    background-color: #f1f1f1;
+  }
+}
+
 .react-datepicker-wrapper {
   width: 100% !important;
 

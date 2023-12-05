@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import TextField from '../../ui/text-field/TextField';
 import useInput from '../../../hooks/useInput';
 import { isRequired, isValidDate } from '../../../utils/validators/inputValidators';
@@ -18,10 +18,24 @@ import 'react-country-state-city/dist/react-country-state-city.css';
 import useSignedInUser from '../../../hooks/useSignedInUser';
 import api from '../../../library/api';
 import { OCCUPATION_LIST } from './utils';
+import { StepComponentProps } from '@/components/shared/multistep-component/withStepNavigation';
+import cls from 'classnames';
+import fonts from '@/app/fonts';
 
-const PersonalInfo = () => {
-  const { user, accessToken } = useSignedInUser();
+const PersonalInfo: FC<StepComponentProps> = props => {
+  const user = useSignedInUser();
   const [startDate, setStartDate] = useState(new Date());
+
+  const {
+    inputValue: fullname,
+    onChange: handleChangeFullname,
+    setInputValue: setFullname,
+    validationErrors: fullnameValidationErrors,
+    runValidators: runFullnameValidators
+  } = useInput<string>({
+    init: '',
+    validators: [{ fn: isRequired, params: [] }]
+  });
 
   const {
     inputValue: dob,
@@ -51,15 +65,33 @@ const PersonalInfo = () => {
       return { name: user.personalInfo.cityOfResidence };
   });
 
-  const {
-    inputValue: occupation,
-    onChange: handleChangeOccupation,
-    validationErrors: occupationValidationErrors,
-    runValidators: runOccupationValidators
-  } = useInput({
-    init: user?.personalInfo?.occupation || '',
-    validators: [{ fn: isRequired, params: [] }]
-  });
+  useEffect(() => {
+    if (user.isSignedIn) setFullname(user!.firstName! + ' ' + user!.lastName!);
+  }, [user.isSignedIn]);
+
+  const validateFields = () => {
+    const validations = [runFullnameValidators(), runDobValidators()];
+    return validations.every(v => !v.errorExists);
+  };
+
+  useEffect(() => {
+    if (!props.userClickedNext) return;
+    if (validateFields()) props.onGoNext?.();
+  }, [props.userClickedNext]);
+
+  useEffect(() => {
+    props.setUserClickedNext?.(false);
+  }, [fullname, dob]);
+
+  // const {
+  //   inputValue: occupation,
+  //   onChange: handleChangeOccupation,
+  //   validationErrors: occupationValidationErrors,
+  //   runValidators: runOccupationValidators
+  // } = useInput({
+  //   init: user?.personalInfo?.occupation || '',
+  //   validators: [{ fn: isRequired, params: [] }]
+  // });
 
   useEffect(() => {
     return () => {
@@ -69,18 +101,17 @@ const PersonalInfo = () => {
           originCountry: originCountry?.name,
           countryOfResidence: currentCountry?.name,
           cityOfResidence: currentCity?.name,
-          stateOfResidence: currentState?.name,
-          occupation
+          stateOfResidence: currentState?.name
         }
       };
-      api.updateUser(body, accessToken!);
+      api.updateUser(body, user.token!);
     };
-  }, [dob, currentCountry, currentCity, currentState, occupation, accessToken]);
+  }, [dob, currentCountry, currentCity, currentState, user.token]);
 
   return (
     <>
       <h3
-        className="fs-1 family-raleway fw-bold mb-5 text-center"
+        className={cls(fonts.raleway, 'fs-1 family-raleway fw-bold mb-5 text-center')}
         style={{ maxWidth: '30ch' }}
       >
         Personal Information
@@ -90,6 +121,14 @@ const PersonalInfo = () => {
         className="d-flex flex-column align-items-center gap-5 shadow rounded-3 p-6"
         style={{ minWidth: '450px' }}
       >
+        <TextField
+          value={fullname}
+          onChange={handleChangeFullname}
+          validationErrors={fullnameValidationErrors}
+          label="Full name"
+          className="w-100"
+          inputClassName="textfield-sm border"
+        />
         {/* <TextField
           value={dob}
           onChange={handleChangeDob}
@@ -107,12 +146,13 @@ const PersonalInfo = () => {
             onChange={date => setDob(date!)}
             className="d-block w-100 textfield border"
             id="dob"
+            placeholderText="DD/MM/YY"
           />
         </div>
 
         {/* Country of Origin */}
         <div className="w-100">
-          <Form.Label className="fw-bold">Country of Origin</Form.Label>
+          <Form.Label className="fw-bold">Citizenship</Form.Label>
           <CountrySelect
             // defaultValue={{ name: 'South Korea' }}
             onChange={setOriginCountry}
@@ -150,7 +190,7 @@ const PersonalInfo = () => {
         </div>
 
         {/* Occupation */}
-        <div className="w-100">
+        {/* <div className="w-100">
           <Form.Label className="fw-bold">Occupation</Form.Label>
           <Form.Select
             value={occupation}
@@ -165,7 +205,7 @@ const PersonalInfo = () => {
               </option>
             ))}
           </Form.Select>
-        </div>
+        </div> */}
       </form>
     </>
   );

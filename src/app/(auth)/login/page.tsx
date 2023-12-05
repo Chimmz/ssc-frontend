@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Icon } from '@iconify/react';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import cls from 'classnames';
@@ -13,32 +13,26 @@ import api from '@/library/api';
 import Link from 'next/link';
 import TextField from '@/components/ui/text-field/TextField';
 import LoadingButton from '@/components/ui/LoadingButton';
+import { SignInResponse, signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import EmailVerifyFailure from '../email-verify/fail';
 
 const Login = function () {
   const rememberMeRef = useRef<HTMLInputElement | null>(null);
-  const { isSignedIn } = useSignedInUser();
+  const currentUser = useSignedInUser();
+  const router = useRouter();
 
   const {
     sendReq: sendLoginReq,
     loading: isLoggingIn,
-    response: loginResponse
-  } = useRequest<{
-    status?: 'LOGIN_SUCCESS' | 'fail' | 'error';
-    user?: UserPublicProfile;
-    accessToken?: string;
-    msg?: string;
-    errors?: { field: string; msg: string }[];
-  }>();
-
-  const {
-    sendReq: sendStageReq,
-    loading: isGettingStage,
-    response: stageResponse
-  } = useRequest<{ stage: number | null | undefined }>();
+    response: loginResponse,
+    stopLoading: stopLoginLoader
+  } = useRequest<SignInResponse>({ autoStopLoading: false });
 
   const {
     inputValue: email,
     onChange: handleChangeEmail,
+    setInputValue: setEmail,
     validationErrors: emailValidationErrors,
     runValidators: runEmailValidators,
     pushValidationError: pushEmailValidationError
@@ -62,82 +56,79 @@ const Login = function () {
     validators: [{ fn: isRequired, params: [] }]
   });
 
-  const {
-    sendReq: sendGoogleSignInRequest,
-    loading: googleSignInRequestLoading,
-    startLoading: startGoogleAuthLoader,
-    stopLoading: stopGoogleAuthLoader
-  } = useRequest();
+  const handleLoginSuccess = () => {
+    if (rememberMeRef.current?.checked) {
+      browserUtils.setCookie(process.env.NEXT_PUBLIC_USER_EMAIL_COOKIE_KEY!, email, 30);
+      browserUtils.setCookie(process.env.NEXT_PUBLIC_USER_PASSWORD_COOKIE_KEY!, password, 30);
+    }
+    if (!currentUser.isEmailVerified) return;
+    router.push('/questionnaire');
+  };
+
+  const handleLoginFailure = () => {
+    stopLoginLoader();
+    const errorPushers = {
+      email: pushEmailValidationError,
+      password: pushPasswordValidationError
+    };
+    const apiRes: { errors?: { field: string; msg: string }[] } = JSON.parse(
+      loginResponse!.error!
+    );
+    apiRes.errors?.forEach(e => errorPushers[e.field as keyof typeof errorPushers]?.(e.msg));
+  };
+
+  useEffect(() => {
+    if (loginResponse?.error) handleLoginFailure();
+  }, [loginResponse]);
+
+  useEffect(() => {
+    if (currentUser.isSignedIn) handleLoginSuccess();
+  }, [currentUser]);
+
+  const handleSubmit: React.FormEventHandler = async ev => {
+    ev.preventDefault();
+    const existingErrors = [emailValidationErrors, passwordValidationErrors];
+    const validations = [runEmailValidators(), runPasswordValidators()];
+
+    if (existingErrors.flat().length || validations.some(v => v.errorExists)) return;
+    sendLoginReq(signIn('login', { email, password, redirect: false }));
+  };
+
+  const googleSignIn = useGoogleLogin({
+    onError: errorResponse => console.log('Google response: ', errorResponse),
+    onSuccess: async response => {
+      console.log('Google response: ', response);
+      const { access_token } = response;
+
+      const result = await sendLoginReq(
+        signIn('custom-google', { access_token, redirect: false })
+      );
+      console.log(result);
+    }
+  });
 
   useEffect(() => {
     setPassword(
       browserUtils.getCookie(process.env.NEXT_PUBLIC_USER_PASSWORD_COOKIE_KEY!) || ''
     );
-  }, []);
+    setEmail(browserUtils.getCookie(process.env.NEXT_PUBLIC_USER_EMAIL_COOKIE_KEY!) || '');
+  }, [setPassword, setEmail]);
 
-  useEffect(() => {
-    switch (loginResponse?.status) {
-      case 'fail':
-      case 'error':
-        const errorPushers = {
-          email: pushEmailValidationError,
-          password: pushPasswordValidationError
-        };
-        loginResponse.errors?.forEach(e => {
-          errorPushers[e.field as keyof typeof errorPushers]?.(e.msg);
-        });
-        break;
-
-      case 'LOGIN_SUCCESS':
-        delete (loginResponse as { status?: string }).status;
-        localStorage.setItem(
-          process.env.NEXT_PUBLIC_LOCALSTORAGE_USER!,
-          JSON.stringify(loginResponse)
-        );
-        //* authContext!.setCurrentUser!({
-        //   user: loginResponse.user!,
-        //   accessToken: loginResponse.accessToken!
-        // });
-        if (rememberMeRef.current?.checked)
-          browserUtils.setCookie(
-            process.env.NEXT_PUBLIC_USER_PASSWORD_COOKIE_KEY!,
-            password,
-            30
-          );
-        sendStageReq(api.getPostSignupQuestionnaireStage(loginResponse.accessToken!));
-    }
-  }, [loginResponse]);
-
-  useEffect(() => {
-    if (!stageResponse?.stage) return;
-    //* navigate('/questionnaire', { state: { step: stageResponse!.stage } });
-  }, [stageResponse]);
-
-  const handleSubmit: React.FormEventHandler = async ev => {
-    ev.preventDefault();
-    const validations = [runEmailValidators(), runPasswordValidators()];
-    const existingErrors = [emailValidationErrors, passwordValidationErrors];
-
-    if (existingErrors.flat().length || validations.some(v => v.errorExists)) return;
-    const req = api.login({ email, password });
-    await sendLoginReq(req);
-  };
-
-  const googleSignIn = useGoogleLogin({
-    onSuccess: async response => {
-      console.log('Google response: ', response);
-      const { access_token } = response;
-      await sendLoginReq(api.googleSignIn(access_token));
-    },
-    onError: errorResponse => console.log('Google response: ', errorResponse)
-  });
-
+  if (currentUser.isSignedIn && !currentUser.isEmailVerified)
+    return (
+      <EmailVerifyFailure
+        summary="Email Verification Pending"
+        msg="Check your inbox or spam folder for the verification email or:"
+        promptResendVerification
+        userEmail={currentUser.email}
+      />
+    );
   return (
     <form className="d-flex flex-column" onSubmit={handleSubmit}>
       <div className="d-flex align-items-center justify-content-center gap-5">
-        <h2 className="color-pry fw-bold text-center mb-5">Log in</h2>
+        <h2 className="fs-2 color-pry fw-bold text-center mb-5">Log in</h2>
         <Link
-          href="/auth/signup"
+          href="/signup"
           className="fs-2 opacity-25 fw-bold text-center mb-5 text-hover-dark"
         >
           Sign up
@@ -147,13 +138,12 @@ const Login = function () {
         className="btn btn-outline mt-3 mb-5 gap-3 fs-4 font-bold"
         type="button"
         onClick={() => googleSignIn()}
+        // onClick={() => sendLoginReq(signIn('google', { redirect: false, callbackUrl: '/' }))}
       >
         <Icon icon="devicon:google" width={20} />
         Log in with Google
       </button>
-      <small className="d-block text-center mt-4 mb-5" data-content="or">
-        {/* Or */}
-      </small>
+      <small className="d-block text-center mt-4 mb-5" data-content="or"></small>
 
       <TextField
         value={email}
@@ -175,7 +165,7 @@ const Login = function () {
       />
       <div className="mb-5 d-flex justify-content-between align-items-center">
         <Link
-          href="/auth/forgot-password"
+          href="/forgot-password"
           className="fs-5 border-bottom border-pry fw-bold color-pry ms-2"
         >
           Forgot your password?
@@ -200,7 +190,7 @@ const Login = function () {
 
       <small className={cls('d-flex justify-content-center fs-5 fw-bold text-center mt-3')}>
         Don't have an account?
-        <Link href="/auth/signup" className="color-pry ms-2">
+        <Link href="/signup" className="color-pry ms-2">
           Sign up
         </Link>
       </small>

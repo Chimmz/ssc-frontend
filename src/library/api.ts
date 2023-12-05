@@ -54,9 +54,9 @@ class API {
     });
   }
 
-  async verifyEmail(verifId: string, email: string | null) {
+  async verifyEmail(token: string) {
     return this._makeRequest({
-      path: `/users/auth/email-verify/${verifId}?email=${email}`,
+      path: `/users/auth/email-verify?token=${token}`,
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });
